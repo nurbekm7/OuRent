@@ -1,0 +1,236 @@
+package com.example.repository;
+
+import com.example.entity.Company;
+import com.example.entity.Customer;
+import com.example.entity.Users;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+import java.util.*;
+
+/**
+ * Created by nurbek on 8/13/16.
+ */
+@org.springframework.stereotype.Repository("dataRespitory")
+public class DataRepositoryImpl implements DataRepository {
+
+
+    private static final Logger LOG = LoggerFactory.getLogger(DataRepositoryImpl.class);
+
+    @Autowired
+    protected JdbcOperations jdbcOperations;
+
+    @Override
+    public List<Users> register(Users object) {
+
+
+        String sql ="SELECT COUNT(*) from users where email = '" + object.getEmail()+"'";
+        Integer email = jdbcOperations.queryForObject(sql, Integer.class);
+
+
+        try{
+
+
+             if(email == 0){
+
+
+                 jdbcOperations.update("INSERT INTO Users(" +
+                         " email, pass, user_type )" +
+                         "    VALUES ('"  + object.getEmail()+  "','"+object.getPass()+ "','"
+                         + object.getUser_type()+"');");
+
+
+
+                 if(object.getUser_type().equals("0"))
+                 {
+                     jdbcOperations.update("INSERT INTO Customer(" +
+                             " ver_status)" + " VALUES (false);");
+                 }
+                 else
+                 if(object.getUser_type().equals("1"))
+                 {
+                     jdbcOperations.update("INSERT INTO Company(" +
+                             " ver_status)" +
+                             "    VALUES (false);");
+                 }
+
+                 List<Users> userses = jdbcOperations.query("SELECT * from users where email = '" + object.getEmail() + "'",
+                         new BeanPropertyRowMapper<Users>(Users.class));
+
+
+                 return userses;
+
+
+             }
+             else {
+                 return null;
+             }
+         } catch (Exception e)
+         {
+               e.printStackTrace();
+
+               return null;
+
+         }
+    }
+
+
+
+
+
+    @Override
+    public List<Users> login(String email, String pass) {
+
+
+        try{
+
+            String sql ="SELECT * from users where email = '" + email+"' and pass = '"+ pass +"'";
+
+
+                List<Users> userses = jdbcOperations.query(sql, new BeanPropertyRowMapper<Users>(Users.class));
+
+              if(userses.isEmpty()){
+                  return null;
+              }
+            else
+                return  userses;
+
+
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+
+            return null;
+
+        }
+    }
+
+    @Override
+    public List<Users> getUserByID(String user_id) {
+
+        String sql = "SELECT * FROM users where user_id = '" + user_id + "'";
+
+        List<Users> userses =  new ArrayList<Users>();
+
+
+
+        userses = jdbcOperations.query(sql, new BeanPropertyRowMapper<Users>(Users.class));
+
+        if(userses.isEmpty())
+            return null;
+        else
+        return userses;
+
+
+
+    }
+
+    @Override
+    public Map<String, String> editProf(String url, String fio, String tel,String bday,String user_id) {
+
+
+        Map<String, String> userses =  new HashMap<>();
+
+
+
+        int tt = jdbcOperations.update("update customer set fio = '"+ fio +"' , bdate= '"+ bday +"' where cust_id ="+ user_id );
+       int t = jdbcOperations.update("update users set phone_num = '"+ tel + "' , ava= '"+ url +"' where user_id ="+ user_id );
+
+        if(tt==1 && t==1){
+
+        userses.put("fio",fio);
+        userses.put("tel",tel);
+        userses.put("url",url);
+        userses.put("bday",bday);
+        userses.put("user_id",user_id);
+        }
+        if(userses.isEmpty())
+            return null;
+        else
+        return userses;
+
+
+
+    }
+
+
+ @Override
+    public List<String> uploadAVA(String filepath,String user_id) {
+
+
+        List<String> files =  new ArrayList<String>();
+
+
+
+       int t = jdbcOperations.update("update users set ava = '"+ filepath + "' where user_id ="+ user_id );
+
+        if( t==1){
+
+            files.add(filepath);
+
+        }
+        if(files.isEmpty())
+            return null;
+        else
+        return files;
+
+
+
+    }
+
+    @Override
+    public List<Customer> getCustByID(String cust_id) {
+
+        String sql = "SELECT * FROM customer where cust_id = '" + cust_id + "'";
+
+        List<Customer> customers;
+
+
+
+        customers = jdbcOperations.query(sql, new BeanPropertyRowMapper<Customer>(Customer.class));
+
+        if(customers.isEmpty())
+        {
+            return null;
+        }
+        else {
+            return customers;
+        }
+    }
+
+    @Override
+    public List<Company> getCompByID(String comp_id) {
+
+        String sql = "SELECT * FROM Company where comp_id = '" + comp_id + "'";
+
+        List<Company> companies=  new ArrayList<Company>();
+
+
+
+        companies = jdbcOperations.query(sql, new BeanPropertyRowMapper<Company>(Company.class));
+
+        if(companies.isEmpty())
+            return null;
+        else
+        return companies;
+
+
+    }
+
+
+    @Override
+    public Set<String> getAllUsers() {
+        Set<String> result = new HashSet<>();
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet("SELECT user_id, email FROM Users ");
+
+        while (rowSet.next()) {
+            result.add(rowSet.getString("email"));
+        }
+        return result;
+    }
+}

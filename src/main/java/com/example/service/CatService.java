@@ -1,0 +1,29 @@
+package com.example.service;
+
+import com.example.entity.Category;
+import com.example.entity.Product;
+
+import java.util.List;
+
+/**
+ * Created by nurbek on 8/16/16.
+ */
+public interface CatService {
+
+
+    List<Category> getAllCats();
+    List<Category> getSubCatsByID(String id);
+    List<Category> getCatsByID(String id);
+    List<Product> getProductsByID(String id);
+    List putProduct(String pr_name, String img, String pr_desc, String price, String  deposit,
+                    String pr_cost, boolean will_sell, boolean will_exchan,
+                    String cat_id, String user_id);
+
+    List<Product> getProductByID(String id);
+    List<Product> deleteProductByID(String id);
+    List<Product> getProductByUserID(String id);
+
+
+
+
+}
