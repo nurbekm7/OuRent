@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ru-RU" prefix="og: http://ogp.me/ns#">
+
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="msvalidate.01" content="C1EAE4434E3A68CDF87D133454CB5AA3" />
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="SDNsOVdWcS0HCgMLMC9GdwBqX3xvPCNPAmwBQCFhHAA.ZBkAAgQyVQ==">
+    <title>
+        OuRent            </title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+
+    <meta property="og:url" content="http://ourent.kz">
+    <meta property="og:title" content="Ourent">
+    <!--<meta name="keywords" content="Прокат Женская одежда, аренда Женская одежда, Женская одежда Cherie, прокат Женская одежда цена стоимость, прокат Женская одежда Москва, комплект Женская одежда прокат, Платья Женская одежда напрокат">-->
+    <!--<meta name="description" content="Прокат и аренда Женская одежда Платья Cherie Москва , улица Правды, 24с3 ул. на площадке Next2u. Возьми у соседа. Описание: Пышное платье с фактурными драпировками, выполненное в розово-персиковом градиенте.-->
+<!--Корсажный верх позволяет идеально посадить платье на фигуру;-->
+ <!-- - Женская одежда">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1; user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <link href="assets/25ac6778/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/baca21b8/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="assets/4debab2/css/fileinput.min.css" rel="stylesheet">
+    <link href="assets/2a80383c/fotorama.css" rel="stylesheet">
+    <link href="assets/9423cfd8/cropper.css" rel="stylesheet">
+    <link href="assets/f165369d/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="assets/139d3376/style/dist/app.min.css" rel="stylesheet">
+
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src = "http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="product.js" > </script>
+</head>
+<body class="layout internal">
+
+
+<div class="modal fade" id="newRequest" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">
+                    Добро пожаловать
+
+                </h4>
+                <br>
+            </div>
+
+            <div class="form-container" >
+
+                <form id="signupForm" method="" name="contact" class="contact" action="">
+
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" />
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" id="pass" name="pass" placeholder="Ваш пароль" type="password"/>
+                    </div>
+
+
+
+
+
+                    <div class="form-group pull-right">
+                        <a class="link-red show-modal app-font-12" href="/user/recovery">Забыли пароль?</a>	</div>
+                    <div class="clearfix"></div>
+
+                    <div class="form-group">
+
+                        <button type="submit" onclick="login()" class="btn btn-lg btn-block btn-primary" name="signup" value="Sign up" >Войти</button>
+
+                    </div>
+
+                    <div class="form-group text-center login-links">
+                        <p class="app-desc-default no-margin-bottom">Еще не зарегистрировались на OuRent.kz?</p>
+                        <a class="show-modal" href="#" onclick="register()">Зарегистрироваться</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="newRegistr" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">
+                    Добро пожаловть
+
+                </h4>
+                <br>
+            </div>
+
+            <div class="form-container" >
+
+                <form id="registerForm" method="" name="contact" class="contact" action="">
+
+
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="reg_email" name="email" placeholder="Email" />
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" id="reg_pass" name="pass" placeholder="Ваш пароль" type="password"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" id="ch_comp" name="ch_comp" unchecked >  Я юр. лицо
+                    </div>
+
+                    <div class="form-group">
+
+                        <button type="submit" class="btn btn-lg btn-block btn-primary" name="signup" value="Sign up" >Зарегистрироваться</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="newReq" tabindex="-1" role="dialog" aria-hidden="true"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                <br>
+            </div>
+
+            <div class="form-container" >
+               <p>
+
+               </p>
+
+                <div class="form-group">
+
+                    <a  class="btn btn-lg btn-block btn-primary" href="" name="goon" id="goon" >Продолжить</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="container">
+    <div class="header-wrapper">
+        <div id="header">
+            <div class="app-nav-mobile visible-xs">
+                <button type="button" class="navbar-toggle collapsed nav-left" data-toggle="collapse" data-target="#navbar-mobile" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div id="navbar-mobile">
+                    <div class="nav-panel">
+                        <ul><li><a href="../../../../index.html">Главная</a></li><li><a class="show-modal" data-target="#newRequest" data-toggle="modal">Вход</a></li><li><a class="show-modal"  data-target="#newRegistr" data-toggle="modal">Регистрация</a></li></ul>                        </div>
+                </div>
+            </div>
+            <div class="header-row brand">
+                <a class="logo" href="index.html"><img src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке  Поищите у соседей"></a>                </div>
+
+            <div class="header-row settings hidden-xs">
+                <div class="btn-group location">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon marker-gray"></i>Алматы                        </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="cherie-4842e988.html?city_id=5">Алматы</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-row actions pull-right">
+                <a class="app-btn-default min darkblue show-modal" onclick="checkLogin()"  href="#" >Сдать вещь</a>                                    </div>
+            <div class="header-row user-profile pull-right hidden-xs">
+                <div class="btn-group login">
+                    <a class="btn btn-default show-modal" data-target="#newRequest" data-toggle="modal">Войти</a>                        </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper no-padding">
+        <div id="content" class="product-item-page app-page-title">
+            <div class="col-left">
+                <div class="breadcrumb-wrap">
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">На главную</a></li>
+                        <li class="test">
+                            <a href="../../../odezhda.html">Одежда</a>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="item-page-title"></div>
+                <div class="item-price-block"></div>
+                <div class="item-share"></div>
+
+                <div class="item-images-gallery">
+                    <div class="galerey">
+                        <div class="fotorama"  data-thumb="true" data-fit="scaledown" data-autoplay="true" data-loop="true" >
+
+              <div class="main_img">
+                  <div class="fotorama__stage__frame fotorama__loaded fotorama__fade-rearfotorama__active">
+                                <div class="fotorama__html">
+                                    <div class="preview photo"  >
+                                        <div class="wrapper">
+                                            <img class="photo" src="upload/products/gitara.jpg" alt="Взять в прокат ." title="Взять в прокат" >
+                                        </div>
+                                    </div></div></div>
+              </div>
+
+                            <div class="fotorama__arr fotorama__arr--prev" tabindex="0" role="button"></div><div class="fotorama__arr fotorama__arr--next" tabindex="0" role="button"></div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="publish-date">
+                    Размещено
+                <span>
+                    03.09.2016
+                    </span>
+                </div>
+
+
+                <div class="panel panel-default about">
+                    <div class="panel-heading">
+                        Описание                    <!--<span class="close">×</span>-->
+                    </div>
+                    <div class="panel-body">
+                        <ol>
+                            <li>
+                                <b>  Пышное платье с фактурными драпировками, выполненное в розово-персиковом градиенте.Корсажный верх позволяет идеально посадить платье на фигуру;</b>
+
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-right">
+                <div class="item-share">
+                    <div class="share">
+                        <a href="#" onclick="putFav()" class="favorite show-modal">
+                            <i class="material-icons">favorite_border</i>В избранное          </a>
+                    </div>
+                </div>
+                <div class="item-page-title">
+                    <h1 class="app-page-title">Cherie</h1>
+                </div>
+
+                <div class="item-price-block">
+                    <div class="price-block">
+                        <div class="price">
+                            <div>
+                                <span class="sum">3700&nbsp;тнг.</span>
+
+                            </div>
+                            <a href="#prices" class="scroll-to">Все расценки</a>
+                        </div>
+                        <div class="deposit">
+                            <div>
+                                <b>5000&nbsp;тнг.</b>&nbsp;&mdash; залог
+                                <span class="icon help" data-toggle="tooltip" title="Вернётся обратно, как закончится аренда. Это гарантия для владельца, что вещь останется в целости и сохранности."></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-description">
+                    <div class="description hide-long-text">
+                        <div class="lng-text lng-hidden" id="description">
+                            <div class="lng-inner">
+
+                                <br>
+
+                            </div>
+                        </div>
+                        <a class="app-block-title lng-btn" data-container="#description" data-show="Подробнее" data-hide="Скрыть"></a>
+                    </div>
+                </div>
+
+                <div id="prices" class="panel panel-default price-list">
+                    <div class="panel-heading">Стоимость аренды</div>
+                    <div class="panel-body">
+                        <table class="table app-table-light">
+                            <tr>
+                                <td class="tt">Цена</td>
+                                <td class="tv">3700</td>
+                            </tr>
+                            <tr>
+                                <td class="tt">Залог</td>
+                                <td class="tvz">5000</td>
+                            </tr>
+                            <!--<tr>
+                                <td class="tt">Минимальный срок аренды</td>
+                                <td class="tv">1 сутки</td>
+                            </tr>-->
+                        </table>
+                    </div>
+                    <div id="reqButton">
+                        <a class="app-btn-default darkblue request" href="#" onclick="putReq()">Запросить бронирование</a>
+                    </div>
+                </div>
+
+                <div class="panel panel-default user-information">
+                    <div class="panel-heading">Владелец</div>
+                    <div class="panel-body">
+                        <div class="media avatar">
+                            <div class="media-left media-middle image">
+                                <img src="upload/default_user.png" alt="">
+                            </div>
+                            <div class="media-body media-middle title">
+                                <a href="">DRESSLAB</a>
+                            </div>
+                        </div>
+                        <table class="table app-table-light no-border no-padding">
+
+                            <tr>
+                                <td class="tt">О себе</td>
+                                <td>
+                                    <div class="row row-space-2" id="aboutme">
+                                        <div class="col-sm-6">
+                                            <div class="row-space-1" id="reg_date">
+                                                Участник с 18.09.2013
+                                            </div>
+                                            <div class="row-space-1">
+                                                Подтверждено:
+                                                <!--
+                                                <i class="fa fa-vk" style="
+                                  padding: 2px; border: 1px solid #57AD68;
+                                          border-radius: 999px;
+                                          color: #717171;
+                                          width: 21px; height: 21px;
+                                          text-align: center; font-size: 12px;
+                                  " data-toggle="popover" title="VK" data-content="<span class='rm-nowrap'>Вконтакте
+
+                                              (43 друзей)
+                                          <i class='fa fa-check'></i></span>"></i>
+
+                                                <i class="fa fa-facebook" style="
+                                  padding: 2px; border: 1px solid #57AD68;
+                                          border-radius: 999px;
+                                          color: #717171;
+                                          width: 21px; height: 21px;
+                                          text-align: center; font-size: 12px;
+                                  " data-toggle="popover" title="Facebook" data-content="<span class='rm-nowrap'>Facebook <i class='fa fa-check'></i></span>"></i>
+-->
+                                                <i class="fa fa-envelope-o" style="
+                                  padding: 2px; border: 1px solid #57AD68;
+                                          border-radius: 999px;
+                                          color: #717171;
+                                          width: 21px; height: 21px;
+                                          text-align: center; font-size: 12px;
+                                  " data-toggle="popover" title="Email" data-content="<span class='rm-nowrap'>Email <i class='fa fa-check'></i></span>"></i>
+
+                                                <i class="fa fa-phone" style="
+                                  padding: 2px; border: 1px solid #57AD68;
+                                          border-radius: 999px;
+                                          color: #717171;
+                                          width: 21px; height: 21px;
+                                          text-align: center; font-size: 12px;
+                                  " data-toggle="popover" title="Телефон" data-content="<span class='rm-nowrap'> <i class='fa fa-check'></i></span>"></i>
+<!--
+                                                <i class="fa fa-file-text-o" style="
+                                  padding: 2px; border: 1px solid #57AD68;
+                                          border-radius: 999px;
+                                          color: #717171;
+                                          width: 21px; height: 21px;
+                                          text-align: center; font-size: 12px;
+                                  " data-toggle="popover" title="Паспорт" data-content="<span class='rm-nowrap'>Паспорт <i class='fa fa-check'></i></span>"></i>
+                                  -->
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!--<div> Частота ответов:  </div>-->
+                                            <!--<div> Среднее время ответа:  </div>-->
+                                            <div>
+                                                Объявлений на сайте:
+                                                <a href="#" class="rm-link">
+                                                    8
+                                                </a>                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- До сюда чисто -->
+            <div class="app-products-block fixed-width add-margin">
+                <div class="title">
+                    <h3>Похожие объявления</h3>
+                </div>
+                <div class="app-products-group clearfix">
+                    <div id="w0" class="list-view list-view">
+                        <!-- Начало одного похожего объявления -->
+                        <div class="item float" data-key="3404">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                                <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve" >
+                                    <div class="preview">
+                                        <div class="wrapper">
+                                            <img class="photo" src="upload/products/gitara.jpg" alt="Аренда и прокат – Алматы" >
+                                            <div class="background" style="background-image:url(upload/products/gitara.jpg)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="onhover">
+                                    <div class="slide-up">
+                                        <div class="avatar">
+										<span>
+											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+										</span>
+                                        </div>
+                                        <div class="title">
+                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                        </div>
+                                        <div class="price-wrap">
+                                            <div class="price">
+                                                <div>
+                                                    <span>2800</span>
+                                                    <p class="app-desc-default">1 сутки</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="category">
+                                        <a href="../platya.html">Платья</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Конец одного похожего объявления -->
+                        <!-- Начало одного похожего объявления -->
+                        <div class="item float" data-key="3404">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                                <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve" >
+                                    <div class="preview">
+                                        <div class="wrapper">
+                                            <img class="photo" src="../../../../upload/cover/470-376/576bc78f98e2f__myajtTXZpo.jpg" alt="Аренда и прокат – Алматы" srcset="/upload/cover/940-752/576bc78f98e2f__myajtTXZpo.jpg 2x, /upload/cover/1410-1128/576bc78f98e2f__myajtTXZpo.jpg 3x">
+                                            <div class="background" style="background-image:url(../../../../upload/376-397/blur_10/576bc78f98e2f__myajtTXZpo.jpg)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="onhover">
+                                    <div class="slide-up">
+                                        <div class="avatar">
+										<span>
+											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+										</span>
+                                        </div>
+                                        <div class="title">
+                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                        </div>
+                                        <div class="price-wrap">
+                                            <div class="price">
+                                                <div>
+                                                    <span>2800</span>
+                                                    <p class="app-desc-default">1 сутки</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="category">
+                                        <a href="../platya.html">Платья</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Конец одного похожего объявления -->
+                        <!-- Начало одного похожего объявления -->
+                        <div class="item float" data-key="3404">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                                <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve" >
+                                    <div class="preview">
+                                        <div class="wrapper">
+                                            <img class="photo" src="../../../../upload/cover/470-376/576bc78f98e2f__myajtTXZpo.jpg" alt="Платья Merlin напрокат | Аренда и прокат – Алматы" srcset="/upload/cover/940-752/576bc78f98e2f__myajtTXZpo.jpg 2x, /upload/cover/1410-1128/576bc78f98e2f__myajtTXZpo.jpg 3x">
+                                            <div class="background" style="background-image:url(../../../../upload/376-397/blur_10/576bc78f98e2f__myajtTXZpo.jpg)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="onhover">
+                                    <div class="slide-up">
+                                        <div class="avatar">
+										<span>
+											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+										</span>
+                                        </div>
+                                        <div class="title">
+                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                        </div>
+                                        <div class="price-wrap">
+                                            <div class="price">
+                                                <div>
+                                                    <span>2800</span>
+                                                    <p class="app-desc-default">1 сутки</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="category">
+                                        <a href="../platya.html">Платья</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Конец одного похожего объявления -->
+                        <!-- Начало одного похожего объявления -->
+                        <div class="item float" data-key="3404">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                                <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve">
+                                    <div class="preview">
+                                        <div class="wrapper">
+                                            <img class="photo" src="../../../../upload/cover/470-376/576bc78f98e2f__myajtTXZpo.jpg" alt="Платья Merlin напрокат | Аренда и прокат – Алматы" srcset="/upload/cover/940-752/576bc78f98e2f__myajtTXZpo.jpg 2x, /upload/cover/1410-1128/576bc78f98e2f__myajtTXZpo.jpg 3x">
+                                            <div class="background" style="background-image:url(../../../../upload/376-397/blur_10/576bc78f98e2f__myajtTXZpo.jpg)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="onhover">
+                                    <div class="slide-up">
+                                        <div class="avatar">
+										<span>
+											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+										</span>
+                                        </div>
+                                        <div class="title">
+                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                        </div>
+                                        <div class="price-wrap">
+                                            <div class="price">
+                                                <div>
+                                                    <span>2800</span>
+                                                    <p class="app-desc-default">1 сутки</p>
+                                                </div>
+                                                <div>
+                                                    <span>&mdash;</span>
+                                                    <p class="app-desc-default">3 дня</p>
+                                                </div>
+                                                <div>
+                                                    <span>&mdash;</span>
+                                                    <p class="app-desc-default">1 неделя</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="category">
+                                        <a href="../platya.html">Платья</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Конец одного похожего объявления -->
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-wrapper">
+        <div id="footer" class="row">
+            <div class="navigation col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <h4>Как всё работает</h4>
+                        <ul id="footer-accordion-1">
+                            <li><a href="#">Как арендовать или сдать напрокат</a></li>
+                            <li><a href="#">Правила публикации объявлений</a></li>
+                            <li><a href="#">Безопасность и комфорт</a></li>
+                            <li><a href="#">Популярные вопросы</a></li>
+                            <li><a href="#">Документы и формальности</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <h4>Гид по OuRent</h4>
+                        <ul id="footer-accordion-2">
+                            <li>
+                                <a role="button" data-toggle="collapse" href="#footer-accordion-2-collapse-1">О нас</a>
+                                <ul id="footer-accordion-2-collapse-1" class="submenu collapse">
+                                    <li><a href="#">О проекте</a></li>
+                                    <li><a href="#">Что такое разумное потребление</a></li>
+                                    <li><a href="#">Новости</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Отзывы</a>
+                            </li>
+                            <li>
+                                <a href="#">Разумный Блог</a>
+                            </li>
+                            <li>
+                                <a role="button" data-toggle="collapse" href="#footer-accordion-2-collapse-2">Партнерство с нами</a>
+                                <ul id="footer-accordion-2-collapse-2" class="submenu collapse">
+                                    <li><a href="#">Наши партнеры</a></li>
+                                    <li><a href="#">Как стать нашим партнером</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Контакты</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 hidden-sm hidden-xs">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                <div class="contacts">
+                    <h2>8-707-235-37-68</h2>
+                    <div class="app-desc-default">Телефон для справок</div>
+                    <div class="app-info-socials">
+                        <ul>
+                            <li>
+                                <a class="fb" href="https://www.facebook.com/groups/206607883070921/" target="_blank"></a>                        </li>
+                            <li>
+                                <a class="vk" href="https://vk.com/ourent" target="_blank"></a>                        </li>
+                            <li>
+                                <a class="in" href="https://www.instagram.com/ourent.kz/" target="_blank"></a>                        </li>
+                        </ul>
+                    </div>
+                    <div class="site-info">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>        <div class="modal fade" id="common-modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+    </div>
+</div>
+<script src="assets/25ac6778/js/bootstrap.js"></script>
+<script src="assets/baca21b8/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/baca21b8/locales/bootstrap-datepicker.ru.min.js"></script>
+<script src="assets/4debab2/js/fileinput.js"></script>
+<script src="assets/4debab2/js/locales/ru.js"></script>
+<script src="assets/2a80383c/fotorama.js"></script>
+<script src="assets/edb2f0fd/jquery.nicescroll.min.js"></script>
+<script src="assets/6a91991c/bootstrap-paginator.js"></script>
+<script src="assets/9423cfd8/cropper.js"></script>
+<script src="assets/7ea49504/caman.full.js"></script>
+<script src="assets/f165369d/bootstrap-slider.min.js"></script>
+<script src="assets/cbf05cf1/tap.min.js"></script>
+
+
+<!-- BEGIN JIVOSITE CODE {literal} --><!-- {/literal} END JIVOSITE CODE -->
+</body>
+
+</html>
