@@ -1,0 +1,16 @@
+.post-form .panel-body {
+    background: url(../images/bg.png);
+}
+
+#thumbnail-container img {
+    max-width: 100%;
+}
+
+.table > tbody > tr > td {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+#post-thumbnail {
+    display: none;
+}
