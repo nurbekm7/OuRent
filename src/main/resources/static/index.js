@@ -65,6 +65,49 @@ $.validator.setDefaults( {
    console.log("Page loaded");
 
 
+
+
+ $('#signupForm').submit(function(event){
+
+
+			 var email = $('#email').val();
+			 var pass = $('#pass').val();
+
+              console.log("email="+email+"&pass="+pass);
+
+				$.ajax({
+					type: "POST",
+					url: "/login",
+					data:"email="+email+"&pass="+pass,
+					dataType:"json",
+					async:false,
+					success: function(msg){
+                           if(msg.result == "fail"){
+                            console.log("login fails");
+                            alert('Неправильный логин или пароль');
+                           }
+                         else{
+
+                     	 var items = msg.User.map(function (user) {
+                            console.log(user);
+                                 $.cookie('email', email);
+                                 $.cookie('pass', pass);
+                                $.cookie('user_id', user.user_id);
+
+                               window.location.href = "/profile.html";
+
+                            });
+                            }
+			},
+					error: function(){
+                            console.log("login fail");
+					}
+				});
+
+				event.preventDefault();
+
+});
+
 if($.cookie('user_id')!=null){
 
     var email = $.cookie('email');
@@ -100,62 +143,60 @@ if($.cookie('user_id')!=null){
 
 }
 
- console.log("VALLOGIN");
 
 
 
 
    var pr_cost =null;
-  for(var i =1; i<=4; ++i){
+   var counter =1;
+
    $.ajax({
 
-           url: "category/getProductByID",
+           url: "category/getPopularProducts",
            type: "GET",
-           data: 'product_id='+i ,
-            dataType: 'json',
+           dataType: 'json',
+           async:false,
            success: function(response) {
-            //
+
               var items = response.Products.map(function (item) {
 
+                 console.log(counter +" counter");
 
-              console.log(item.cat_id);
-             // console.log(item.img);
-
-            $('#'+item.product_id+' .onhover .slide-up .price-wrap .price span').empty().append(item.pr_cost);
-            $('#'+item.product_id+' .onhover .title a').empty().append(item.pr_name);
-            $('#'+item.product_id+' .onhover .avatar img').attr("src", getAva(item.user_id));
-            $('#'+item.product_id+' .fotorama .preview .wrapper img').attr("src", item.img);
-            $('#'+item.product_id+' .fotorama .preview .wrapper .background').attr("style", "background-image:url(" + item.img+")");
-       $('#'+item.product_id+' .app-product-wrapper').attr("data-href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
-       $('#'+item.product_id+' .title a').attr("href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
-       $('#'+item.product_id+' .category a').attr("href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
+            $('#'+counter+' .onhover .slide-up .price-wrap .price span').empty().append(item.pr_cost);
+            $('#'+counter+' .onhover .title a').empty().append(item.pr_name);
+            $('#'+counter+' .onhover .avatar img').attr("src", getAva(item.user_id));
+            $('#'+counter+' .fotorama .preview .wrapper img').attr("src", item.img);
+            $('#'+counter+' .fotorama .preview .wrapper .background').attr("style", "background-image:url(" + item.img+")");
+            $('#'+counter+' .app-product-wrapper').attr("data-href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
+            $('#'+counter+' .title a').attr("href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
+            $('#'+counter+' .category a').attr("href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
               $.ajax({
 
                          url: "category/getCatByID",
                          type: "GET",
                          data: 'cat_id='+item.cat_id ,
                           dataType: 'json',
-                         cache: false,
+                            async:false,
                          success: function(response) {
                           //
                             var items = response.SubCats.map(function (sub) {
 
-
-                          $('#'+item.product_id+' .category a').empty().append(sub.cat_name);
+                                console.log(sub);
+                          $('#'+counter+' .category a').empty().append(sub.cat_name);
 
                          });
                          },
                          error: function (response) {
                           }
                        });
-
+                   counter++;
          });
 
            },
            error: function (response) {
             }
          });
-         }
+
 
 });
 
@@ -166,65 +207,6 @@ function logout()
       $.cookie('email', null);
       $.cookie('pass', null);
        $('.user-profile').empty().append(' <div class="btn-group login">   <a class="btn btn-default show-modal" data-target="#newRequest" data-toggle="modal" >Войти</a></div>');
-}
-
-
-function login (){
-
-
-			 var email = $('#email').val();
-			 var pass = $('#pass').val();
-
-			 var JSONObj = {
-                  "email" : email,
-                  "pass" : pass
-			 }
-
-			 var data = JSON.stringify(JSONObj);
-
-              console.log(email + " " + pass);
-
-
-				$.ajax({
-					type: "POST",
-					url: "/login?email="+email+"&pass="+pass,
-					dataType:"json",
-					success: function(msg){
-
-                           if(msg.result == "fail"){
-                            console.log("login fails");
-                            alert('Неправильный логин или пароль');
-                           }
-
-                         else{
-
-
-                     	 var items = msg.User.map(function (user) {
-
-
-                                 console.log(user);
-                                 $.cookie('email', email);
-                                 $.cookie('pass', pass);
-
-                                 $.cookie('user_id', user.user_id);
-
-
-                                 window.location.href = "/profile.html";
-
-
-                            });
-                            }
-
-
-					},
-					error: function(){
-
-                            console.log("login fail");
-
-					}
-				});
-
-
 }
 
 function register()

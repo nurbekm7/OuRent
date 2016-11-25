@@ -117,30 +117,17 @@ public class CategoryController extends ExceptionHandlerController {
 
         try {
 
-
-
-
-
-
-
             List result =null ;
-
             if(Objects.equals(img, "null") || img.length()<100){
-
 
                 img = "/upload/products/prod_default.png";
                  result =  catService.putProduct(pr_name, img,pr_desc,price,deposit,pr_cost,will_sell,will_exchan,cat_id,user_id);
-
 
             }
             else
             {
 
-
-
-
-
-            String directory = "./upload/products/"+user_id+"/products/";
+                String directory = "./upload/products/"+user_id+"/products/";
 
 
                 String filename = UUID.randomUUID().toString() + ".png";
@@ -229,6 +216,18 @@ public class CategoryController extends ExceptionHandlerController {
             }
 
             List<Product> result =  catService.getProductByUserID(user_id);
+
+            return Ajax.ResponseProducts(result);
+        } catch (Exception e) {
+            throw new RestException(e);
+        }
+    }
+
+    @RequestMapping(value = "/getPopularProducts", method = RequestMethod.GET)
+    public Map<String, List<Product>> getPopularProducts() throws RestException {
+        try {
+
+            List<Product> result =  catService.getPopularProducts();
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {

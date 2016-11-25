@@ -119,6 +119,16 @@ public class CatRepoImpl implements CatRepo {
         return products;
     }
 
+    @Override
+    public List<Product> getPopularProducts() {
+
+        String sql = "SELECT * FROM product where cat_id != 157 ORDER BY RANDOM() LIMIT 4 ";
+
+        List<Product> products =  new ArrayList<Product>();
+        products = jdbcOperations.query(sql, new BeanPropertyRowMapper<Product>(Product.class));
+        return products;
+    }
+
 
    @Override
     public List<Product> deleteProductByID(String product_id) {

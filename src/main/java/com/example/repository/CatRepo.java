@@ -17,6 +17,7 @@ public interface CatRepo<V extends DomainObject> {
     List<Category>  getCatsByID(String id);
     List<Product>  getProductsByID(String id);
     List<Product>  getProductByID(String id);
+    List<Product>  getPopularProducts();
     List<Product>  deleteProductByID(String id);
     List<Product>  getProductByUserID(String id);
     List<Product>  putProduct(String pr_name, String img, String pr_desc,String price, String  deposit,

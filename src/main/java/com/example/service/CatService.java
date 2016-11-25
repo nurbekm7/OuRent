@@ -20,6 +20,7 @@ public interface CatService {
                     String cat_id, String user_id);
 
     List<Product> getProductByID(String id);
+    List<Product> getPopularProducts();
     List<Product> deleteProductByID(String id);
     List<Product> getProductByUserID(String id);
 
