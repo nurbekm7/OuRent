@@ -5,12 +5,11 @@ import com.example.entity.Product;
 import com.example.service.CatService;
 import com.example.utils.Ajax;
 import com.example.utils.Res;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 
 import org.springframework.web.bind.annotation.*;
 import sun.misc.BASE64Decoder;
@@ -18,6 +17,7 @@ import sun.misc.ClassLoaderUtil;
 import sun.misc.Launcher;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -37,17 +37,20 @@ import java.util.logging.Logger;
 @RequestMapping(value = "/category", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController extends ExceptionHandlerController {
 
-    private static final Logger LOG = Logger.getLogger(String.valueOf(CategoryController.class));
-
-
+    org.slf4j.Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     @Autowired
     @Qualifier("catService")
     private CatService catService;
 
 
+    @Autowired
+    ServletContext servletContext;
+
+
     @RequestMapping(value = "/getSubCatsByID", method = RequestMethod.GET)
     public Map<String, List<Category>> getSubCatsByID(@RequestParam("cat_id") String cat_id) throws RestException {
+        logger.info("getSubCatsByID: cat_id= " +cat_id);
         try {
             if (cat_id == null || cat_id.equals("")) {
                 return null;
@@ -56,12 +59,14 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.successResponseSubCats(result);
         } catch (Exception e) {
+             e.printStackTrace();
             throw new RestException(e);
         }
     }
 
     @RequestMapping(value = "/getCatByID", method = RequestMethod.GET)
     public Map<String, List<Category>> getCatsByID(@RequestParam("cat_id") String cat_id) throws RestException {
+        logger.info("getCatByID: cat_id= " +cat_id);
         try {
             if (cat_id == null || cat_id.equals("")) {
                 return null;
@@ -70,6 +75,7 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.successResponseSubCats(result);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RestException(e);
         }
     }
@@ -77,6 +83,8 @@ public class CategoryController extends ExceptionHandlerController {
 
     @RequestMapping(value = "/getAllCats", method = RequestMethod.GET)
     public Map<String,  List<Category>> getAllCats() throws RestException {
+        logger.info("getAllCats");
+
         try {
 
             List<Category> result = catService.getAllCats();
@@ -89,6 +97,8 @@ public class CategoryController extends ExceptionHandlerController {
 
     @RequestMapping(value = "/getProducts", method = RequestMethod.GET)
     public Map<String, List<Product>> getProductsByID(@RequestParam("cat_id") String cat_id) throws RestException {
+        logger.info("getProducts by cat_id: cat_id = " + cat_id);
+
         try {
             if (cat_id == null || cat_id.equals("")) {
                 return null;
@@ -114,6 +124,8 @@ public class CategoryController extends ExceptionHandlerController {
                                                  @RequestParam("user_id") String user_id
 
                                                  ) throws RestException {
+
+        logger.info("putProduct: user_id  = " + user_id +" pr_name = " + pr_name);
 
         try {
 
@@ -157,9 +169,9 @@ public class CategoryController extends ExceptionHandlerController {
 
 
 
-            String url =  "./upload/products/"+user_id+"/products/" + filename;
+            String url =  "/upload/products/"+user_id+"/products/" + filename;
 
-                  LOG.info(url);
+                  logger.info(url);
 
            result =  catService.putProduct(pr_name, url,pr_desc,price,deposit,pr_cost,will_sell,will_exchan,cat_id,user_id);
 
@@ -172,6 +184,7 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RestException(e);
 
         }
@@ -179,6 +192,8 @@ public class CategoryController extends ExceptionHandlerController {
 
     @RequestMapping(value = "/getProductByID", method = RequestMethod.GET)
     public Map<String, List<Product>> getProductByID(@RequestParam("product_id") String product_id) throws RestException {
+        logger.info("getProductByID: product_id  = " + product_id);
+
         try {
             if (product_id == null || product_id.equals("")) {
                 return null;
@@ -188,6 +203,7 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RestException(e);
         }
     }
@@ -195,7 +211,9 @@ public class CategoryController extends ExceptionHandlerController {
 
 @RequestMapping(value = "/deleteProductByID", method = RequestMethod.GET)
     public Map<String, List<Product>> deleteProductByID(@RequestParam("product_id") String product_id) throws RestException {
-        try {
+    logger.info("deleteProductByID: product_id  = " + product_id);
+
+    try {
             if (product_id == null || product_id.equals("")) {
                 return null;
             }
@@ -204,12 +222,15 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
+        e.printStackTrace();
             throw new RestException(e);
         }
     }
 
     @RequestMapping(value = "/getProductByUserID", method = RequestMethod.GET)
     public Map<String, List<Product>> getProductByUserID(@RequestParam("user_id") String user_id) throws RestException {
+        logger.info("getProductByUserID: user_id  = " + user_id);
+
         try {
             if (user_id == null || user_id.equals("")) {
                 return null;
@@ -219,18 +240,22 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RestException(e);
         }
     }
 
     @RequestMapping(value = "/getPopularProducts", method = RequestMethod.GET)
     public Map<String, List<Product>> getPopularProducts() throws RestException {
+        logger.info("getPopularProducts:");
+
         try {
 
             List<Product> result =  catService.getPopularProducts();
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RestException(e);
         }
     }

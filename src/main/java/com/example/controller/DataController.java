@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,15 @@ import java.util.logging.Logger;
 public class DataController extends ExceptionHandlerController{
     private static final Logger LOG = Logger.getLogger(String.valueOf(DataController.class));
 
+    org.slf4j.Logger logger = LoggerFactory.getLogger(DataController.class);
     @Autowired
     @Qualifier("dataService")
     private DataService dataService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Map<String, Object> register(@RequestParam("email") String email, @RequestParam("pass") String pass, @RequestParam("user_type") String user_type) throws RestException {
+
+        logger.debug("Register: email = " + email + " pass = "+ pass + " user_type: " + user_type);
         try {
             if (email == null || email.equals("")) {
                 return Ajax.errorResponse("EMAIL IS EMPTY");
@@ -42,7 +46,9 @@ public class DataController extends ExceptionHandlerController{
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Map<String, Object> login(@RequestParam("email") String email, @RequestParam("pass") String pass) throws RestException {
-        try {
+
+        logger.debug("LOGIN: email = " + email+ " pass = "+ pass);
+         try {
             if (email == null || email.equals("")) {
                 return Ajax.errorResponse("EMAIL IS EMPTY");
             }
@@ -58,6 +64,8 @@ public class DataController extends ExceptionHandlerController{
 
     @RequestMapping(value = "/editProf", method = RequestMethod.POST)
     public Map<String, Object> editProf(@RequestParam("ava") String ava, @RequestParam("fio") String fio, @RequestParam("tel") String tel, @RequestParam("bday") String bday,@RequestParam("user_id") String user_id ) throws RestException {
+
+        logger.info("EditProf: user_id = " + user_id);
         try {
             if (fio == null || fio.equals("")) {
                 return Ajax.errorResponse("fio IS EMPTY");
@@ -74,7 +82,7 @@ public class DataController extends ExceptionHandlerController{
             }else
             {
 
-                String directory = "C:\\Users\\admin\\Desktop\\OuRent\\OuRent\\OuRent\\demo\\src\\main\\resources\\static\\upload\\users\\"+user_id+"\\ava\\";
+                String directory = "./upload/users/"+user_id+"/ava/";
 
                 String filename = user_id + ".png";
 
@@ -102,7 +110,7 @@ public class DataController extends ExceptionHandlerController{
 
 
 
-                    String url =  "\\upload\\users\\"+user_id+"\\ava\\"+ filename;
+                    String url =  "./upload/users/"+user_id+"/ava/"+ filename;
 
                     result  = dataService.editProf(url,fio, tel,bday,user_id);
                 } catch (ArrayIndexOutOfBoundsException e)
@@ -125,6 +133,8 @@ public class DataController extends ExceptionHandlerController{
 
     @RequestMapping(value = "/getUserByID", method = RequestMethod.GET)
     public Map<String, Object> getUserByID(@RequestParam("user_id") String user_id) throws RestException {
+
+        logger.debug("getUserByID: user_id = " + user_id);
         try {
             if (user_id == null || user_id.equals("")) {
                 return Ajax.errorResponse("user_id IS EMPTY");
@@ -142,6 +152,7 @@ public class DataController extends ExceptionHandlerController{
 
     @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
     public Map<String, Object> getAllUsers() throws RestException {
+        logger.debug("getAllUsers");
         try {
             Set<String> result = dataService.getAllUsers();
             return Ajax.successResponse(result);
@@ -152,6 +163,7 @@ public class DataController extends ExceptionHandlerController{
 
     @RequestMapping(value = "/getCustByID", method = RequestMethod.GET)
     public Map<String, Object> getCustByID(@RequestParam("user_id") String user_id) throws RestException {
+        logger.debug("getCustByID: user_id = " + user_id);
         try {
             if (user_id == null || user_id.equals("")) {
                 return Ajax.errorResponse("user_id IS EMPTY");
@@ -168,6 +180,8 @@ public class DataController extends ExceptionHandlerController{
 
     @RequestMapping(value = "/getCompByID", method = RequestMethod.GET)
     public Map<String, Object> getCompByID(@RequestParam("user_id") String user_id) throws RestException {
+
+        logger.debug("getCompByID: user_id: " + user_id);
         try {
             if (user_id == null || user_id.equals("")) {
                 return Ajax.errorResponse("user_id IS EMPTY");

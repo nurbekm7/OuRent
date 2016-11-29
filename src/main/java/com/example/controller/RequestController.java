@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by nurbek on 8/22/16.
@@ -27,8 +28,12 @@ public class RequestController extends ExceptionHandlerController {
     @Qualifier("ReqService")
     private ReqService reqService;
 
+    private static final Logger LOG = Logger.getLogger(String.valueOf(FavController.class));
+
+
     @RequestMapping(value = "/putRequest", method = RequestMethod.POST)
     public Map<String, Object> putRequest(@RequestParam("product_id") String product_id, @RequestParam("user_id") String user_id) throws RestException {
+         LOG.info("putRequest: product_id= " + product_id + " user_id = " + user_id);
         try {
             if (product_id == null || product_id.equals("")) {
                 return Ajax.errorResponse("product_id IS EMPTY");
@@ -45,6 +50,8 @@ public class RequestController extends ExceptionHandlerController {
 
     @RequestMapping(value = "/getRequestByPrID", method = RequestMethod.GET)
     public Map<String, List<Requests>> getRequestByPrID(@RequestParam("product_id") String product_id) throws RestException {
+        LOG.info("getRequestByPrID: product_id= " + product_id);
+
         try {
             if (product_id == null || product_id.equals("")) {
                 return null;
@@ -59,6 +66,8 @@ public class RequestController extends ExceptionHandlerController {
 
     @RequestMapping(value = "/getRequestByUserID", method = RequestMethod.GET)
     public Map<String, List<Requests>> getRequestByUserID(@RequestParam("user_id") String user_id) throws RestException {
+        LOG.info("getRequestByUserID: user_id= " + user_id);
+
         try {
             if (user_id == null || user_id.equals("")) {
                 return null;

@@ -80,7 +80,6 @@ $.validator.setDefaults( {
 					url: "/login",
 					data:"email="+email+"&pass="+pass,
 					dataType:"json",
-					async:false,
 					success: function(msg){
                            if(msg.result == "fail"){
                             console.log("login fails");
@@ -176,7 +175,7 @@ if($.cookie('user_id')!=null){
                          type: "GET",
                          data: 'cat_id='+item.cat_id ,
                           dataType: 'json',
-                            async:false,
+                          async:false,
                          success: function(response) {
                           //
                             var items = response.SubCats.map(function (sub) {

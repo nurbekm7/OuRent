@@ -46,6 +46,8 @@ public class JpaConfig implements TransactionManagementConfigurer {
 //    private String hbm2ddlAuto="update";
 
 
+
+
     @Bean
     public HikariDataSource configureDataSource() {
         HikariConfig config = new HikariConfig();

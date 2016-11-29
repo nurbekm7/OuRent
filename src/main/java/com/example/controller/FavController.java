@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by nurbek on 8/24/16.
@@ -26,10 +27,15 @@ public class FavController  extends ExceptionHandlerController{
     @Qualifier("FavService")
     private FavService favService;
 
+    private static final Logger LOG = Logger.getLogger(String.valueOf(FavController.class));
+
+
 
     @RequestMapping(value = "/getFavsByUserID", method = RequestMethod.GET)
     public Map<String, List<Favorites>> getAds(@RequestParam("user_id") String user_id) throws RestException {
-        try {
+
+        LOG.info("getFavsByUserID: user_id = " + user_id);
+         try {
             if (user_id == null || user_id.equals("")) {
                 return null;
             }
@@ -43,6 +49,9 @@ public class FavController  extends ExceptionHandlerController{
 
     @RequestMapping(value = "/putFav", method = RequestMethod.POST)
     public Map<String, Object> putFav(@RequestParam("product_id") String product_id, @RequestParam("user_id") String user_id) throws RestException {
+
+        LOG.info("putFav: product_id = " + product_id+ " user_id =" + user_id);
+
         try {
             if (product_id == null || product_id.equals("")) {
                 return Ajax.errorResponse("product_id IS EMPTY");

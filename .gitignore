@@ -1,2 +1,5 @@
 #ignore target/ dir
 target/
+.idea/
+.mvn/
+upload/
