@@ -121,11 +121,11 @@ if($.cookie('user_id')!=null){
                                                          ' <a href="/profile.html">Профиль</a>  ' +
                                                         ' </li>' +
                                                       '<li>' +
-                                                          '<a href="/trust.html">Доверие и подтверждение</a> ' +
+                                                          '<a href="#">Доверие и подтверждение</a> ' +
                                                           '</li>' +
 
                                                       '<li>' +
-                                                      '<a href="/settings.html">Настройки</a>' +
+                                                      '<a href="#">Настройки</a>' +
                                                       '</li>' +
                                                      ' <li>' +
                                                      '<a href="/ads.html">Мои объявления</a> ' +
