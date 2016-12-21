@@ -159,9 +159,11 @@ if($.cookie('user_id')!=null){
 
               var items = response.Products.map(function (item) {
 
-                 console.log(counter +" counter");
 
-            $('#'+counter+' .onhover .slide-up .price-wrap .price span').empty().append(item.pr_cost);
+//                 console.log(item.pr_cost +" item.pr_cost");
+//                 console.log(item );
+
+            $('#'+counter+' .onhover .slide-up .price-wrap .price span').empty().append(item.price);
             $('#'+counter+' .onhover .title a').empty().append(item.pr_name);
             $('#'+counter+' .onhover .avatar img').attr("src", getAva(item.user_id));
             $('#'+counter+' .fotorama .preview .wrapper img').attr("src", item.img);
