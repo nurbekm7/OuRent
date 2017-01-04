@@ -6,7 +6,7 @@
 if($.cookie('user_id')!=null){
 
 
-    console.log($.cookie('user_id'));
+//    console.log($.cookie('user_id'));
      var user_id = $.cookie('user_id');
 
     var email = $.cookie('email');
@@ -24,13 +24,13 @@ if($.cookie('user_id')!=null){
 
                       var items = response.User.map(function (user) {
 
-                      console.log(user.email);
+//                      console.log(user.email);
                       var user_date = user.reg_date;
                       var user_d = user_date.split(" ");
                       var ava = user.ava;
 
 
-                   console.log(ava);
+//                   console.log(ava);
 
                         $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +email1[0]);
 

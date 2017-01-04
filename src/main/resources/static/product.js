@@ -7,6 +7,8 @@ var user_ids=null;
 
 var phone_num = null;
 var phone_numUser = null;
+var cat_id = null;
+var p_id = null;
 
 
  $.urlParam = function(name){
@@ -43,8 +45,7 @@ $.validator.setDefaults( {
      			 }
 
      			 var data = JSON.stringify(JSONObj);
-
-                   console.log(email + " " + pass + " " + user_type);
+//                   console.log(email + " " + pass + " " + user_type);
 
 
      				 $.ajax({
@@ -62,15 +63,10 @@ $.validator.setDefaults( {
                          else{
                         var items = response.User.map(function (user) {
 
-                        console.log(user);
                         $.cookie('email', email);
-                        $.cookie('pass', pass);
-
                         $.cookie('user_id', user.user_id);
 
                         window.location.href = "/profile.html";
-
-
                                                      });
                                                      }
 
@@ -84,18 +80,12 @@ $.validator.setDefaults( {
      		} );
 
  $( document ).ready(function() {
-
-
    console.log("Page loaded");
 
 
-
 if($.cookie('user_id')!=null){
-
     var email = $.cookie('email');
     var email1 = email.split('@');
-
-
    $('.user-profile').empty().append(' <div class="profile">  <div class="btn-group">' +
                                       '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' +
                                           '<img src="'+getAva($.cookie('user_id'))+'" alt="">' +
@@ -109,7 +99,7 @@ if($.cookie('user_id')!=null){
                                                           '</li>' +
 
                                                       '<li>' +
-                                                      '<a href="#">Настройки</a>' +
+                                                      '<a href="/settings.html">Настройки</a>' +
                                                       '</li>' +
                                                      ' <li>' +
                                                      '<a href="/ads.html">Мои объявления</a> ' +
@@ -122,8 +112,6 @@ if($.cookie('user_id')!=null){
                                                       '<li>'+
                                                          ' <a href="/" onclick="logout()">Выйти</a>  </li>' +
                                                           '</ul></div></div>');
-
-
 
          $.ajax({
                            url: "/getUserByID",
@@ -157,10 +145,7 @@ if($.cookie('user_id')!=null){
                                          cache: false,
                                           async: false,
                                          success: function(response) {
-
-
                                             response.Reqs.map(function(req){
-
                                             if(req.product_id == $.urlParam('product_id')){
                                             $('#reqBut').hide();
                                           $('#reqButton').empty().append('<a class="app-btn-default darkblue request" href="#" id="reqBut">Запрос отправлен</a>');
@@ -175,10 +160,6 @@ if($.cookie('user_id')!=null){
                                          error: function (response) {
                                           }
                                        });
-
-
-
-
     }
 
     $.ajax({
@@ -187,14 +168,12 @@ if($.cookie('user_id')!=null){
                               data: 'product_id='+ $.urlParam('product_id') ,
                                dataType: 'json',
                               cache: false,
+                              async:false,
                               success: function(response) {
 
                                  var items = response.Products.map(function (prod) {
-
-
+                                  cat_id = prod.cat_id;
                                   user_ids = prod.user_id;
-
-
                                     $.ajax({
                                                                          url: "favs/getFavsByUserID",
                                                                     type: "GET",
@@ -207,10 +186,10 @@ if($.cookie('user_id')!=null){
 
                                                                     response.Favs.map(function(fav){
 
-                                                                      console.log(fav.product_id +"     " + prod.product_id);
+//                                                                      console.log(fav.product_id +"     " + prod.product_id);
                                                                      if(fav.product_id == prod.product_id)
                                                                      {
-                                                                       $(".share a").empty().append('<i class="material-icons">favorite_border</i> Уже в избранных');
+                                                                       $(".share a").empty().append('<i class="material-icons"></i> Уже в избранных');
                                                                         $(".share a").attr("href", "/favs.html");
 
 
@@ -223,13 +202,13 @@ if($.cookie('user_id')!=null){
                                                                     },
                                                                     error: function (response) {
                                                                                                       }
-                                                                                                   });
+                                       });
 
 
                                if(prod.user_id==$.cookie('user_id') )
                                {
                                  $('#reqBut').hide();
-                                 $('#reqButton').empty().append('<a class="app-btn-default darkblue request" href="/putprod.html" id="reqBut">Редактировать мой товар</a>');
+                                 $('#reqButton').empty().append('<a class="app-btn-default darkblue request" href="/putprod.html" id="reqBut">Добавить товар</a>');
                                  $('.app-products-block').remove();
                                   $('.col-right').append('<div id="reqs" class="panel panel-default price-list">'+    '  <div class="panel-heading">Запросы на аренду</div>' +
                                                                                                                      '   <div class="panel-body">'+
@@ -250,29 +229,25 @@ if($.cookie('user_id')!=null){
                                                                                                               cache: false,
                                                                                                               async:false,
                                                                                                               success: function(response) {
-
-
+                                                                                                           if(response != null){
                                                                                                                  var items = response.Reqs.map(function (reqs) {
-
-                                                                                                                 console.log(reqs.request_id);
-
-                                                                                                         var req_date= reqs.rq_date;
-                                                                                                               var r_date = req_date.split(".");
+                                                                                                                            var req_date= reqs.rq_date;
+                                                                                                                            var r_date = req_date.split(".");
 
 
-                                                                                 $('.col-right #reqs .table').append('   <tr>'+
-                                                                                    '     <td class="tv">'+reqs.user_id+'</td>'+
-                                                                                     '    <td class="tvz">'+r_date[0]+'</td>'+
-                                                                                    '    <td class="tv"><button >Подтвердить</button></td>'+
-                                                                                   '  </tr>');
+                                                                                                                 $('.col-right #reqs .table').append('   <tr>'+
+                                                                                                                    '     <td class="tv">'+reqs.user_id+'</td>'+
+                                                                                                                     '    <td class="tvz">'+r_date[0]+'</td>'+
+                                                                                                                    '    <td class="tv disabled"><button>Подтвердить</button></td>'+
+                                                                                                                   '  </tr>');
 
-                                                                                   if(reqs.rq_status == true)
-                                                                                   {
-                                                                                     $('.col-right #reqs .table button').empty().append("Подтвержденно");
-                                                                                   }
+                                                                                                                   if(reqs.rq_status == true)
+                                                                                                                   {
+                                                                                                                     $('.col-right #reqs .table button').empty().append("Подтвержденно");
+                                                                                                                   }
 
                                                                                                             });
-
+                                                                                                                    }
                                                                                                               },
                                                                                                               error: function (response) {
                                                                                                                }
@@ -281,14 +256,14 @@ if($.cookie('user_id')!=null){
 
                                }
 
-                             console.log(prod.img);
-                             console.log("TEST good");
+//                             console.log(prod.img);
+//                             console.log("TEST good");
 
                              var pr_date= prod.pr_date;
                              var date = pr_date.split(" ");
 
-                             console.log(date);
-                             console.log($.urlParam('cat_id'));
+//                             console.log(date);
+//                             console.log($.urlParam('cat_id'));
 
                                $('.galerey .fotorama .fotorama__stage__frame  .fotorama__html .preview  .wrapper  img').attr("src",prod.img);
 
@@ -310,17 +285,17 @@ if($.cookie('user_id')!=null){
                              $('.user-information .avatar .image img').attr("src", getAva(prod.user_id));
                              if($.urlParam('cat_id') == 157){
 
-                             // $('.content-wrapper .test a').attr("href","catalog.html?cat_id=" + $.urlParam('cat_id') );
                               $('.content-wrapper .test a').empty();
+                              $('.content-wrapper .cat a').empty();
 
                              }
                              else{
-                             $('.content-wrapper .test a').attr("href","catalog.html?cat_id=" + $.urlParam('cat_id') );
                              $('.content-wrapper .test a').empty().append(getCatName($.urlParam('cat_id')));
+                             $('.content-wrapper .cat a').attr("href","catalog.html?cat_id=" + p_id);
+                             $('.content-wrapper .cat a').empty().append(getCatName(p_id));
                              }
-                             //$('.media-body a').attr("href","upload/users" + getAva(prod.user_id));
                              $('.media-body a').empty().append(getUserName(prod.user_id));
-                             $('.panel .panel-body b').empty().append(prod.pr_desc);
+                             $('.panel .panel-body #pr_desc').empty().append(prod.pr_desc);
                              $('.publish-date span').empty().append(date[0]);
                              $('#aboutme .col-sm-6 #reg_date').empty().append("Участник с " +  user_regDate[0]);
 
@@ -333,6 +308,53 @@ if($.cookie('user_id')!=null){
                                }
                             });
 
+
+
+     var counter =1;
+       $.ajax({
+
+               url: "category/getPopularProductsByID",
+               type: "GET",
+               dataType: 'json',
+               data: 'cat_id='+ cat_id +'&product_id='+ $.urlParam('product_id'),
+               async:false,
+               cache: false,
+               success: function(response) {
+                  var items = response.Products.map(function (item) {
+                $('#'+counter+' .onhover .slide-up .price-wrap .price span').empty().append(item.price);
+                $('#'+counter+' .onhover .title a').empty().append(item.pr_name);
+                $('#'+counter+' .onhover .avatar img').attr("src", getAva(item.user_id));
+                $('#'+counter+' .fotorama .preview .wrapper img').attr("src", item.img);
+                $('#'+counter+' .fotorama .preview .wrapper .background').attr("style", "background-image:url(" + item.img+")");
+                $('#'+counter+' .app-product-wrapper').attr("data-href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
+                $('#'+counter+' .title a').attr("href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
+                $('#'+counter+' .category a').attr("href", "/product.html?product_id="+item.product_id+"&cat_id="+item.cat_id);
+                  $.ajax({
+
+                             url: "category/getCatByID",
+                             type: "GET",
+                             data: 'cat_id='+item.cat_id ,
+                              dataType: 'json',
+                              async:false,
+                              cache: false,
+                             success: function(response) {
+                                var items = response.SubCats.map(function (sub) {
+
+
+                              $('#'+counter+' .category a').empty().append(sub.cat_name);
+
+                             });
+                             },
+                             error: function (response) {
+                              }
+                           });
+                       counter++;
+             });
+
+               },
+               error: function (response) {
+                }
+             });
 
 
 /*
@@ -402,12 +424,9 @@ function getCatName(cats_id){
                              success: function(response) {
 
                                  var items = response.SubCats.map(function (cat) {
-
-                                                               cat_name = cat.cat_name;
-                                                               console.log(cat_name);
-                                                              // console.log(user.email);
-
-                                                          });
+                                    cat_name = cat.cat_name;
+                                    p_id= cat.p_id;
+                                   });
                              },
                              error: function (response) {
                                     console.log("ERROR CATNAME");
@@ -421,7 +440,7 @@ function getCatName(cats_id){
 
 function getUserName(user_id){
 
-  var user_name = " ";
+  var user_name = "";
     $.ajax({
                              url: "/getUserByID",
                              type: "GET",
@@ -433,17 +452,42 @@ function getUserName(user_id){
 
                                  var items = response.User.map(function (user) {
 
-                                                               user_name = user.email;
-                                                               console.log(user_name);
-                                                               phone_num = user.phone_num;
-                                                                console.log(user.phone_num);
-                                                              // console.log(user.email);
-                                                             user_date = user.reg_date;
-                                                             user_regDate = user_date.split(" ");
-                                                             console.log(user_date);
+                                        phone_num = user.phone_num;
+                                        user_date = user.reg_date;
+                                        user_regDate = user_date.split(" ");
 
+                                        if(user.user_type =='0'){
 
+                                         $.ajax({
+                                                url: "/getCustByID",
+                                                type: "GET",
+                                                data: 'user_id='+ user_id ,
+                                                dataType: 'json',
+                                                cache: false,
+                                                async: false,
+                                                success: function(response) {
+                                                    var items = response.Customer.map(function (cust) {
+                                                    user_name = cust.fio;
+                                                    });
+                                                    },
 
+                                         });
+                                        }
+                                        else{
+                                            $.ajax({
+                                              url: "/getCompByID",
+                                              type: "GET",
+                                              data: 'user_id='+ user_id ,
+                                              dataType: 'json',
+                                              cache: false,
+                                              async: false,
+                                              success: function(response) {
+                                              var items = response.Company.map(function (comp) {
+                                              user_name = comp.comp_name;
+                                              });
+                                              },
+                                              });
+                                        }
 
                                                           });
                              },
@@ -470,12 +514,13 @@ function getAva(user_id)
                               var items = response.User.map(function (user) {
 
                                 ava = user.ava;
-                                console.log(ava);
-                                console.log(user.email);
+//                                console.log(ava);
+//                                console.log(user.email);
 
                            });
                            },
                            error: function (response) {
+                           console.log("Error getAva!!!");
                             }
                          });
 
@@ -525,18 +570,13 @@ var usr_id = null;
                               var items = response.User.map(function (user) {
 
                                 phone_num = user.phone_num;
-                                console.log(phone_num);
+//                                console.log(phone_num);
 
                            });
                            },
                            error: function (response) {
                             }
                          });
-
-
-
-
-
                          return  phone_num;
 
 
@@ -635,12 +675,7 @@ function login (){
                   "email" : email,
                   "pass" : pass
 			 }
-
 			 var data = JSON.stringify(JSONObj);
-
-              console.log(email + " " + pass);
-
-
 				$.ajax({
 					type: "POST",
 					url: "/login?email="+email+"&pass="+pass,
@@ -651,23 +686,11 @@ function login (){
                             console.log("login fails");
                             alert('Неправильный логин или пароль');
                            }
-
                          else{
-
-
                      	 var items = msg.User.map(function (user) {
-
-
-                                 console.log(user);
                                  $.cookie('email', email);
-                                 $.cookie('pass', pass);
-
                                  $.cookie('user_id', user.user_id);
-
-
                                  window.location.href = "/profile.html";
-
-
                             });
                             }
 
@@ -746,7 +769,7 @@ function register()
 function checkLogin(){
 
 
-   console.log($.cookie('user_id'));
+//   console.log($.cookie('user_id'));
    var user_id = $.cookie('user_id');
    if(user_id==null){
 
@@ -807,11 +830,11 @@ function putFav(){
                                    var items = response.Favs.map(function (fav) {
 
 
-                                                                 console.log(fav.fav_id);
+//                                                                 console.log(fav.fav_id);
 
                                                                   $("#newReq p").empty().append("Товар успешно добавлен" );
                                                              // $("#newReq .form-group a").attr("href", "/favs.html");
-                                                             $(".share a").empty().append('<i class="material-icons">favorite_border</i> Уже в избранных');
+                                                             $(".share a").empty().append('<i class="material-icons"></i> Уже в избранных');
                                                              $(".share a").empty().attr("href", "/favs.html");
 
                                                               $('#newReq').modal({backdrop: 'static', keyboard: false})  ;

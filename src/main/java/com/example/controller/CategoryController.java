@@ -134,7 +134,6 @@ public class CategoryController extends ExceptionHandlerController {
 
                 img = "/upload/products/prod_default.png";
                  result =  catService.putProduct(pr_name, img,pr_desc,price,deposit,pr_cost,will_sell,will_exchan,cat_id,user_id);
-
             }
             else
             {
@@ -209,8 +208,8 @@ public class CategoryController extends ExceptionHandlerController {
     }
 
 
-@RequestMapping(value = "/deleteProductByID", method = RequestMethod.GET)
-    public Map<String, List<Product>> deleteProductByID(@RequestParam("product_id") String product_id) throws RestException {
+@RequestMapping(value = "/deleteProductByID", method = RequestMethod.POST)
+    public Map<String, Object> deleteProductByID(@RequestParam("product_id") String product_id) throws RestException {
     logger.info("deleteProductByID: product_id  = " + product_id);
 
     try {
@@ -218,9 +217,9 @@ public class CategoryController extends ExceptionHandlerController {
                 return null;
             }
 
-            List<Product> result =  catService.deleteProductByID(product_id);
+        Map<String, String> result =  catService.deleteProductByID(product_id);
 
-            return Ajax.ResponseProducts(result);
+            return Ajax.deletingSuccess(result);
         } catch (Exception e) {
         e.printStackTrace();
             throw new RestException(e);
@@ -252,6 +251,22 @@ public class CategoryController extends ExceptionHandlerController {
         try {
 
             List<Product> result =  catService.getPopularProducts();
+
+            return Ajax.ResponseProducts(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RestException(e);
+        }
+    }
+
+
+    @RequestMapping(value = "/getPopularProductsByID", method = RequestMethod.GET)
+    public Map<String, List<Product>> getPopularProductsByID(@RequestParam("cat_id") String cat_id, @RequestParam("product_id") String product_id) throws RestException {
+        logger.info("getPopularProductsByID: " + cat_id);
+
+        try {
+
+            List<Product> result =  catService.getPopularProductsByID(cat_id, product_id);
 
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {

@@ -15,17 +15,8 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="format-detection" content="address=no">
     <link href="assets/25ac6778/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/baca21b8/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="assets/4debab2/css/fileinput.min.css" rel="stylesheet">
     <link href="assets/2a80383c/fotorama.css" rel="stylesheet">
-    <link href="assets/a5aa10b8/css/select2.css" rel="stylesheet">
-    <link href="assets/9423cfd8/cropper.css" rel="stylesheet">
-    <link href="assets/f165369d/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="assets/139d3376/style/dist/app.min.css" rel="stylesheet">
-
-
-
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <script src = "http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/jquery.validate.js"></script>
@@ -81,10 +72,6 @@
                     <div class="form-group">
                         <input class="form-control" id="bday" name="bday" placeholder="Дата рождения" type="date"/>
                     </div>
-
-
-
-
                     <div class="form-group">
 
                         <button type="submit" class="btn btn-lg btn-block btn-primary" name="signup" value="Sign up" >Сохранить</button>
@@ -119,7 +106,7 @@
                         <div class="nav-panel">
                             <ul><li><a href="/profile.html">Профиль</a></li><li><a href="/">Главная</a></li>
                                 <li><a href="#">Доверие и подтверждение</a></li>
-                                <li><a href="#">Настройки</a></li>
+                                <li><a href="/settings.html">Настройки</a></li>
                                 <li><a href="/ads.html">Мои объявления</a></li>
                                 <li><a href="/favs.html">Избранное</a></li>
                                 <li><a href="/reqs.html">Мои запросы</a></li>
@@ -128,7 +115,7 @@
                     </div>
                 </div>
                 <div class="header-row brand">
-                   <a class="logo" href="/"><img src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке OuRent"></a>              </div>
+                   <a href="/"><img class="logo" src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке OuRent"></a>              </div>
                                 <div class="header-row settings hidden-xs">
                     <div class="btn-group location">
                         <button type="button" class="btn btn-default dropdown-toggle" id="cityBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -145,13 +132,13 @@
                         <div class="profile">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="upload/users/default_user" alt="">Без имени  </button>
+                                    <img src="/upload/users/default_user.png" alt="">Без имени  </button>
                                 <ul class="dropdown-menu">
 
                                                                     <li>
                                         <a href="/profile.html">Профиль</a>                                    </li>
                                                                     <li>
-                                        <a href="/trust.html">Доверие и подтверждение</a>                                    </li>
+                                        <a href="#">Доверие и подтверждение</a>                                    </li>
                                                                     <li>
                                                                         <a href="/settings.html">Настройки</a>                                   </li>
                                                                     <li>
@@ -171,11 +158,11 @@
         <div class="content-wrapper">
     <div id="content" class="user-profile-view">
         <h1 class="app-page-title">
-                            Личный кабинет                    </h1>
+                            Личный кабинет                  </h1>
                 <ul id="w0" class="nav nav-tabs app-nav-default">
                     <li class="active">
                         <a href="/profile.html">Профиль</a> </li>
-<li>  <a href="/trust.html">Доверие и подтверждение</a> </li>
+<li>  <a href="#">Доверие и подтверждение</a> </li>
 <li><a href="/settings.html">Настройки</a></li>
 <li> <a href="/ads.html">Мои объявления</a></li>
 <li>  <a href="/favs.html">Избранное</a> </li>
@@ -186,17 +173,14 @@
             <div class="left-block">
                 <div class="image-adapter">
                     <div class="thumbnail">
-                        <img src="upload/users/default_user " alt="">
+                        <img src="/upload/users/default_user.png" alt="">
                     </div>
                                         <div class="app-buttons-group full-width">
-                                            <a class="app-btn-default min turquoise add-icon show-modal" data-target="#newRequest" data-toggle="modal">Редактировать профиль</a>  </div>
+                                            <a class="app-btn-default min turquoise add-icon show-modal" id="editBut" data-target="#newRequest" data-toggle="modal">Редактировать профиль</a>  </div>
                     <div class="user-profile-filling">
                         <div class="app-block-title">Подтверждение профиля</div>
 
-                        <div class="profile" id="profVer">
-
-
-                                                    </div>
+                        <div class="profile" id="profVer">  </div>
                     </div>
                 </div>
             </div>
@@ -216,11 +200,11 @@
                             <div class="cv col-xs-8" id="phone_num"> </div>
                         </div>
                         <div class="cr clearfix">
-                            <div class="cn col-xs-4">Ф.И.О</div>
+                            <div class="cn col-xs-4" id="cname">Ф.И.О</div>
                             <div class="cv col-xs-8" id="fio"></div>
                         </div>
-                        <div class="cr clearfix">
-                            <div class="cn col-xs-4">Дата рождения</div>
+                        <div class="cr clearfix" id="blthday">
+                            <div class="cn col-xs-4" id="cbthday">Дата рождения</div>
                             <div class="cv col-xs-8" id="bthday"></div>
                         </div>
                         <div class="cr clearfix">
@@ -321,17 +305,7 @@
 
 
     <script src="assets/25ac6778/js/bootstrap.js"></script>
-    <script src="assets/baca21b8/js/bootstrap-datepicker.min.js"></script>
-    <script src="assets/baca21b8/locales/bootstrap-datepicker.ru.min.js"></script>
-    <script src="assets/4debab2/js/fileinput.js"></script>
-    <script src="assets/4debab2/js/locales/ru.js"></script>
     <script src="assets/2a80383c/fotorama.js"></script>
-    <script src="assets/edb2f0fd/jquery.nicescroll.min.js"></script>
-    <script src="assets/6a91991c/bootstrap-paginator.js"></script>
-    <script src="assets/9423cfd8/cropper.js"></script>
-    <script src="assets/7ea49504/caman.full.js"></script>
-    <script src="assets/f165369d/bootstrap-slider.min.js"></script>
-    <script src="assets/cbf05cf1/tap.min.js"></script>
 
 </body>
 </html>

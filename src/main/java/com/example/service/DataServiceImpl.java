@@ -52,10 +52,23 @@ public class DataServiceImpl implements DataService {
             return null;
         }
     }
- @Override
-    public Map<String, String> editProf(String url, String fio, String tel, String bday, String user_id) {
+
+    @Override
+    public Map<String, String> chPass(String user_id,String pass) {
         try {
-            return  dataRepository.editProf(url,fio, tel,bday,user_id);
+            return  dataRepository.chPass(user_id,pass);
+
+        } catch (Exception e) {
+            LOG.error("ERROR LOGIN Customer: " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+
+ @Override
+    public Map<String, String> editProf(String url, String fio, String tel, String bday, String user_id ,String user_type) {
+        try {
+            return  dataRepository.editProf(url,fio, tel,bday,user_id,user_type);
 
         } catch (Exception e) {
             LOG.error("ERROR LOGIN Customer: " + e.getMessage(), e);

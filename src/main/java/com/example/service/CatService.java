@@ -4,6 +4,7 @@ import com.example.entity.Category;
 import com.example.entity.Product;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nurbek on 8/16/16.
@@ -21,7 +22,8 @@ public interface CatService {
 
     List<Product> getProductByID(String id);
     List<Product> getPopularProducts();
-    List<Product> deleteProductByID(String id);
+    List<Product> getPopularProductsByID(String cat_id, String product_id);
+    Map<String, String> deleteProductByID(String id);
     List<Product> getProductByUserID(String id);
 
 

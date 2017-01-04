@@ -110,6 +110,39 @@ public class DataRepositoryImpl implements DataRepository {
         }
     }
 
+
+    @Override
+    public Map<String, String> chPass(String user_id,String pass) {
+
+
+        Map<String, String> result =  new HashMap<>();
+
+        try{
+
+            String sql ="UPDATE users SET pass = '"+pass+ "' where  user_id = "+ user_id +" ";
+
+
+                int res = jdbcOperations.update(sql);
+
+              if(res == 0 ){
+                  return null;
+              }
+            else {
+                  result.put("user_id", user_id);
+              }
+                  return result;
+
+
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+
+            return null;
+
+        }
+    }
+
     @Override
     public List<Users> getUserByID(String user_id) {
 
@@ -131,15 +164,19 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Map<String, String> editProf(String url, String fio, String tel,String bday,String user_id) {
+    public Map<String, String> editProf(String url, String fio, String tel,String bday,String user_id, String user_type) {
 
-
+        int tt =0;
         Map<String, String> userses =  new HashMap<>();
 
+      if (Objects.equals(user_type, "0"))
+          tt = jdbcOperations.update("update customer set fio = '"+ fio +"' , bdate= '"+ bday +"' where cust_id ="+ user_id );
+      else
+      if(Objects.equals(user_type, "1")){
+          tt = jdbcOperations.update("update company set comp_name = '" + fio + "' where comp_id =" + user_id);
+      }
 
-
-        int tt = jdbcOperations.update("update customer set fio = '"+ fio +"' , bdate= '"+ bday +"' where cust_id ="+ user_id );
-       int t = jdbcOperations.update("update users set phone_num = '"+ tel + "' , ava= '"+ url +"' where user_id ="+ user_id );
+        int t = jdbcOperations.update("update users set phone_num = '"+ tel + "' , ava= '"+ url +"' where user_id ="+ user_id );
 
         if(tt==1 && t==1){
 

@@ -28,7 +28,7 @@ myData.append("will_exchan",  $('#will_exchan').is(':checked'));
 myData.append("cat_id", "157");
 myData.append("user_id", $.cookie('user_id'));
 
-console.log(myData);
+
 
 			 $.ajax({
 
@@ -39,11 +39,7 @@ console.log(myData);
                            contentType:false,
                            cache: false,
                            success: function(response) {
-                           console.log(response);
                             var items = response.Products.map(function (pr) {
-
-                              console.log(pr);
-
                                window.location.href = "/ads.html";
                          });
 
@@ -56,10 +52,7 @@ console.log(myData);
 
 
 }
-
-
-
-          reader.onload = function(readerEvt) {
+ reader.onload = function(readerEvt) {
 
                       img1 = readerEvt.target.result;
 
@@ -81,8 +74,8 @@ myData.append("will_sell", $('#will_sell').is(':checked'));
 myData.append("will_exchan",  $('#will_exchan').is(':checked'));
 myData.append("cat_id", "157");
 myData.append("user_id", $.cookie('user_id'));
-//
-//console.log(img1);
+
+
 			 $.ajax({
 
                            url: "category/putProduct",
@@ -92,42 +85,23 @@ myData.append("user_id", $.cookie('user_id'));
                            contentType: false,
                            cache: false,
                            success: function(response) {
-                           console.log(response);
                             var items = response.Products.map(function (pr) {
-
-                              console.log(pr);
-
                              window.location.href = "/ads.html";
                          });
 
                            },
                            error: function (response) {
                             console.log(response);
+                            alert("Ошибка !!!");
                             }
                          });
-
-
-
-
-
-
                   };
-
-
-
 			}
 		} );
 
-
-
-
  $( document ).ready(function() {
-
    console.log("Page loaded");
-
-
-
-
+if($.cookie('user_id')!=null){
  var email = $.cookie('email');
     var email1 = email.split('@');
     var ava = $.cookie('ava');
@@ -145,7 +119,7 @@ myData.append("user_id", $.cookie('user_id'));
                                                           '</li>' +
 
                                                       '<li>' +
-                                                      '<a href="#">Настройки</a>' +
+                                                      '<a href="/settings.html">Настройки</a>' +
                                                       '</li>' +
                                                      ' <li>' +
                                                      '<a href="/ads.html">Мои объявления</a> ' +
@@ -163,14 +137,13 @@ myData.append("user_id", $.cookie('user_id'));
 
 
 $( "#create-item-form" ).validate( {
-
 				rules: {
                     pr_name: "required",
                     deposit: "number",
                     pr_desc: {
                      required: true,
                      minlength: 30,
-                     maxlength:100
+                     maxlength: 5000
                     },
                     price: {
                      required: true,
@@ -226,7 +199,10 @@ $( "#create-item-form" ).validate( {
 					$( element ).parents( ".form-group" ).addClass( "has-success" ).removeClass( "has-error" );
 				}
 			} );
-
+}
+else {
+           window.location.href = "/";
+}
 });
 
 
@@ -258,8 +234,8 @@ function getAva(user_id)
                               var items = response.User.map(function (user) {
 
                                 ava = user.ava;
-                                console.log(ava);
-                                console.log(user.email);
+//                                console.log(ava);
+//                                console.log(user.email);
 
                            });
                            },

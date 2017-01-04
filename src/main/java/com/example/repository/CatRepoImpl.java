@@ -129,15 +129,35 @@ public class CatRepoImpl implements CatRepo {
         return products;
     }
 
+    @Override
+    public List<Product> getPopularProductsByID(String cat_id , String product_id) {
 
-   @Override
-    public List<Product> deleteProductByID(String product_id) {
-
-        String sql = "DELETE FROM product where product_id = '" + product_id +"'" ;
+        String sql = "SELECT * FROM product where cat_id = "+cat_id+" and product_id !="+product_id+" ORDER BY RANDOM() LIMIT 4 ";
 
         List<Product> products =  new ArrayList<Product>();
         products = jdbcOperations.query(sql, new BeanPropertyRowMapper<Product>(Product.class));
         return products;
+    }
+
+
+   @Override
+    public Map<String, String> deleteProductByID(String product_id) {
+
+       Map<String, String> result =  new HashMap<>();
+
+       String sql ="DELETE FROM ads where product_id = '" + product_id +"'; " +"DELETE FROM favorites where product_id = '" + product_id +"'; " +"DELETE FROM requests where product_id = '" + product_id +"'; " + "DELETE FROM product where product_id = '" + product_id +"'; " ;
+
+        List<Product> products =  new ArrayList<Product>();
+        int c = jdbcOperations.update(sql);
+
+       if(c == 0)
+           return null;
+       else
+       {
+           result.put("product_id", product_id);
+       }
+
+        return result;
     }
 
     @Override

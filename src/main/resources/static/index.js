@@ -21,9 +21,6 @@ $.validator.setDefaults( {
 
      			 var data = JSON.stringify(JSONObj);
 
-                   console.log(email + " " + pass + " " + user_type);
-
-
      				 $.ajax({
                           url: "register",
                          type: "POST",
@@ -33,16 +30,12 @@ $.validator.setDefaults( {
                          success: function(response) {
 
                           if(response.result == "fail"){
-                          console.log("registration fails");
                             alert('Такой email уже существует');
                               }
                          else{
                         var items = response.User.map(function (user) {
 
-                        console.log(user);
                         $.cookie('email', email);
-                        $.cookie('pass', pass);
-
                         $.cookie('user_id', user.user_id);
 
                         window.location.href = "/profile.html";
@@ -62,19 +55,12 @@ $.validator.setDefaults( {
 
 
  $( document ).ready(function() {
-   console.log("Page loaded");
-
-
-
 
  $('#signupForm').submit(function(event){
 
 
 			 var email = $('#email').val();
 			 var pass = $('#pass').val();
-
-              console.log("email="+email+"&pass="+pass);
-
 				$.ajax({
 					type: "POST",
 					url: "/login",
@@ -82,15 +68,12 @@ $.validator.setDefaults( {
 					dataType:"json",
 					success: function(msg){
                            if(msg.result == "fail"){
-                            console.log("login fails");
                             alert('Неправильный логин или пароль');
                            }
                          else{
 
                      	 var items = msg.User.map(function (user) {
-                            console.log(user);
                                  $.cookie('email', email);
-                                 $.cookie('pass', pass);
                                 $.cookie('user_id', user.user_id);
 
                                window.location.href = "/profile.html";
@@ -125,7 +108,7 @@ if($.cookie('user_id')!=null){
                                                           '</li>' +
 
                                                       '<li>' +
-                                                      '<a href="#">Настройки</a>' +
+                                                      '<a href="/settings.html">Настройки</a>' +
                                                       '</li>' +
                                                      ' <li>' +
                                                      '<a href="/ads.html">Мои объявления</a> ' +
@@ -146,7 +129,6 @@ if($.cookie('user_id')!=null){
 
 
 
-   var pr_cost =null;
    var counter =1;
 
    $.ajax({
@@ -160,8 +142,7 @@ if($.cookie('user_id')!=null){
               var items = response.Products.map(function (item) {
 
 
-//                 console.log(item.pr_cost +" item.pr_cost");
-//                 console.log(item );
+
 
             $('#'+counter+' .onhover .slide-up .price-wrap .price span').empty().append(item.price);
             $('#'+counter+' .onhover .title a').empty().append(item.pr_name);
@@ -182,7 +163,7 @@ if($.cookie('user_id')!=null){
                           //
                             var items = response.SubCats.map(function (sub) {
 
-                                console.log(sub);
+
                           $('#'+counter+' .category a').empty().append(sub.cat_name);
 
                          });
@@ -271,8 +252,6 @@ function register()
 
 function checkLogin(){
 
-
-   console.log($.cookie('user_id'));
    var user_id = $.cookie('user_id');
    if(user_id==null){
 
@@ -301,9 +280,56 @@ function checkLogin(){
                                           $("#newReq").modal('show');
                                         }
                                         else
-                                        {
-                                   window.location.href = "/putprod.html";
-}
+                                        if(user.user_type =='0'){
+
+                                            $.ajax({
+                                                url: "/getCustByID",
+                                                type: "GET",
+                                                data: 'user_id='+ user_id ,
+                                                dataType: 'json',
+                                                cache: false,
+                                                async: false,
+                                                success: function(response) {
+                                                var items = response.Customer.map(function (cust) {
+                                                if(cust.fio == null) {
+                                                        $("#newReq p").append("Пожалуйста добавьте Ваш номер телефона" );
+                                                        $("#newReq .form-group a").attr("href", "/profile.html");
+                                                        $('#newReq').modal({backdrop: 'static', keyboard: false})  ;
+                                                        $("#newReq").modal('show');
+                                                }
+                                                else{
+                                                   window.location.href = "/putprod.html";
+                                                }
+
+                                                });
+                                                },
+                                            });
+                                        }
+                                       else{
+                                        $.ajax({
+                                            url: "/getCompByID",
+                                            type: "GET",
+                                            data: 'user_id='+ user_id ,
+                                            dataType: 'json',
+                                            cache: false,
+                                            async: false,
+                                            success: function(response) {
+                                                var items = response.Company.map(function (comp) {
+                                                       if(comp.comp_name==null) {
+
+                                                       $("#newReq p").append("Пожалуйста добавьте Ваш номер телефона" );
+                                                        $("#newReq .form-group a").attr("href", "/profile.html");
+                                                        $('#newReq').modal({backdrop: 'static', keyboard: false})  ;
+                                                        $("#newReq").modal('show');
+                                                       }
+                                                        else{
+                                                             window.location.href = "/putprod.html";
+                                                        }
+                                                });
+                                            },
+                                        });
+                                       }
+
                                   });
                                   },
                                   error: function (response) {
@@ -333,8 +359,7 @@ function getAva(user_id)
                               var items = response.User.map(function (user) {
 
                                 ava = user.ava;
-                                console.log(ava);
-                                console.log(user.email);
+
 
                            });
                            },

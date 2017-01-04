@@ -52,6 +52,20 @@ public class Ajax {
         }
     }
 
+    public static Map<String, Object> deletingSuccess(Object object) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        if(object !=null) {
+            response.put("result", "success");
+            response.put("Product", object);
+            return response;
+        }
+        else {
+            response.put("result", "fail");
+            response.put("Product", object);
+            return response;
+        }
+    }
+
 
     public static Map<String, Object> getCustomer(Object object) {
         Map<String, Object> response = new HashMap<String, Object>();

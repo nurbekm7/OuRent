@@ -22,10 +22,6 @@ $.validator.setDefaults( {
      			 }
 
      			 var data = JSON.stringify(JSONObj);
-
-                   console.log(email + " " + pass + " " + user_type);
-
-
      				 $.ajax({
                           url: "register",
                          type: "POST",
@@ -41,12 +37,10 @@ $.validator.setDefaults( {
                          else{
                         var items = response.User.map(function (user) {
 
-                        console.log(user);
                         $.cookie('email', email);
-                        $.cookie('pass', pass);
                         $.cookie('user_id', user.user_id);
 
-                        window.location.href = "/profile.html";
+                        window.location.href = "/putprod.html";
 
 
                                                      });
@@ -67,8 +61,40 @@ $.validator.setDefaults( {
 $( document ).ready(function() {
 
 
-//
-//    $('#logi')
+ $('#signupForm').submit(function(event){
+
+
+			 var email = $('#email').val();
+			 var pass = $('#pass').val();
+				$.ajax({
+					type: "POST",
+					url: "/login",
+					data:"email="+email+"&pass="+pass,
+					dataType:"json",
+					success: function(msg){
+                           if(msg.result == "fail"){
+                            alert('Неправильный логин или пароль');
+                           }
+                         else{
+
+                     	 var items = msg.User.map(function (user) {
+                                 $.cookie('email', email);
+                                $.cookie('user_id', user.user_id);
+
+                               window.location.href = "/putprod.html";
+
+                            });
+                            }
+			},
+					error: function(){
+                            console.log("login fail");
+					}
+				});
+
+				event.preventDefault();
+
+});
+
 
  if($.cookie('user_id')==null){
 
@@ -245,7 +271,6 @@ $.ajax({
                          });
 
 
-     console.log("You press  " + cat_id);
 
 
 }
@@ -267,7 +292,7 @@ function getCatName(cats_id){
                                  var items = response.SubCats.map(function (cat) {
 
                                                                cat_name = cat.cat_name;
-                                                               console.log(cat_name);
+//                                                               console.log(cat_name);
                                                               // console.log(user.email);
 
                                                           });
@@ -305,7 +330,7 @@ function getUserName(user_id){
                                  var items = response.User.map(function (user) {
 
                                                                user_name = user.email;
-                                                               console.log(user_name);
+//                                                               console.log(user_name);
                                                               // console.log(user.email);
 
                                                           });
@@ -355,7 +380,7 @@ function getAva(user_id)
 function checkLogin(){
 
 
-   console.log($.cookie('user_id'));
+//   console.log($.cookie('user_id'));
    var user_id = $.cookie('user_id');
    if(user_id==null){
 

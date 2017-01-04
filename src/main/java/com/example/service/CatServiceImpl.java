@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nurbek on 8/16/16.
@@ -101,7 +102,17 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<Product> deleteProductByID(String product_id) {
+    public List<Product> getPopularProductsByID(String cat_id, String product_id) {
+        try {
+            return catRepo.getPopularProductsByID(cat_id, product_id);
+        } catch (Exception e) {
+            LOG.error("ERROR GET Products : " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @Override
+    public Map<String, String> deleteProductByID(String product_id) {
         try {
             return catRepo.deleteProductByID(product_id);
         } catch (Exception e) {

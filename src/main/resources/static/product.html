@@ -8,7 +8,8 @@
     <meta name="csrf-param" content="_csrf">
     <meta name="csrf-token" content="SDNsOVdWcS0HCgMLMC9GdwBqX3xvPCNPAmwBQCFhHAA.ZBkAAgQyVQ==">
     <title>
-        OuRent            </title>
+        OuRent
+    </title>
     <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
 
     <meta property="og:url" content="http://ourent.kz">
@@ -21,14 +22,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <link href="assets/25ac6778/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/baca21b8/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="assets/4debab2/css/fileinput.min.css" rel="stylesheet">
     <link href="assets/2a80383c/fotorama.css" rel="stylesheet">
-    <link href="assets/9423cfd8/cropper.css" rel="stylesheet">
-    <link href="assets/f165369d/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="assets/139d3376/style/dist/app.min.css" rel="stylesheet">
-
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <script src = "http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/jquery.validate.js"></script>
@@ -143,17 +138,12 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-
                 <br>
             </div>
 
             <div class="form-container" >
-               <p>
-
-               </p>
-
                 <div class="form-group">
-
+                     <p></p>
                     <a  class="btn btn-lg btn-block btn-primary" href="" name="goon" id="goon" >Продолжить</a>
 
                 </div>
@@ -177,18 +167,18 @@
                 </button>
                 <div id="navbar-mobile">
                     <div class="nav-panel">
-                        <ul><li><a href="../../../../index.html">Главная</a></li><li><a class="show-modal" data-target="#newRequest" data-toggle="modal">Вход</a></li><li><a class="show-modal"  data-target="#newRegistr" data-toggle="modal">Регистрация</a></li></ul>                        </div>
+                        <ul><li><a href="../../../../index.html">Главная</a></li><li><a class="show-modal" data-target="#newRequest" data-toggle="modal">Вход</a></li><li><a class="show-modal"  data-target="#newRegistr" data-toggle="modal">Регистрация</a></li></ul></div>
                 </div>
             </div>
             <div class="header-row brand">
-                <a class="logo" href="index.html"><img src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке  Поищите у соседей"></a>                </div>
+                <a href="index.html"><img class="logo" src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке  Поищите у соседей"></a> </div>
 
             <div class="header-row settings hidden-xs">
                 <div class="btn-group location">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="icon marker-gray"></i>Алматы                        </button>
                     <ul class="dropdown-menu">
-                        <li><a href="cherie-4842e988.html?city_id=5">Алматы</a></li>
+                        <li><a href="#">Алматы</a></li>
                     </ul>
                 </div>
             </div>
@@ -206,8 +196,11 @@
                 <div class="breadcrumb-wrap">
                     <ol class="breadcrumb">
                         <li><a href="index.html">На главную</a></li>
+                        <li class="cat">
+                            <a></a>
+                        </li>
                         <li class="test">
-                            <a href="../../../odezhda.html">Одежда</a>
+                            <a></a>
                         </li>
                     </ol>
                 </div>
@@ -223,18 +216,15 @@
               <div class="main_img">
                   <div class="fotorama__stage__frame fotorama__loaded fotorama__fade-rearfotorama__active">
                                 <div class="fotorama__html">
-                                    <div class="preview photo"  >
+                                    <div class="preview photo">
                                         <div class="wrapper">
-                                            <img class="photo" src="upload/products/gitara.jpg" alt="Взять в прокат ." title="Взять в прокат" >
+                                            <img class="photo" src="/upload/products/prod_default.png" alt="Взять в прокат ." title="Взять в прокат" >
                                         </div>
-                                    </div></div></div>
+                                    </div>
+                                </div>
+                  </div>
               </div>
-
-                            <div class="fotorama__arr fotorama__arr--prev" tabindex="0" role="button"></div><div class="fotorama__arr fotorama__arr--next" tabindex="0" role="button"></div>
-
                         </div>
-
-
                     </div>
                 </div>
 
@@ -246,18 +236,12 @@
                 </div>
 
 
-                <div class="panel panel-default about">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         Описание                    <!--<span class="close">×</span>-->
                     </div>
                     <div class="panel-body">
-                        <ol>
-                            <li>
-                                <b>  Пышное платье с фактурными драпировками, выполненное в розово-персиковом градиенте.Корсажный верх позволяет идеально посадить платье на фигуру;</b>
-
-                            </li>
-
-                        </ol>
+                        <textarea id="pr_desc"></textarea>
                     </div>
                 </div>
 
@@ -266,26 +250,26 @@
             <div class="col-right">
                 <div class="item-share">
                     <div class="share">
-                        <a href="#" onclick="putFav()" class="favorite show-modal">
-                            <i class="material-icons">favorite_border</i>В избранное          </a>
+                        <a onclick="putFav()" class="favorite show-modal">
+                            <i class="material-icons"></i>В избранное</a>
                     </div>
                 </div>
                 <div class="item-page-title">
-                    <h1 class="app-page-title">Cherie</h1>
+                    <h1 class="app-page-title"></h1>
                 </div>
 
                 <div class="item-price-block">
                     <div class="price-block">
                         <div class="price">
                             <div>
-                                <span class="sum">3700&nbsp;тнг.</span>
+                                <span class="sum"></span>
 
                             </div>
                             <a href="#prices" class="scroll-to">Все расценки</a>
                         </div>
                         <div class="deposit">
                             <div>
-                                <b>5000&nbsp;тнг.</b>&nbsp;&mdash; залог
+                                <b></b>&nbsp;&mdash; залог
                                 <span class="icon help" data-toggle="tooltip" title="Вернётся обратно, как закончится аренда. Это гарантия для владельца, что вещь останется в целости и сохранности."></span>
                             </div>
                         </div>
@@ -310,11 +294,11 @@
                         <table class="table app-table-light">
                             <tr>
                                 <td class="tt">Цена</td>
-                                <td class="tv">3700</td>
+                                <td class="tv"></td>
                             </tr>
                             <tr>
                                 <td class="tt">Залог</td>
-                                <td class="tvz">5000</td>
+                                <td class="tvz"></td>
                             </tr>
                             <!--<tr>
                                 <td class="tt">Минимальный срок аренды</td>
@@ -335,7 +319,7 @@
                                 <img src="upload/default_user.png" alt="">
                             </div>
                             <div class="media-body media-middle title">
-                                <a href="">DRESSLAB</a>
+                                <a href="#"></a>
                             </div>
                         </div>
                         <table class="table app-table-light no-border no-padding">
@@ -346,10 +330,10 @@
                                     <div class="row row-space-2" id="aboutme">
                                         <div class="col-sm-6">
                                             <div class="row-space-1" id="reg_date">
-                                                Участник с 18.09.2013
+
                                             </div>
-                                            <div class="row-space-1">
-                                                Подтверждено:
+                                            <!--<div class="row-space-1">-->
+                                                <!--Подтверждено:-->
                                                 <!--
                                                 <i class="fa fa-vk" style="
                                   padding: 2px; border: 1px solid #57AD68;
@@ -370,21 +354,21 @@
                                           text-align: center; font-size: 12px;
                                   " data-toggle="popover" title="Facebook" data-content="<span class='rm-nowrap'>Facebook <i class='fa fa-check'></i></span>"></i>
 -->
-                                                <i class="fa fa-envelope-o" style="
-                                  padding: 2px; border: 1px solid #57AD68;
-                                          border-radius: 999px;
-                                          color: #717171;
-                                          width: 21px; height: 21px;
-                                          text-align: center; font-size: 12px;
-                                  " data-toggle="popover" title="Email" data-content="<span class='rm-nowrap'>Email <i class='fa fa-check'></i></span>"></i>
+                                                <!--<i class="fa fa-envelope-o" style="-->
+                                  <!--padding: 2px; border: 1px solid #57AD68;-->
+                                          <!--border-radius: 999px;-->
+                                          <!--color: #717171;-->
+                                          <!--width: 21px; height: 21px;-->
+                                          <!--text-align: center; font-size: 12px;-->
+                                  <!--" data-toggle="popover" title="Email" data-content="<span class='rm-nowrap'>Email <i class='fa fa-check'></i></span>"></i>-->
 
-                                                <i class="fa fa-phone" style="
-                                  padding: 2px; border: 1px solid #57AD68;
-                                          border-radius: 999px;
-                                          color: #717171;
-                                          width: 21px; height: 21px;
-                                          text-align: center; font-size: 12px;
-                                  " data-toggle="popover" title="Телефон" data-content="<span class='rm-nowrap'> <i class='fa fa-check'></i></span>"></i>
+                                                <!--<i class="fa fa-phone" style="-->
+                                  <!--padding: 2px; border: 1px solid #57AD68;-->
+                                          <!--border-radius: 999px;-->
+                                          <!--color: #717171;-->
+                                          <!--width: 21px; height: 21px;-->
+                                          <!--text-align: center; font-size: 12px;-->
+                                  <!--" data-toggle="popover" title="Телефон" data-content="<span class='rm-nowrap'> <i class='fa fa-check'></i></span>"></i>-->
 <!--
                                                 <i class="fa fa-file-text-o" style="
                                   padding: 2px; border: 1px solid #57AD68;
@@ -394,7 +378,7 @@
                                           text-align: center; font-size: 12px;
                                   " data-toggle="popover" title="Паспорт" data-content="<span class='rm-nowrap'>Паспорт <i class='fa fa-check'></i></span>"></i>
                                   -->
-                                            </div>
+                                            <!--</div>-->
                                         </div>
                                         <div class="col-sm-6">
                                             <!--<div> Частота ответов:  </div>-->
@@ -402,8 +386,9 @@
                                             <div>
                                                 Объявлений на сайте:
                                                 <a href="#" class="rm-link">
-                                                    8
-                                                </a>                            </div>
+                                                   8
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -422,13 +407,13 @@
                 <div class="app-products-group clearfix">
                     <div id="w0" class="list-view list-view">
                         <!-- Начало одного похожего объявления -->
-                        <div class="item float" data-key="3404">
-                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                        <div class="item float" data-key="1" id="1">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/putprod.html" data-target="_blank">
                                 <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve" >
                                     <div class="preview">
                                         <div class="wrapper">
-                                            <img class="photo" src="upload/products/gitara.jpg" alt="Аренда и прокат – Алматы" >
-                                            <div class="background" style="background-image:url(upload/products/gitara.jpg)"></div>
+                                            <img class="photo" src="/upload/products/prod_default.png" alt="Аренда и прокат – Алматы" >
+                                            <div class="background" style="background-image:url(/upload/products/prod_default.png)"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -436,37 +421,37 @@
                                     <div class="slide-up">
                                         <div class="avatar">
 										<span>
-											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+											<img src="/upload/users/default_user.png" alt="">
 										</span>
                                         </div>
                                         <div class="title">
-                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                            <a href="/putprod.html" target="_blank">Ваш товар</a>
                                         </div>
                                         <div class="price-wrap">
                                             <div class="price">
                                                 <div>
-                                                    <span>2800</span>
-                                                    <p class="app-desc-default">1 сутки</p>
+                                                    <span>Ваша цена</span>
+                                                    <p class="app-desc-default">Цена</p>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="category">
-                                        <a href="../platya.html">Платья</a>
+                                        <a href="/putprod.html">Ваша категория</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Конец одного похожего объявления -->
                         <!-- Начало одного похожего объявления -->
-                        <div class="item float" data-key="3404">
-                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                        <div class="item float" data-key="2" id="2">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/putprod.html" data-target="_blank">
                                 <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve" >
                                     <div class="preview">
                                         <div class="wrapper">
-                                            <img class="photo" src="../../../../upload/cover/470-376/576bc78f98e2f__myajtTXZpo.jpg" alt="Аренда и прокат – Алматы" srcset="/upload/cover/940-752/576bc78f98e2f__myajtTXZpo.jpg 2x, /upload/cover/1410-1128/576bc78f98e2f__myajtTXZpo.jpg 3x">
-                                            <div class="background" style="background-image:url(../../../../upload/376-397/blur_10/576bc78f98e2f__myajtTXZpo.jpg)"></div>
+                                            <img class="photo" src="/upload/products/prod_default.png" alt="Аренда и прокат – Алматы" >
+                                            <div class="background" style="background-image:url(/upload/products/prod_default.png)"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -474,37 +459,37 @@
                                     <div class="slide-up">
                                         <div class="avatar">
 										<span>
-											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+											<img src="/upload/users/default_user.png" alt="">
 										</span>
                                         </div>
                                         <div class="title">
-                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                            <a href="/putprod.html" target="_blank">Ваш товар</a>
                                         </div>
                                         <div class="price-wrap">
                                             <div class="price">
                                                 <div>
-                                                    <span>2800</span>
-                                                    <p class="app-desc-default">1 сутки</p>
+                                                    <span>Ваша цена</span>
+                                                    <p class="app-desc-default">Цена</p>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="category">
-                                        <a href="../platya.html">Платья</a>
+                                        <a href="/putprod.html">Ваша категория</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Конец одного похожего объявления -->
                         <!-- Начало одного похожего объявления -->
-                        <div class="item float" data-key="3404">
-                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                        <div class="item float" data-key="3" id="3">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/putprod.html" data-target="_blank">
                                 <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve" >
                                     <div class="preview">
                                         <div class="wrapper">
-                                            <img class="photo" src="../../../../upload/cover/470-376/576bc78f98e2f__myajtTXZpo.jpg" alt="Платья Merlin напрокат | Аренда и прокат – Алматы" srcset="/upload/cover/940-752/576bc78f98e2f__myajtTXZpo.jpg 2x, /upload/cover/1410-1128/576bc78f98e2f__myajtTXZpo.jpg 3x">
-                                            <div class="background" style="background-image:url(../../../../upload/376-397/blur_10/576bc78f98e2f__myajtTXZpo.jpg)"></div>
+                                            <img class="photo" src="/upload/products/prod_default.png" alt="Аренда и прокат – Алматы" >
+                                            <div class="background" style="background-image:url(/upload/products/prod_default.png)"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -512,37 +497,37 @@
                                     <div class="slide-up">
                                         <div class="avatar">
 										<span>
-											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+											<img src="/upload/users/default_user.png" alt="">
 										</span>
                                         </div>
                                         <div class="title">
-                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                            <a href="/putprod.html" target="_blank">Ваш товар</a>
                                         </div>
                                         <div class="price-wrap">
                                             <div class="price">
                                                 <div>
-                                                    <span>2800</span>
-                                                    <p class="app-desc-default">1 сутки</p>
+                                                    <span>Ваша цена</span>
+                                                    <p class="app-desc-default">Цена</p>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="category">
-                                        <a href="../platya.html">Платья</a>
+                                        <a href="/putprod.html">Ваша категория</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Конец одного похожего объявления -->
                         <!-- Начало одного похожего объявления -->
-                        <div class="item float" data-key="3404">
-                            <div class="app-product-wrapper bicycles clickable-card" data-href="/moskva/odezhda/zhenskaya_odezhda/platya/merlin-3404" data-target="_blank">
+                        <div class="item float" data-key="4" id="4">
+                            <div class="app-product-wrapper bicycles clickable-card" data-href="/putprod.html" data-target="_blank">
                                 <div class="fotorama image" data-nav="none" data-click="false" data-transition="dissolve">
                                     <div class="preview">
                                         <div class="wrapper">
-                                            <img class="photo" src="../../../../upload/cover/470-376/576bc78f98e2f__myajtTXZpo.jpg" alt="Платья Merlin напрокат | Аренда и прокат – Алматы" srcset="/upload/cover/940-752/576bc78f98e2f__myajtTXZpo.jpg 2x, /upload/cover/1410-1128/576bc78f98e2f__myajtTXZpo.jpg 3x">
-                                            <div class="background" style="background-image:url(../../../../upload/376-397/blur_10/576bc78f98e2f__myajtTXZpo.jpg)"></div>
+                                            <img class="photo" src="/upload/products/prod_default.png" alt="Платья Merlin напрокат | Аренда и прокат – Алматы" >
+                                            <div class="background" style="background-image:url(/upload/products/prod_default.png)"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -550,31 +535,23 @@
                                     <div class="slide-up">
                                         <div class="avatar">
 										<span>
-											<img src="../../../../upload/50-50/1466613228_0ff39bbbf981ac0151d340c9aa40e63e.jpg" alt="">
+											<img src="/upload/users/default_user.png" alt="">
 										</span>
                                         </div>
                                         <div class="title">
-                                            <a href="merlin-3404.html" target="_blank">Merlin</a>
+                                            <a href="/putprod.html" target="_blank">Ваш товар</a>
                                         </div>
                                         <div class="price-wrap">
                                             <div class="price">
                                                 <div>
-                                                    <span>2800</span>
-                                                    <p class="app-desc-default">1 сутки</p>
-                                                </div>
-                                                <div>
-                                                    <span>&mdash;</span>
-                                                    <p class="app-desc-default">3 дня</p>
-                                                </div>
-                                                <div>
-                                                    <span>&mdash;</span>
-                                                    <p class="app-desc-default">1 неделя</p>
+                                                    <span>Ваша цена</span>
+                                                    <p class="app-desc-default">Цена</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="category">
-                                        <a href="../platya.html">Платья</a>
+                                        <a href="/putprod.html">Ваша категория</a>
                                     </div>
                                 </div>
                             </div>
@@ -660,17 +637,7 @@
     </div>
 </div>
 <script src="assets/25ac6778/js/bootstrap.js"></script>
-<script src="assets/baca21b8/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/baca21b8/locales/bootstrap-datepicker.ru.min.js"></script>
-<script src="assets/4debab2/js/fileinput.js"></script>
-<script src="assets/4debab2/js/locales/ru.js"></script>
 <script src="assets/2a80383c/fotorama.js"></script>
-<script src="assets/edb2f0fd/jquery.nicescroll.min.js"></script>
-<script src="assets/6a91991c/bootstrap-paginator.js"></script>
-<script src="assets/9423cfd8/cropper.js"></script>
-<script src="assets/7ea49504/caman.full.js"></script>
-<script src="assets/f165369d/bootstrap-slider.min.js"></script>
-<script src="assets/cbf05cf1/tap.min.js"></script>
 
 
 <!-- BEGIN JIVOSITE CODE {literal} --><!-- {/literal} END JIVOSITE CODE -->

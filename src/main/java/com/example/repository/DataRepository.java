@@ -18,12 +18,13 @@ public interface DataRepository<V extends DomainObject> {
 
     List<Users>  register(Users object);
 
-    Map<String, String> editProf (String url, String fio, String tel, String bday, String user_id);
+    Map<String, String> editProf (String url, String fio, String tel, String bday, String user_id, String user_type);
     List uploadAVA (String filepath,String user_id);
 
     Set<String> getAllUsers();
 
     List<Users> login(String email, String pass);
+    Map<String, String> chPass(String user_id,String pass);
 
     List<Users>  getUserByID(String id);
     List<Customer>  getCustByID(String id);

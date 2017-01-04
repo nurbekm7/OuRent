@@ -11,16 +11,10 @@
     <meta property="og:description" content="OuRent - интернет-площадка, объединяющая неравнодушных людей, желающих арендовать какую-то вещь и тех, кто готов предоставить эту вещь в аренду.">
     <meta name="keywords" content="аренда вещей, прокат вещей, OuRent, аурент, частные объявления, сдать в аренду, сдать в прокат, бронирование вещей, прокат на карте">
     <meta name="description" content="Интернет-площадка, объединяющая неравнодушных людей, желающих арендовать какую-то вещь и тех, кто готов предоставить эту вещь в аренду.">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1; user-scalable=0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <link href="assets/25ac6778/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/baca21b8/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="assets/4debab2/css/fileinput.min.css" rel="stylesheet">
     <link href="assets/2a80383c/fotorama.css" rel="stylesheet">
-    <link href="assets/a5aa10b8/css/select2.css" rel="stylesheet">
-    <link href="assets/9423cfd8/cropper.css" rel="stylesheet">
-    <link href="assets/f165369d/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="assets/139d3376/style/dist/app.min.css" rel="stylesheet">
 
 
@@ -52,7 +46,7 @@
                     <div class="nav-panel">
                         <ul><li><a href="/profile.html">Профиль</a></li><li><a href="/">Главная</a></li>
                             <li><a href="#">Доверие и подтверждение</a></li>
-                            <li><a href="#">Настройки</a></li>
+                            <li><a href="/settings.html">Настройки</a></li>
                             <li><a href="/ads.html">Мои объявления</a></li>
                             <li><a href="/favs.html">Избранное</a></li>
                             <li><a href="/reqs.html">Мои запросы</a></li>
@@ -61,7 +55,7 @@
                 </div>
             </div>
             <div class="header-row brand">
-                <a class="logo" href="/"><img src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке OuRent"></a>                </div>
+                <a href="/"><img  class="logo" src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке OuRent"></a>                </div>
             <div class="header-row settings hidden-xs">
                 <div class="btn-group location">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -78,13 +72,13 @@
                 <div class="profile">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="upload/users/default_user" alt="">Без имени  </button>
+                            <img src="/upload/users/default_user.png" alt="">Без имени  </button>
                         <ul class="dropdown-menu">
 
                             <li>
                                 <a href="/profile.html">Профиль</a>                                    </li>
                             <li>
-                                <a href="/trust.html">Доверие и подтверждение</a>                                    </li>
+                                <a href="#">Доверие и подтверждение</a>                                    </li>
                             <li>
                                 <a href="/settings.html">Настройки</a>                                   </li>
                             <li>
@@ -114,7 +108,7 @@
             <ul id="w0" class="nav nav-tabs app-nav-default">
                 <li >
                     <a href="/profile.html">Профиль</a> </li>
-                <li >  <a href="/trust.html">Доверие и подтверждение</a> </li>
+                <li >  <a href="#">Доверие и подтверждение</a> </li>
                 <li><a href="/settings.html">Настройки</a></li>
                 <li > <a href="/ads.html">Мои объявления</a></li>
                 <li>  <a href="/favs.html">Избранное</a> </li>
@@ -135,12 +129,12 @@
             <div class="app-nav-submenu">
                 <ul class="pull-left">
                     <li class="tablinks active" onclick="openTab(event, 'Active')" >
-                        <a href="#">В процессе
+                        <a >В процессе
                             <span class="badge" id="badgeAc">0</span>
                         </a>                </li>
 
                     <li class="tablinks" onclick="openTab(event, 'OnCheck')">
-                        <a href="#" >Завершенные
+                        <a >Завершенные
                             <span class="badge" id="badgeOn">0</span>
                         </a>
                     </li>
@@ -199,10 +193,6 @@
 
                                 <div class='app-cell-block'></div>
                             </div>
-
-
-
-
                         </div>
                     </div>            <div class="clearfix"></div>
                 </div>
@@ -351,20 +341,7 @@
 
 
 <script src="assets/25ac6778/js/bootstrap.js"></script>
-<script src="assets/baca21b8/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/baca21b8/locales/bootstrap-datepicker.ru.min.js"></script>
-<script src="assets/4debab2/js/fileinput.js"></script>
-<script src="assets/4debab2/js/locales/ru.js"></script>
 <script src="assets/2a80383c/fotorama.js"></script>
-<script src="assets/edb2f0fd/jquery.nicescroll.min.js"></script>
-<script src="assets/a5aa10b8/js/select2.js"></script>
-<script src="assets/a5aa10b8/js/i18n/ru.js"></script>
-<script src="assets/6a91991c/bootstrap-paginator.js"></script>
-<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-<script src="assets/9423cfd8/cropper.js"></script>
-<script src="assets/7ea49504/caman.full.js"></script>
-<script src="assets/f165369d/bootstrap-slider.min.js"></script>
-<script src="assets/cbf05cf1/tap.min.js"></script>
 
 </body>
 </html>

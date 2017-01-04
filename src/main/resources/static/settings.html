@@ -15,15 +15,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <link href="assets/25ac6778/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/baca21b8/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="assets/4debab2/css/fileinput.min.css" rel="stylesheet">
     <link href="assets/2a80383c/fotorama.css" rel="stylesheet">
-    <link href="assets/a5aa10b8/css/select2.css" rel="stylesheet">
-    <link href="assets/9423cfd8/cropper.css" rel="stylesheet">
-    <link href="assets/f165369d/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="assets/139d3376/style/dist/app.min.css" rel="stylesheet">
-
-
 
     <script src = "http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/jquery.validate.js"></script>
@@ -116,7 +109,7 @@
                 <div id="navbar-mobile">
                     <div class="nav-panel">
                         <ul><li><a href="/profile.html">Профиль</a></li><li><a href="/">Главная</a></li>
-                            <li><a href="/trust.html">Доверие и подтверждение</a></li>
+                            <li class="disabled"><a href="#">Доверие и подтверждение</a></li>
                             <li><a href="/settings.html">Настройки</a></li>
                             <li><a href="/ads.html">Мои объявления</a></li>
                             <li><a href="/favs.html">Избранное</a></li>
@@ -126,7 +119,7 @@
                 </div>
             </div>
             <div class="header-row brand">
-                <a class="logo" href="/"><img src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке OuRent"></a>                </div>
+                <a  href="/"><img class="logo" src="images/logo.png" alt="Арендовать, Взять сдать в прокат любые вещи." title="Прокат вещей на площадке OuRent"></a>                </div>
             <div class="header-row settings hidden-xs">
                 <div class="btn-group location">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,13 +136,13 @@
                 <div class="profile">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="upload/users/default_user" alt="">Без имени  </button>
+                            <img src="/upload/users/default_user.png" alt="">Без имени  </button>
                         <ul class="dropdown-menu">
 
                             <li>
                                 <a href="/profile.html">Профиль</a>                                    </li>
-                            <li>
-                                <a href="/trust.html">Доверие и подтверждение</a>                                    </li>
+                            <li class="disabled">
+                                <a href="#">Доверие и подтверждение</a>                                    </li>
                             <li>
                                 <a href="/settings.html">Настройки</a>                                   </li>
                             <li>
@@ -173,7 +166,7 @@
             <ul id="w0" class="nav nav-tabs app-nav-default">
                 <li >
                     <a href="/profile.html">Профиль</a> </li>
-                <li>  <a href="/trust.html">Доверие и подтверждение</a> </li>
+                <li class="disabled">  <a href="#">Доверие и подтверждение</a> </li>
                 <li class="active"><a href="/settings.html">Настройки</a></li>
                 <li> <a href="/ads.html">Мои объявления</a></li>
                 <li>  <a href="/favs.html">Избранное</a> </li>
@@ -182,13 +175,16 @@
             </ul>
             <div class="row app-cols no-padding no-margin">
                 <div class="left-block">
-                    <ul id="w1" class="nav nav-pills nav-stacked app-default"><li class="tablinks active"  onclick="openTab(event, 'Active')">
+                    <ul id="w1" class="nav nav-pills nav-stacked app-default">
+                        <li class="tablinks  disabled">
                         <a href="#">Оповещения</a></li>
                         <li class="disabled"><a href="#">Конфиденциальность</a></li>
-                        <li class="tablinks " onclick="openTab(event, 'OnCheck')">
-                            <a href="#">Пароль</a></li></ul>            </div>
+                        <li class="tablinks active" onclick="openTab(event, 'OnCheck')">
+                            <a href="#">Пароль</a></li>
+                    </ul>
+                </div>
 
-                <div class="tabcontent" id="Active">
+                <div class="tabcontent oncheck" id="OnCheck">
                 <div class="middle-block checkboxes-group">
 
                     <form id="internal-user-setting-form" action="#" method="post" enctype="multipart/form-data">
@@ -286,24 +282,28 @@
                     </div>
 
                      </div>
-                <div class="tabcontent oncheck" id="OnCheck">
+                <div class="tabcontent "  id="Active">
                     <div class="middle-block">
-                        <form id="internal-user-recovery-password-form" class="show-modal" action="#" method="post">
+                        <form id="recovery-password-form" class="show-modal" action="#" method="">
                             <input type="hidden" name="_csrf" value="dGJLOVVEb0c5ByJ6ZAoqKxoUAAgQDioPODgsfC83BRVAVxMUOHcBMw==">
                             <div class="form-group field-user-old_password">
-                                <label class="control-label" for="user-old_password">Старый пароль</label>
-                                <input type="password" id="user-old_password" class="form-control" name="User[old_password]" value="">
+                                <label class="control-label" for="old_password">Старый пароль</label>
+                                <input type="password" id="old_password" class="form-control" min="6" name="old_password" value="">
 
                                 <p class="help-block help-block-error"></p>
                             </div>
                             <div class="form-group field-user-password required">
-                                <label class="control-label" for="user-password">Новый пароль</label>
-                                <input type="password" id="user-password" class="form-control" name="User[password]" value="">
+                                <label class="control-label" for="password">Новый пароль</label>
+                                <input type="password" id="password" class="form-control" min="6" name="password" value="">
 
                                 <p class="help-block help-block-error"></p>
-                            </div>                    <div class="form-group">
-                            <button type="submit" class="app-btn-default min darkblue">Подтвердить</button>                    </div>
+                            </div>
+                            <div class="form-group">
+                            <button type="submit" class="app-btn-default min darkblue">Подтвердить</button>
+                             </div>
                         </form>
+                        <p id="error"></p>
+                        <p id="ok"></p>
                     </div>
 
                     </div>
@@ -394,20 +394,7 @@
 
 
 <script src="assets/25ac6778/js/bootstrap.js"></script>
-<script src="assets/baca21b8/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/baca21b8/locales/bootstrap-datepicker.ru.min.js"></script>
-<script src="assets/4debab2/js/fileinput.js"></script>
-<script src="assets/4debab2/js/locales/ru.js"></script>
 <script src="assets/2a80383c/fotorama.js"></script>
-<script src="assets/edb2f0fd/jquery.nicescroll.min.js"></script>
-<script src="assets/a5aa10b8/js/select2.js"></script>
-<script src="assets/a5aa10b8/js/i18n/ru.js"></script>
-<script src="assets/6a91991c/bootstrap-paginator.js"></script>
-<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-<script src="assets/9423cfd8/cropper.js"></script>
-<script src="assets/7ea49504/caman.full.js"></script>
-<script src="assets/f165369d/bootstrap-slider.min.js"></script>
-<script src="assets/cbf05cf1/tap.min.js"></script>
 
 </body>
 </html>
