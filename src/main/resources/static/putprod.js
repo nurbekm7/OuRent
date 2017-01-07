@@ -1,8 +1,7 @@
 $.validator.setDefaults( {
 			submitHandler: function () {
 
-          console.log("SUBMIT EDIT");
-              var data =null;
+          var data =null;
           var reader  = new  FileReader();
           var imag = document.getElementById('img');
           var img1 = "/upload/products/prod_default.png";
@@ -13,8 +12,6 @@ $.validator.setDefaults( {
                       reader.readAsDataURL(imag.files[0]);
          }
           else{
-
-       //  var data ="pr_name="+ $('#pr_name').val() +"&img=null"+"&pr_desc="+ $('#pr_desc').val()+"&price="+$('#price').val()+"&deposit="+$('#deposit').val()+"&pr_cost="+$('#pr_cost').val()+"&will_sell="+$('#will_sell').is(':checked')+"&will_exchan="+$('#will_exchan').is(':checked')+"&cat_id="+"157"+"&user_id="+$.cookie('user_id');
 
 var myData = new FormData();
 myData.append("pr_name", $('#pr_name').val());
@@ -101,6 +98,7 @@ myData.append("user_id", $.cookie('user_id'));
 
  $( document ).ready(function() {
    console.log("Page loaded");
+
 if($.cookie('user_id')!=null){
  var email = $.cookie('email');
     var email1 = email.split('@');

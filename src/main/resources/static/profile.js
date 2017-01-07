@@ -311,8 +311,56 @@ function getAva(user_id)
 
 
                          return  ava;
+}
+
+
+function checkLogin(){
+
+
+//   console.log($.cookie('user_id'));
+   var user_id = $.cookie('user_id');
+   if(user_id==null){
+
+       $("#newRequest").modal('show');
+
+    }
+    else{
+
+       $.ajax({
+                                  url: "/getUserByID",
+                                  type: "GET",
+                                  data: 'user_id='+ user_id ,
+                                   dataType: 'json',
+                                  cache: false,
+                                   async: false,
+                                  success: function(response) {
+
+                                     var items = response.User.map(function (user) {
+
+                                        if(user.phone_num == null)
+                                        {
+
+                                         $("#newReq p").empty().append("Пожалуйста добавьте Ваш номер телефона" );
+                                           $("#newReq .form-group a").attr("href", "/profile.html");
+                                           $('#newReq').modal({backdrop: 'static', keyboard: false})  ;
+                                          $("#newReq").modal('show');
+                                        }
+                                        else
+                                        {
+                                             window.location.href = "/putprod.html";
+                                    }
+                                  });
+                                  },
+                                  error: function (response) {
+                                   }
+                                });
+
+
+
+    }
 
 }
+
 
 
 

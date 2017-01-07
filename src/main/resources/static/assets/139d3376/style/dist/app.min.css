@@ -2104,7 +2104,7 @@ body.layout.internal .content-wrapper #content.product-item-page .price-list but
 body.layout.internal .content-wrapper #content.product-item-page .panel .panel-heading {
     font-family: DINRoundPro;
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 400;
     position: relative;
 }
 body.layout.internal .content-wrapper #content.product-item-page .panel .panel-heading .close {
@@ -5043,7 +5043,7 @@ body.layout .panel.panel-default .panel-body {
     padding: 0;
     position:inherit;
     width:100%;
-    font-size: 25px;
+    font-size: 50px;
     font-family: DINRoundPro;
 }
 body.layout .panel.panel-default:not(.change-reserved) .app-btn-default {
@@ -6754,6 +6754,7 @@ body.layout.main .app-categories-block ul li a.category-bicycles .image:after {
   width:100%;
   resize: none;
   text-align: left;
+  font-size: 20px;
 
 }
 

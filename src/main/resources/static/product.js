@@ -174,8 +174,9 @@ if($.cookie('user_id')!=null){
                                  var items = response.Products.map(function (prod) {
                                   cat_id = prod.cat_id;
                                   user_ids = prod.user_id;
+                                  if($.cookie('user_id') != null){
                                     $.ajax({
-                                                                         url: "favs/getFavsByUserID",
+                                                                    url: "favs/getFavsByUserID",
                                                                     type: "GET",
                                                                     data: 'user_id='+ $.cookie('user_id') ,
                                                                     dataType: 'json',
@@ -199,11 +200,9 @@ if($.cookie('user_id')!=null){
                                                                     });
 
 
-                                                                    },
-                                                                    error: function (response) {
-                                                                                                      }
+                                                                    }
                                        });
-
+                                    }
 
                                if(prod.user_id==$.cookie('user_id') )
                                {
@@ -799,8 +798,8 @@ function checkLogin(){
                                         }
                                         else
                                         {
-     window.location.href = "/putprod.html";
-}
+                                             window.location.href = "/putprod.html";
+                                    }
                                   });
                                   },
                                   error: function (response) {
@@ -816,6 +815,13 @@ function checkLogin(){
 
 function putFav(){
 
+   var user_id = $.cookie('user_id');
+     if(user_id==null){
+
+         $("#newRequest").modal('show');
+
+      }
+      else {
    $.ajax({
                                url: "favs/putFav",
                                type: "POST",
@@ -850,7 +856,7 @@ function putFav(){
                                 }
                              });
 
-
+        }
 }
 
 

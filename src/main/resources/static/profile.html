@@ -11,7 +11,6 @@
 <meta property="og:description" content="OuRent - интернет-площадка, объединяющая неравнодушных людей, желающих арендовать какую-то вещь и тех, кто готов предоставить эту вещь в аренду.">
 <meta name="keywords" content="аренда вещей, прокат вещей, OuRent, аурент, частные объявления, сдать в аренду, сдать в прокат, бронирование вещей, прокат на карте">
 <meta name="description" content="Интернет-площадка, объединяющая неравнодушных людей, желающих арендовать какую-то вещь и тех, кто готов предоставить эту вещь в аренду.">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1; user-scalable=0">
 <meta name="format-detection" content="telephone=no">
 <meta name="format-detection" content="address=no">
     <link href="assets/25ac6778/css/bootstrap.css" rel="stylesheet">
@@ -22,10 +21,31 @@
     <script src="js/jquery.validate.js"></script>
     <script src="js/jquery.cookie.js"></script>
     <script src="profile.js" > </script>
-
 </head>
 
 <body class="layout internal">
+
+
+
+<div class="modal fade" id="newReq" tabindex="-1" role="dialog" aria-hidden="true"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+
+            <div class="form-container" >
+                <div class="form-group">
+                    <p></p>
+                    <a  class="btn btn-lg btn-block btn-primary" href="" name="goon" id="goon" >Продолжить</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="modal fade" id="newRequest" tabindex="-1" role="dialog" aria-hidden="true" >
@@ -126,7 +146,7 @@
                     </div>
                                     </div>
                 <div class="header-row actions pull-right">
-                                            <a class="app-btn-default min darkblue darkblue show-modal" href="putprod.html">Сдать вещь</a>
+                                            <a class="app-btn-default min darkblue darkblue show-modal" onclick="checkLogin()">Сдать вещь</a>
                 </div>
                 <div class="header-row user-profile pull-right hidden-xs">
                         <div class="profile">

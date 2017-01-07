@@ -366,9 +366,7 @@ function getAva(user_id)
                            error: function (response) {
                             }
                          });
-
-
-                         return  ava;
+                    return  ava;
 
 }
 
