@@ -9,6 +9,7 @@ var phone_num = null;
 var phone_numUser = null;
 var cat_id = null;
 var p_id = null;
+var user_types = null;
 
 
  $.urlParam = function(name){
@@ -126,8 +127,9 @@ if($.cookie('user_id')!=null){
 
                                      if(user.user_type==1)
                                      {
-                                     $('#reqBut').hide();
+                                     $('#reqButton').hide();
                                      }
+                                     else
                                      phone_numUser = user.phone_num;
 
 
@@ -145,16 +147,16 @@ if($.cookie('user_id')!=null){
                                          cache: false,
                                           async: false,
                                          success: function(response) {
+                                         if(response.Reqs != null){
                                             response.Reqs.map(function(req){
-                                            if(req.product_id == $.urlParam('product_id')){
-                                            $('#reqBut').hide();
-                                          $('#reqButton').empty().append('<a class="app-btn-default darkblue request" href="#" id="reqBut">Запрос отправлен</a>');
-                                          $('#prices .table').append('<tr>  <td class="tt">Номер Владельца</td><td class="tvn">'+getPhone($.urlParam('product_id'))+'</td> </tr>');
-
-                                            }
+                                                if(req.product_id == $.urlParam('product_id')){
+                                                    $('#reqBut').hide();
+                                                  $('#reqButton').empty().append('<a class="app-btn-default darkblue request" href="#" id="reqBut">Запрос отправлен</a>');
+                                                  $('#prices .table').append('<tr>  <td class="tt">Номер Владельца</td><td class="tvn">'+getPhone($.urlParam('product_id'))+'</td> </tr>');
+                                                }
 
                                             });
-
+                                         }
 
                                          },
                                          error: function (response) {
@@ -184,21 +186,15 @@ if($.cookie('user_id')!=null){
                                                                     async: false,
                                                                     success: function(response) {
 
-
+                                                                        if(response != null){
                                                                     response.Favs.map(function(fav){
-
-//                                                                      console.log(fav.product_id +"     " + prod.product_id);
                                                                      if(fav.product_id == prod.product_id)
                                                                      {
                                                                        $(".share a").empty().append('<i class="material-icons"></i> Уже в избранных');
                                                                         $(".share a").attr("href", "/favs.html");
-
-
-
                                                                      }
-
                                                                     });
-
+                                                                    }
 
                                                                     }
                                        });
@@ -228,7 +224,8 @@ if($.cookie('user_id')!=null){
                                                                                                               cache: false,
                                                                                                               async:false,
                                                                                                               success: function(response) {
-                                                                                                           if(response != null){
+
+                                                                                                            if(response.Reqs != null){
                                                                                                                  var items = response.Reqs.map(function (reqs) {
                                                                                                                             var req_date= reqs.rq_date;
                                                                                                                             var r_date = req_date.split(".");
@@ -255,14 +252,9 @@ if($.cookie('user_id')!=null){
 
                                }
 
-//                             console.log(prod.img);
-//                             console.log("TEST good");
 
                              var pr_date= prod.pr_date;
                              var date = pr_date.split(" ");
-
-//                             console.log(date);
-//                             console.log($.urlParam('cat_id'));
 
                                $('.galerey .fotorama .fotorama__stage__frame  .fotorama__html .preview  .wrapper  img').attr("src",prod.img);
 
@@ -454,7 +446,6 @@ function getUserName(user_id){
                                         phone_num = user.phone_num;
                                         user_date = user.reg_date;
                                         user_regDate = user_date.split(" ");
-
                                         if(user.user_type =='0'){
 
                                          $.ajax({
@@ -499,7 +490,6 @@ function getUserName(user_id){
 
 function getAva(user_id)
 {
-
    var ava =null;
  $.ajax({
                            url: "/getUserByID",
@@ -513,8 +503,6 @@ function getAva(user_id)
                               var items = response.User.map(function (user) {
 
                                 ava = user.ava;
-//                                console.log(ava);
-//                                console.log(user.email);
 
                            });
                            },
@@ -550,32 +538,27 @@ var usr_id = null;
                              usr_id= pr.user_id;
 
                            });
-                           },
-                           error: function (response) {
-                            }
-                         });
+                           $.ajax({
+                                                      url: "/getUserByID",
+                                                      type: "GET",
+                                                      data: 'user_id='+ usr_id ,
+                                                       dataType: 'json',
+                                                      cache: false,
+                                                       async: false,
+                                                      success: function(response) {
 
-
-
- $.ajax({
-                           url: "/getUserByID",
-                           type: "GET",
-                           data: 'user_id='+ usr_id ,
-                            dataType: 'json',
-                           cache: false,
-                            async: false,
-                           success: function(response) {
-
-                              var items = response.User.map(function (user) {
-
-                                phone_num = user.phone_num;
-//                                console.log(phone_num);
-
+                                                         var items = response.User.map(function (user) {
+                                                           phone_num = user.phone_num;
+                                                      });
+                                                      },
+                                                      error: function (response) {
+                                                       }
                            });
                            },
                            error: function (response) {
                             }
                          });
+
                          return  phone_num;
 
 
@@ -586,11 +569,10 @@ var usr_id = null;
 function putReq(){
 
   var ver_number =false;
-
+console.log(user_types);
 if($.cookie('user_id')==null){
 
      $("#newRequest").modal('show');
-
 
 }
 else{
@@ -603,7 +585,6 @@ else{
                            cache: false,
                             async: false,
                            success: function(response) {
-
                               var items = response.Customer.map(function (cust) {
 
                                      if(phone_numUser == null)

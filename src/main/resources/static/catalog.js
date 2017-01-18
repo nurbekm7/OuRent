@@ -97,14 +97,13 @@ $( document ).ready(function() {
 
 
  if($.cookie('user_id')==null){
-
- console.log("user_id = null")
 $('#logi #btnLogi').show();
  }
  else{
  $('#logi #btnLogi').hide();
 
-
+//    var email = $.cookie('email');
+//    var email1 = email.split('@');
 //  $('#logi').append(' <div class="profile">  <div class="btn-group">' +
 //                                       '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' +
 //                                           '<img src="/upload/users/default_user.png" alt="">' +
@@ -130,7 +129,7 @@ $('#logi #btnLogi').show();
 //                                                       '<li>'+
 //                                                          ' <a href="/" onclick="logout()">Выйти</a>  </li>' +
 //                                                           '</ul></div></div>');
-
+//
 //
 // $('#logi ').append('<span class="rm-popover">'+
 //                                     '<button type="button" class="rm-header__btn_avatar rm-header__btn" data-toggle="popover" data-placement="bottom" data-content="'+
@@ -145,8 +144,8 @@ $('#logi #btnLogi').show();
 //                                        ' <span class="rm-avatar">' +
 //                                           ' <img alt="" class="rm-avatar__image rm-avatar__image_icon" src="upload/users'+ getAva($.cookie('user_id')) +'">'+
 //                                         '</span> </button></span>');
-
- console.log("user_id not null");
+//
+// console.log("user_id not null");
 }
 
 
@@ -160,7 +159,6 @@ $('#logi #btnLogi').show();
       }
   }
 cats_id =$.urlParam('cat_id');
-
     $.ajax({
                            url: "category/getCatByID",
                            type: "GET",
@@ -188,13 +186,16 @@ cats_id =$.urlParam('cat_id');
                             dataType: 'json',
                            cache: false,
                            success: function(response) {
-
                               var items = response.SubCats.map(function (sub) {
-
                           $(' .rm-list .rm-filters__row .filter-block .nav  .filter-block__list').append('<div class="filter-block__item-category" id="itm">' +
                           '<a onclick="getProducts('+ sub.cat_id+')" class="rm-link" title="'+ sub.cat_name + '">' +
                           sub.cat_name + '</a></div>');
                            });
+                           var c = Math.floor((Math.random() * response.SubCats.length) + 0);
+                           getProducts(response.SubCats[c].cat_id);
+                           console.log(response.SubCats[c].cat_id);
+//                           console.log(c);
+//                           console.log(response.SubCats.length);
                            },
                            error: function (response) {
                             }

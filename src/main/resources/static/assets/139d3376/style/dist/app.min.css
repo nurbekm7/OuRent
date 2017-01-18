@@ -3483,7 +3483,7 @@ body.layout .modal .modal-dialog .modal-content {
     height: 18px;
     margin-bottom: -3px;
 }
-body.layout .icon.marker-gray {
+/*body.layout .icon.marker-gray {
     width: 13px;
     background: url(../../images/main/icon-marker-gray.png) center center no-repeat;
 }
@@ -3498,7 +3498,7 @@ body.layout .icon.mail-gray {
 body.layout .icon.question-gray {
     width: 10px;
     background: url(../../images/main/icon-question-gray.png) center center no-repeat;
-}
+}*/
 body.layout .icon.help {
     width: 17px;
     height: 17px;
@@ -6768,4 +6768,5 @@ body.layout.main .app-categories-block ul li a.category-bicycles .image:after {
  a:hover {
   cursor:pointer;
  }
+
 
