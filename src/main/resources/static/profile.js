@@ -130,13 +130,13 @@ if($.cookie('user_id')!=null){
                url: "/getUserByID",
                type: "GET",
                data: 'user_id='+ user_id,
-                dataType: 'json',
+               dataType: 'json',
                cache: false,
                success: function(response) {
 
                   var items = response.User.map(function (user) {
 
-//                  console.log(user.email);
+                  console.log(user.email);
                   var user_date = user.reg_date;
                   var user_d = user_date.split(" ");
                   var ava = user.ava;
@@ -149,8 +149,8 @@ if($.cookie('user_id')!=null){
                     $(' .info-wrapper #phone_num').empty().append("Добавьте ваш номер телефона");
                     }
                     else{
+                     $(' #proFrom #phone').remove();
                      $(' .info-wrapper #phone_num').empty().append(user.phone_num);
-                     $(' #proFrom #phone').attr("value",user.phone_num);
                     }
                     $(' .thumbnail img').attr("src", ava);
 

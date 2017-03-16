@@ -80,9 +80,13 @@ $( document ).ready(function() {
                      	 var items = msg.User.map(function (user) {
                                  $.cookie('email', email);
                                 $.cookie('user_id', user.user_id);
-
-                               window.location.href = "/putprod.html";
-
+                                if(user.phone_num != null){
+                                    window.location.href = "/putprod.html";
+                                }
+                                else
+                                {
+                                    window.location.href = "/profile.html";
+                                }
                             });
                             }
 			},
@@ -193,7 +197,7 @@ cats_id =$.urlParam('cat_id');
                            });
                            var c = Math.floor((Math.random() * response.SubCats.length) + 0);
                            getProducts(response.SubCats[c].cat_id);
-                           console.log(response.SubCats[c].cat_id);
+                           console.log("Category: " + response.SubCats[c].cat_id);
 //                           console.log(c);
 //                           console.log(response.SubCats.length);
                            },
@@ -280,7 +284,7 @@ $.ajax({
 
 function getCatName(cats_id){
 
-  var cat_name = " ";
+  var cat_name = "";
     $.ajax({
                              url: "category/getCatByID",
                              type: "GET",
@@ -299,7 +303,7 @@ function getCatName(cats_id){
                                                           });
                              },
                              error: function (response) {
-                                                                                            console.log("ERROR CATNAME");
+                                  console.log("ERROR CATNAME");
                               }
                            });
 
@@ -357,9 +361,7 @@ function getAva(user_id)
                            success: function(response) {
 
                               var items = response.User.map(function (user) {
-
                                 ava = user.ava;
-
 
                            });
                            },
@@ -382,6 +384,7 @@ function checkLogin(){
 
 
 //   console.log($.cookie('user_id'));
+   var mobile = null;
    var user_id = $.cookie('user_id');
    if(user_id==null){
 
@@ -389,6 +392,28 @@ function checkLogin(){
 
     }
     else{
+
+            $.ajax({
+                           url: "/getUserByID",
+                           type: "GET",
+                           data: 'user_id='+ user_id ,
+                            dataType: 'json',
+                           cache: false,
+                            async: false,
+                           success: function(response) {
+                              var items = response.User.map(function (user) {
+                                mobile = user.phone_num;
+
+                           });
+                           },
+                           error: function (response) {
+                           console.log("Error getting user");
+                            }
+                         });
+
+              if(mobile==null){
+               window.location.href = "/profile.html";
+              }
      window.location.href = "/putprod.html";
     }
 
@@ -452,9 +477,4 @@ function register()
 
 }
 
-function Menuu(){
-
-
-
-}
 

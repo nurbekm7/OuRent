@@ -37,14 +37,6 @@ public class JpaConfig implements TransactionManagementConfigurer {
     private String dialect;
     @Value("${hibernate.hbm2ddl.auto}")
     private String hbm2ddlAuto;
-//
-//    private String driver = "org.postgresql.Driver";
-//    private String url= "jdbc:postgresql://localhost:5432/ourentDB";
-//    private String username="postgres";
-//    private String password="123";
-//    private String dialect= "org.hibernate.dialect.PostgreSQLDialect";
-//    private String hbm2ddlAuto="update";
-
 
 
 

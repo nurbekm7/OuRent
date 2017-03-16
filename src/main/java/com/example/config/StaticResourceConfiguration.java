@@ -13,6 +13,7 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
 //        registry.addResourceHandler("/upload/**").addResourceLocations("file:C:\\Users\\admin\\Desktop\\OuRent\\web\\upload");
+//        registry.addResourceHandler("/upload/**").addResourceLocations("file:/home/nurbek/Documents/Ourent/web/upload");
         registry.addResourceHandler("/upload/**").addResourceLocations("file:/opt/ourent/upload/");
     }
 }
