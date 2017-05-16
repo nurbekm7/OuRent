@@ -18,6 +18,7 @@ public interface CatRepo<V extends DomainObject> {
     List<Category>  getCatsByID(String id);
     List<Product>  getProductsByID(String id);
     List<Product>  getProductByID(String id);
+    List<Product>  searchProduct(String text);
     List<Product>  getPopularProducts();
     List<Product>  getPopularProductsByID(String cat_id, String product_id);
     Map<String, String> deleteProductByID(String id);

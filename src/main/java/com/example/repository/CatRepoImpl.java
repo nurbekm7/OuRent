@@ -124,7 +124,17 @@ public class CatRepoImpl implements CatRepo {
 
         String sql = "SELECT * FROM product where cat_id != 157 ORDER BY RANDOM() LIMIT 4 ";
 
-        List<Product> products =  new ArrayList<Product>();
+        List<Product> products;
+        products = jdbcOperations.query(sql, new BeanPropertyRowMapper<Product>(Product.class));
+        return products;
+    }
+
+    @Override
+    public List<Product> searchProduct(String text) {
+
+        String sql = "select * from product where LOWER(pr_name) LIKE LOWER('%" + text + "%')";
+
+        List<Product> products;
         products = jdbcOperations.query(sql, new BeanPropertyRowMapper<Product>(Product.class));
         return products;
     }

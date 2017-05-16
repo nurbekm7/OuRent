@@ -18,6 +18,7 @@ import sun.misc.Launcher;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -274,6 +275,23 @@ public class CategoryController extends ExceptionHandlerController {
             throw new RestException(e);
         }
     }
+
+    @RequestMapping(value = "/searchProduct", method = RequestMethod.GET)
+    public Map<String, List<Product>> searchProduct(@RequestParam("text") String text) throws RestException {
+        logger.info("searchProduct: " + text);
+
+        try {
+
+            List<Product> result =  catService.searchProduct(text);
+
+            return Ajax.ResponseProducts(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RestException(e);
+        }
+    }
+
+
 
 
 }

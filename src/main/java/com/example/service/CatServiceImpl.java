@@ -112,6 +112,16 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
+    public List<Product> searchProduct(String text) {
+        try {
+            return catRepo.searchProduct(text);
+        } catch (Exception e) {
+            LOG.error("ERROR GET Products : " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    @Override
     public Map<String, String> deleteProductByID(String product_id) {
         try {
             return catRepo.deleteProductByID(product_id);
