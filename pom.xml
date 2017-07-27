@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 
-	<name>demo</name>
+	<name>web</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -87,7 +87,7 @@
 	</dependencies>
 
     <build>
-    <finalName>demo</finalName>
+    <finalName>web</finalName>
     <plugins>
     <plugin>
     <groupId>org.springframework.boot</groupId>
