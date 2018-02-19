@@ -586,7 +586,26 @@ else{
                             async: false,
                            success: function(response) {
                               var items = response.Customer.map(function (cust) {
+
+                                     if(phone_numUser == null)
+                                        {
+                                        $("#newReq p").empty().append("Пожалуйста добавьте Ваш номер телефона" );
+                                          $("#newReq .form-group a").attr("href", "/profile.html");
+                                       $('#newReq').modal({backdrop: 'static', keyboard: false})  ;
+                                        $("#newReq").modal('show');
+                                        }
+                                        else{
+                                     if( cust.ver_number == false)
+                                     {
+                                       $("#newReq p").empty().append("Пожалуйста подтвердите Ваш номер телефона !" + '\n'+ "Если c Вами еще не связались, можете написать нам на  ourent.kz@gmail.com или позвонить по номеру ниже.")
+                                      $("#newReq .form-group a").attr("href", "/product.html?product_id="+$.urlParam('product_id')+ "&cat_id="+ $.urlParam('cat_id'));
+                                       $("#newReq").modal('show');
+                                     }
+                                     else{
                                       ver_number =true;
+                                     }
+                                       }
+
 
                            });
                            },

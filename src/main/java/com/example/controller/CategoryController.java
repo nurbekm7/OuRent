@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.entity.Category;
 import com.example.entity.Product;
 import com.example.service.CatService;
+import com.example.service.GoogleMail;
 import com.example.utils.Ajax;
 import com.example.utils.Res;
 import org.apache.commons.io.IOUtils;
@@ -17,6 +18,7 @@ import sun.misc.ClassLoaderUtil;
 import sun.misc.Launcher;
 
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
@@ -180,6 +182,14 @@ public class CategoryController extends ExceptionHandlerController {
                   e.printStackTrace();
               }
 
+            }
+
+            if(result != null) {
+                try {
+                    GoogleMail.Send("ourent.kz", "MN1302N96", "nurbekm7@gmail.com","New add product Request","New request to add product: " + pr_name + ".\n From: "+ user_id);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
             }
 
             return Ajax.ResponseProducts(result);
