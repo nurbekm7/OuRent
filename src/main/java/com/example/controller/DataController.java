@@ -3,6 +3,7 @@ package com.example.controller;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.example.service.DataService;
 import com.example.utils.Ajax;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
  * Created by nurbek on 8/13/16.
  */
 @RestController
+@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataController extends ExceptionHandlerController{
     private static final Logger LOG = Logger.getLogger(String.valueOf(DataController.class));
 

@@ -5,33 +5,23 @@ import com.example.entity.Product;
 import com.example.service.CatService;
 import com.example.service.GoogleMail;
 import com.example.utils.Ajax;
-import com.example.utils.Res;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.*;
-
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import sun.misc.BASE64Decoder;
-import sun.misc.ClassLoaderUtil;
-import sun.misc.Launcher;
 
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.logging.Logger;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Created by nurbek on 8/16/16.
