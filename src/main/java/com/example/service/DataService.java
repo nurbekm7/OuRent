@@ -15,7 +15,7 @@ public interface DataService {
     List register(String email, String pass, String user_type);
 
       Set<String> getAllUsers();
-    List<Users> login (String email, String pass);
+    List<Users> login (String email,String mobile, String pass);
     Map<String, String> chPass (String user_id, String pass);
     Map<String, String> editProf (String url, String fio, String tel, String bday, String user_id, String user_type);
     List uploadAVA (String filepath,String user_id);

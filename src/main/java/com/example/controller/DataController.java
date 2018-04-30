@@ -45,16 +45,12 @@ public class DataController extends ExceptionHandlerController{
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Map<String, Object> login(@RequestParam("email") String email, @RequestParam("pass") String pass) throws RestException {
+    public Map<String, Object> login(@RequestParam(name = "email", required = false) String email, @RequestParam(name = "mobile", required=false) String mobile, @RequestParam("pass") String pass) throws RestException {
 
-        logger.debug("LOGIN: email = " + email+ " pass = "+ pass);
+        logger.debug("LOGIN: email = " + email+ " mobile = "+ mobile+ " pass = "+ pass);
          try {
-            if (email == null || email.equals("")) {
-                return Ajax.errorResponse("EMAIL IS EMPTY");
-            }
 
-
-            Object object = dataService.login(email, pass);
+            Object object = dataService.login(email, mobile,pass);
             return Ajax.registerSuccess(object);
 
         } catch (Exception e) {
