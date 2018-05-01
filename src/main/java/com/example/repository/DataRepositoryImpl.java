@@ -83,13 +83,16 @@ public class DataRepositoryImpl implements DataRepository {
 
 
     @Override
-    public List<Users> login(String email, String pass) {
+    public List<Users> login(String email,String mobile, String pass) {
 
 
         try{
-
-            String sql ="SELECT * from users where email = '" + email+"' and pass = '"+ pass +"'";
-
+            String sql = "";
+            if(email == null || email.equals("")) {
+                sql = "SELECT * from users where phone_num = '" + mobile + "' and pass = '" + pass + "'";
+            } else {
+                sql = "SELECT * from users where email = '" + email + "' and pass = '" + pass + "'";
+            }
 
                 List<Users> userses = jdbcOperations.query(sql, new BeanPropertyRowMapper<Users>(Users.class));
 
