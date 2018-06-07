@@ -23,7 +23,7 @@ public interface DataRepository<V extends DomainObject> {
 
     Set<String> getAllUsers();
 
-    List<Users> login(String email, String mobile, String pass);
+    Users login(String email, String mobile, String pass);
     Map<String, String> chPass(String user_id,String pass);
 
     List<Users>  getUserByID(String id);

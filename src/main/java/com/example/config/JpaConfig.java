@@ -55,6 +55,7 @@ public class JpaConfig implements TransactionManagementConfigurer {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/category").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/user").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/ads").allowedOrigins("http://localhost:4200");
             }
         };
     }

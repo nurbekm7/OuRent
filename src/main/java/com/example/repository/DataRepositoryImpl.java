@@ -83,7 +83,7 @@ public class DataRepositoryImpl implements DataRepository {
 
 
     @Override
-    public List<Users> login(String email,String mobile, String pass) {
+    public Users login(String email,String mobile, String pass) {
 
 
         try{
@@ -100,7 +100,7 @@ public class DataRepositoryImpl implements DataRepository {
                   return null;
               }
             else
-                return  userses;
+                return  userses.get(0);
 
 
 
