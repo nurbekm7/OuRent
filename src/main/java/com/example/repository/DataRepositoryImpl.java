@@ -172,20 +172,20 @@ public class DataRepositoryImpl implements DataRepository {
         int tt =0;
         Map<String, String> userses =  new HashMap<>();
 
-      if (Objects.equals(user_type, "0"))
-          tt = jdbcOperations.update("update customer set fio = '"+ fio +"' , bdate= '"+ bday +"' where cust_id ="+ user_id );
-      else
-      if(Objects.equals(user_type, "1")){
-          tt = jdbcOperations.update("update company set comp_name = '" + fio + "' where comp_id =" + user_id);
-      }
+//      if (Objects.equals(user_type, "0"))
+//          tt = jdbcOperations.update("update customer set fio = '"+ fio +"' , bdate= '"+ bday +"' where cust_id ="+ user_id );
+//      else
+//      if(Objects.equals(user_type, "1")){
+//          tt = jdbcOperations.update("update company set comp_name = '" + fio + "' where comp_id =" + user_id);
+//      }
 
-        int t = jdbcOperations.update("update users set phone_num = '"+ tel + "' , ava= '"+ url +"' where user_id ="+ user_id );
+        int t = jdbcOperations.update("update users set phone_num = '"+ tel + "', ava= '" + "', user_name = '"+ fio +"' where user_id ="+ user_id );
 
-        if(tt==1 && t==1){
+        if(t==1){
 
-        userses.put("fio",fio);
-        userses.put("tel",tel);
-        userses.put("url",url);
+        userses.put("user_name",fio);
+        userses.put("phone_num",tel);
+//        userses.put("ava",url);
         userses.put("bday",bday);
         userses.put("user_id",user_id);
         }

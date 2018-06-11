@@ -14,6 +14,17 @@ public class Ads implements DomainObject {
     protected String product_id;
     protected String user_id;
 
+    public int getView_count() {
+        return view_count;
+    }
+
+    public void setView_count(int view_count) {
+        this.view_count = view_count;
+    }
+
+    protected int view_count = 0;
+
+
     public String getUser_id() {
         return user_id;
     }

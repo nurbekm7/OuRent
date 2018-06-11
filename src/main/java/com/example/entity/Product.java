@@ -64,7 +64,7 @@ public class Product implements DomainObject {
         this.pr_cost = pr_cost;
     }
 
-    public boolean isWill_sell() {
+    public boolean getWill_sell() {
         return will_sell;
     }
 
@@ -101,6 +101,26 @@ public class Product implements DomainObject {
     protected String price ="";
     protected String deposit ="";
     protected String pr_cost ="";
+
+    public int getView_count() {
+        return view_count;
+    }
+
+    public void setView_count(int view_count) {
+        this.view_count = view_count;
+    }
+
+    protected int view_count = 0;
+
+    public String getPr_state() {
+        return pr_state;
+    }
+
+    public void setPr_state(String pr_state) {
+        this.pr_state = pr_state;
+    }
+
+    protected String pr_state ="На сайте";
     protected boolean will_sell;
     protected boolean will_exchan;
 
@@ -125,6 +145,21 @@ public class Product implements DomainObject {
     }
 
     protected String cat_id ="";
+
+    public boolean isWill_sell() {
+        return will_sell;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    protected Category category = new Category();
+
 
 
 }

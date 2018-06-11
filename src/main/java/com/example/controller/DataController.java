@@ -79,23 +79,27 @@ public class DataController extends ExceptionHandlerController{
     }
 
     @RequestMapping(value = "/editProf", method = RequestMethod.POST)
-    public Map<String, Object> editProf(@RequestParam("ava") String ava, @RequestParam("fio") String fio, @RequestParam("tel") String tel, @RequestParam("bday") String bday,@RequestParam("user_id") String user_id,@RequestParam("user_type") String user_type) throws RestException {
+    public Map<String, Object> editProf(@RequestParam( name = "ava", required=false) String ava,
+                                        @RequestParam( name = "name", required=false) String user_name,
+                                        @RequestParam(name = "phone_num", required=false) String phone_num,
+                                        @RequestParam(name = "bday", required=false) String bday,
+                                        @RequestParam("user_id") String user_id,
+                                        @RequestParam( name = "user_type" , required=false) String user_type) throws RestException {
 
         logger.info("EditProf: user_id = " + user_id);
         try {
-            if (fio == null || fio.equals("")) {
+            if (user_name == null || user_name.equals("")) {
                 return Ajax.errorResponse("fio IS EMPTY");
             }
 
-            Map<String, String> result = null ;
+            Map result = null ;
 
             if(ava.length()<100 || Objects.equals(ava, "null"))
             {
-                result  = dataService.editProf(ava,fio, tel,bday,user_id,user_type);
+                result  = dataService.editProf(ava,user_name, phone_num,bday,user_id,user_type);
 
             }else
             {
-
                 String directory = "./upload/users/"+user_id+"/ava/";
 
                 String filename = user_id + ".png";
@@ -126,7 +130,7 @@ public class DataController extends ExceptionHandlerController{
 
                     String url =  "./upload/users/"+user_id+"/ava/"+ filename;
 
-                    result  = dataService.editProf(url,fio, tel,bday,user_id,user_type);
+                    result  = dataService.editProf(url,user_name, phone_num,bday,user_id,user_type);
                 } catch (ArrayIndexOutOfBoundsException e)
                 {
                     e.printStackTrace();

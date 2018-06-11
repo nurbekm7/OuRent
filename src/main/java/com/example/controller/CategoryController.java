@@ -105,38 +105,36 @@ public class CategoryController extends ExceptionHandlerController {
     }
 
     @RequestMapping(value = "/putProduct", method = RequestMethod.POST)
-    public Map<String, List<Product>> putProduct(@RequestParam("pr_name") String pr_name,
-                                                 @RequestParam("img") String img,
-                                                 @RequestParam("pr_desc") String pr_desc,
-                                                 @RequestParam("price") String price,
-                                                 @RequestParam("deposit") String deposit,
-                                                 @RequestParam("pr_cost") String pr_cost,
-                                                 @RequestParam("will_sell") boolean will_sell,
-                                                 @RequestParam("will_exchan") boolean will_exchan,
-                                                 @RequestParam("cat_id") String cat_id,
-                                                 @RequestParam("user_id") String user_id
+    public Map<String, Object> putProduct(@RequestBody Product pr ) throws RestException {
 
-                                                 ) throws RestException {
-
-        logger.info("putProduct: user_id  = " + user_id +" pr_name = " + pr_name);
+        logger.info("putProduct: user_id  = " + pr.getUser_id() +" pr_name = " + pr.getPr_name());
 
         try {
 
-            List result =null ;
-            if(Objects.equals(img, "null") || img.length()<100){
+            List result = null ;
+            if(Objects.equals(pr.getImg(), "null") || pr.getImg().length()<100){
 
-                img = "/upload/products/prod_default.png";
-                 result =  catService.putProduct(pr_name, img,pr_desc,price,deposit,pr_cost,will_sell,will_exchan,cat_id,user_id);
+                 pr.setImg("/upload/products/prod_default.png");
+                 result =  catService.putProduct(pr.getPr_name(), pr.getImg(),
+                                                 pr.getPr_desc(),
+                                                 pr.getPrice(),
+                                                 pr.getDeposit(),
+                                                 pr.getPr_cost(),
+                                                 pr.getWill_sell(),
+                                                 pr.getWill_exchan(),
+                                                 pr.getCat_id(),
+                                                 String.valueOf(pr.getUser_id())
+                 );
             }
             else
             {
 
-                String directory = "./upload/products/"+user_id+"/products/";
+                String directory = "./upload/products/"+pr.getUser_id()+"/products/";
 
 
                 String filename = UUID.randomUUID().toString() + ".png";
 
-            String[] tokenimg = img.split(",");
+            String[] tokenimg = pr.getImg().split(",");
 
               try {
 
@@ -161,11 +159,19 @@ public class CategoryController extends ExceptionHandlerController {
 
 
 
-            String url =  "/upload/products/"+user_id+"/products/" + filename;
+            String url =  "/upload/products/"+pr.getUser_id()+"/products/" + filename;
 
                   logger.info(url);
 
-           result =  catService.putProduct(pr_name, url,pr_desc,price,deposit,pr_cost,will_sell,will_exchan,cat_id,user_id);
+           result =  catService.putProduct(pr.getPr_name(), pr.getImg(),
+                   pr.getPr_desc(),
+                   pr.getPrice(),
+                   pr.getDeposit(),
+                   pr.getPr_cost(),
+                   pr.getWill_sell(),
+                   pr.getWill_exchan(),
+                   pr.getCat_id(),
+                   String.valueOf(pr.getUser_id()));
 
               } catch (ArrayIndexOutOfBoundsException e)
               {
@@ -176,7 +182,7 @@ public class CategoryController extends ExceptionHandlerController {
 
             if(result != null) {
                 try {
-                    GoogleMail.Send("ourent.kz", "MN1302N96", "nurbekm7@gmail.com","New add product Request","New request to add product: " + pr_name + ".\n From: "+ user_id);
+                    GoogleMail.Send("ourent.kz", "MN1302N96", "nurbekm7@gmail.com","New add product Request","New request to add product: " + pr.getPr_name() + ".\n From: "+ pr.getUser_id());
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }

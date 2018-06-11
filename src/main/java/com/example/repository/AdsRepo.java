@@ -2,6 +2,7 @@ package com.example.repository;
 
 import com.example.entity.Ads;
 import com.example.entity.DomainObject;
+import com.example.entity.Product;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
  */
 public interface AdsRepo <V extends DomainObject>{
 
-    List<Ads> getAds(V ads);
+    List<Product> getAds(V ads);
 }

@@ -37,7 +37,7 @@ public class Category implements DomainObject {
     }
 
     protected String cat_id ;
-    protected int p_id;
+    protected int p_id = 0;
     protected String cat_name ="";
 
 

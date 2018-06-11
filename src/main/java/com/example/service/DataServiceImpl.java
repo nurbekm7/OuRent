@@ -66,7 +66,7 @@ public class DataServiceImpl implements DataService {
 
 
  @Override
-    public Map<String, String> editProf(String url, String fio, String tel, String bday, String user_id ,String user_type) {
+    public Map editProf(String url, String fio, String tel, String bday, String user_id , String user_type) {
         try {
             return  dataRepository.editProf(url,fio, tel,bday,user_id,user_type);
 
