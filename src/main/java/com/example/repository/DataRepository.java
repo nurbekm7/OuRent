@@ -18,7 +18,7 @@ public interface DataRepository<V extends DomainObject> {
 
     List<Users>  register(Users object);
 
-    Map<String, String> editProf (String url, String fio, String tel, String bday, String user_id, String user_type);
+    Map<String, String> editProf (Users users);
     List uploadAVA (String filepath,String user_id);
 
     Set<String> getAllUsers();

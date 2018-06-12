@@ -1,10 +1,13 @@
 package com.example.repository;
 
+import com.example.entity.Category;
 import com.example.entity.Favorites;
+import com.example.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,9 +28,28 @@ public class FavRepoImpl implements  FavRepo<Favorites> {
 
         List<Favorites> favorites;
 
+        List<Product> productList = new ArrayList<Product>();
+
         favorites = jdbcOperations.query(sql, new BeanPropertyRowMapper<Favorites>(Favorites.class));
 
+
+        for(int i =0; i< favorites.size(); i++) {
+            String sql1 = "SELECT * FROM product where product_id = '" + favorites.get(i).getProduct_id() + "'";
+            productList.addAll(jdbcOperations.query(sql1, new BeanPropertyRowMapper<Product>(Product.class)));
+            favorites.get(i).setProduct(productList.get(0));
+        }
+
+        for(int i =0; i < productList.size(); i++) {
+            String sql2 = "SELECT * FROM category where cat_id = '" + productList.get(i).getCat_id() + "'";
+            List<Category> categories =  jdbcOperations.query(sql2, new BeanPropertyRowMapper<Category>(Category.class));
+            productList.get(i).setCategory(categories.get(0));
+            if(productList.get(i).getCat_id().equals("157")) {
+                productList.get(i).setPr_state("На проверке");
+            }
+        }
+
         return favorites;
+
     }
 
 

@@ -44,6 +44,16 @@ public class Favorites implements DomainObject {
     protected int fav_id;
     protected String product_id;
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+
+    protected Product product = new Product();
 
 
     protected String user_id;

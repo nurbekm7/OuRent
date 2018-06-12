@@ -66,9 +66,9 @@ public class DataServiceImpl implements DataService {
 
 
  @Override
-    public Map editProf(String url, String fio, String tel, String bday, String user_id , String user_type) {
+    public Map editProf(Users users) {
         try {
-            return  dataRepository.editProf(url,fio, tel,bday,user_id,user_type);
+            return  dataRepository.editProf(users);
 
         } catch (Exception e) {
             LOG.error("ERROR LOGIN Customer: " + e.getMessage(), e);

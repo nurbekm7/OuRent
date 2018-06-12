@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.entity.Users;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +40,7 @@ public class DataController extends ExceptionHandlerController{
 
 
             List object = dataService.register(email, pass,user_type);
-               return Ajax.registerSuccess(object);
+            return Ajax.registerSuccess(object);
 
         } catch (Exception e) {
             throw new RestException(e);
@@ -50,7 +51,7 @@ public class DataController extends ExceptionHandlerController{
     public Map<String, Object> login(@RequestParam(name = "email", required = false) String email, @RequestParam(name = "mobile", required=false) String mobile, @RequestParam("pass") String pass) throws RestException {
 
         logger.debug("LOGIN: email = " + email+ " mobile = "+ mobile+ " pass = "+ pass);
-         try {
+        try {
 
             Object object = dataService.login(email, mobile,pass);
             return Ajax.registerSuccess(object);
@@ -64,7 +65,7 @@ public class DataController extends ExceptionHandlerController{
     public Map<String, Object> chPass(@RequestParam("user_id") String user_id,@RequestParam("pass") String pass) throws RestException {
 
         logger.debug("Change Pass: pass = "+ pass + " user_id= " + user_id);
-         try {
+        try {
             if (pass == null || pass.equals("")) {
                 return Ajax.errorResponse("pass IS EMPTY");
             }
@@ -79,64 +80,17 @@ public class DataController extends ExceptionHandlerController{
     }
 
     @RequestMapping(value = "/editProf", method = RequestMethod.POST)
-    public Map<String, Object> editProf(@RequestParam( name = "ava", required=false) String ava,
-                                        @RequestParam( name = "name", required=false) String user_name,
-                                        @RequestParam(name = "phone_num", required=false) String phone_num,
-                                        @RequestParam(name = "bday", required=false) String bday,
-                                        @RequestParam("user_id") String user_id,
-                                        @RequestParam( name = "user_type" , required=false) String user_type) throws RestException {
+    public Map<String, Object> editProf(@RequestBody Users users ) throws RestException {
 
-        logger.info("EditProf: user_id = " + user_id);
+        logger.info("EditProf: user_id = " + users.getUser_id());
         try {
-            if (user_name == null || user_name.equals("")) {
-                return Ajax.errorResponse("fio IS EMPTY");
+            if (users.getUser_id() == 0 ) {
+                return Ajax.errorResponse("UserId IS EMPTY");
             }
 
             Map result = null ;
 
-            if(ava.length()<100 || Objects.equals(ava, "null"))
-            {
-                result  = dataService.editProf(ava,user_name, phone_num,bday,user_id,user_type);
-
-            }else
-            {
-                String directory = "./upload/users/"+user_id+"/ava/";
-
-                String filename = user_id + ".png";
-
-                String[] tokenimg = ava.split(",");
-
-                try {
-
-                    String imgStr = tokenimg[1];
-
-                    BASE64Decoder decoder = new BASE64Decoder();
-                    byte[] data = decoder.decodeBuffer(imgStr);
-
-
-
-                    File ff = new File(directory);
-
-                    ff.mkdirs();
-
-
-
-                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(data));
-
-
-                    ImageIO.write(image, "png", new File(directory,filename));
-
-
-
-                    String url =  "./upload/users/"+user_id+"/ava/"+ filename;
-
-                    result  = dataService.editProf(url,user_name, phone_num,bday,user_id,user_type);
-                } catch (ArrayIndexOutOfBoundsException e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
+            result  = dataService.editProf(users);
 
             return Ajax.editSuccess(result);
 

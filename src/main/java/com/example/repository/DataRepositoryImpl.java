@@ -167,7 +167,7 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Map<String, String> editProf(String url, String fio, String tel,String bday,String user_id, String user_type) {
+    public Map<String, String> editProf(Users users ) {
 
         int tt =0;
         Map<String, String> userses =  new HashMap<>();
@@ -179,22 +179,20 @@ public class DataRepositoryImpl implements DataRepository {
 //          tt = jdbcOperations.update("update company set comp_name = '" + fio + "' where comp_id =" + user_id);
 //      }
 
-        int t = jdbcOperations.update("update users set phone_num = '"+ tel + "', ava= '" + "', user_name = '"+ fio +"' where user_id ="+ user_id );
+        int t = jdbcOperations.update("update users set  user_name = '"+ users.getUser_name() + "'  where user_id ="+ users.getUser_id() );
 
         if(t==1){
-
-        userses.put("user_name",fio);
-        userses.put("phone_num",tel);
+        userses.put("user_name", users.getUser_name());
+//        userses.put("email",users.getPhone_num());
 //        userses.put("ava",url);
-        userses.put("bday",bday);
-        userses.put("user_id",user_id);
+//        userses.put("bday", );
+//        userses.put("user_id", users.getUser_id() );
         }
+
         if(userses.isEmpty())
             return null;
         else
         return userses;
-
-
 
     }
 

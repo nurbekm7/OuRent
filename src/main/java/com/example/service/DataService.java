@@ -17,7 +17,7 @@ public interface DataService {
       Set<String> getAllUsers();
     Users login (String email,String mobile, String pass);
     Map<String, String> chPass (String user_id, String pass);
-    Map editProf (String url, String fio, String tel, String bday, String user_id, String user_type);
+    Map editProf (Users users);
     List uploadAVA (String filepath,String user_id);
     List<Users> getUserByID(String id);
     List<Customer> getCustByID(String id);
