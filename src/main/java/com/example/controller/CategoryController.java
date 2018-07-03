@@ -4,12 +4,16 @@ import com.example.entity.Category;
 import com.example.entity.Product;
 import com.example.service.CatService;
 import com.example.service.GoogleMail;
+import com.example.storage.StorageService;
 import com.example.utils.Ajax;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
@@ -38,8 +42,7 @@ public class CategoryController extends ExceptionHandlerController {
 
 
     @Autowired
-    ServletContext servletContext;
-
+    StorageService storageService;
 
     @RequestMapping(value = "/getSubCatsByID", method = RequestMethod.GET)
     public Map<String, List<Category>> getSubCatsByID(@RequestParam("cat_id") String cat_id) throws RestException {
@@ -101,6 +104,20 @@ public class CategoryController extends ExceptionHandlerController {
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
             throw new RestException(e);
+        }
+    }
+
+    @PostMapping("/post")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile[] files) {
+        String message = "";
+        try {
+                storageService.store(files);
+                message = "You successfully uploaded " + files.length + " imgs!";
+
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            message = "FAIL to upload " + files.length + " img!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
         }
     }
 
