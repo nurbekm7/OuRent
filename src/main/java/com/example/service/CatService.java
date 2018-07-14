@@ -16,9 +16,7 @@ public interface CatService {
     List<Category> getSubCatsByID(String id);
     List<Category> getCatsByID(String id);
     List<Product> getProductsByID(String id);
-    List putProduct(String pr_name, String img, String pr_desc, String price, String  deposit,
-                    String pr_cost, boolean will_sell, boolean will_exchan,
-                    String cat_id, String user_id);
+    List putProduct(Product pr);
 
     List<Product> getProductByID(String id);
     List<Product> getPopularProducts();

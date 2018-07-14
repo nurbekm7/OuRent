@@ -5,8 +5,11 @@ import com.example.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 import java.util.*;
 
 /**
@@ -15,21 +18,29 @@ import java.util.*;
 
 
 @org.springframework.stereotype.Repository("catsRespitory")
-public class CatRepoImpl implements CatRepo {
+public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
 
 
 
     @Autowired
     protected JdbcOperations jdbcOperations;
 
+
+    @Autowired
+    DataSource dataSource;
+
+    @PostConstruct
+    private void initialize(){
+        setDataSource(dataSource);
+    }
+
     @Override
     public List<Category> getAllCats() {
 
-         String sql = "SELECT cat_id, cat_name, p_id FROM category where cat_id>=1 and cat_id <=10";
+        String sql = "SELECT cat_id, cat_name, p_id FROM category where cat_id>=1 and cat_id <=10";
 
 
         List<Category> categories = new ArrayList<Category>();
-
 
         SqlRowSet rowSet = jdbcOperations.queryForRowSet(sql);
 
@@ -150,22 +161,22 @@ public class CatRepoImpl implements CatRepo {
     }
 
 
-   @Override
+    @Override
     public Map<String, String> deleteProductByID(String product_id) {
 
-       Map<String, String> result =  new HashMap<>();
+        Map<String, String> result =  new HashMap<>();
 
-       String sql ="DELETE FROM ads where product_id = '" + product_id +"'; " +"DELETE FROM favorites where product_id = '" + product_id +"'; " +"DELETE FROM requests where product_id = '" + product_id +"'; " + "DELETE FROM product where product_id = '" + product_id +"'; " ;
+        String sql ="DELETE FROM ads where product_id = '" + product_id +"'; " +"DELETE FROM favorites where product_id = '" + product_id +"'; " +"DELETE FROM requests where product_id = '" + product_id +"'; " + "DELETE FROM product where product_id = '" + product_id +"'; " ;
 
         List<Product> products =  new ArrayList<Product>();
         int c = jdbcOperations.update(sql);
 
-       if(c == 0)
-           return null;
-       else
-       {
-           result.put("product_id", product_id);
-       }
+        if(c == 0)
+            return null;
+        else
+        {
+            result.put("product_id", product_id);
+        }
 
         return result;
     }
@@ -186,11 +197,12 @@ public class CatRepoImpl implements CatRepo {
     }
 
     @Override
-    public List<Product> putProduct(String pr_name, String img, String pr_desc,String price,String  deposit, String pr_cost,boolean will_sell,boolean will_exchan, String cat_id, String user_id) {
+    public List<Product> putProduct(Product pr) {
 
-        String sql = "SELECT COUNT(*) FROM product where pr_name = '" + pr_name +"' and user_id= '" + user_id +"'";
+        String sql = "SELECT COUNT(*) FROM product where pr_name = '" + pr.getPr_name() +"' and user_id= '" + pr.getUser_id() +"'";
 
         Integer name = jdbcOperations.queryForObject(sql, Integer.class);
+
 
         try {
 
@@ -198,23 +210,28 @@ public class CatRepoImpl implements CatRepo {
 
                 jdbcOperations.update("INSERT INTO Product(" +
                         " pr_name, img, pr_desc,price, deposit,pr_cost, will_sell, will_exchan, cat_id, user_id)" +
-                        "    VALUES ('" + pr_name + "','" + img + "','"
-                        + pr_desc + "','" + price + "','" + deposit + "','" + pr_cost + "','" + will_sell + "','" + will_exchan + "','" + cat_id + "','" + user_id + "');");
+                        "    VALUES ('" + pr.getPr_name() + "','" + pr.getImg() + "','"
+                        + pr.getPr_desc() + "','" + pr.getPrice() + "','" + pr.getDeposit() + "','" + pr.getPr_cost() +
+                        "','" + pr.getWill_sell() + "','" + pr.getWill_exchan() + "','" + pr.getCat_id() + "','" + pr.getUser_id() + "');");
 
 
-                String sql1 = "SELECT product_id FROM product where pr_name = '" + pr_name + "' and user_id= '" + user_id + "'";
+                String sql1 = "SELECT product_id FROM product where pr_name = '" + pr.getPr_name()  + "' and user_id= '" +
+                        pr.getUser_id() + "'";
 
 
-                String product_id = jdbcOperations.queryForObject(sql1, String.class);
+//                String product_id = jdbcOperations.queryForObject(sql1, String.class);
+                int product_id = getJdbcTemplate().update(sql1, pr);
+
 
 
 
 
                 jdbcOperations.update("INSERT INTO Ads(" +
                         " product_id, user_id)" +
-                        " VALUES ('" + product_id + "','" + user_id + "')");
+                        " VALUES ('" + product_id + "','" + pr.getUser_id() + "')");
 
-                List<Product> products = jdbcOperations.query("SELECT * from product where pr_name = '" + pr_name + "' and user_id= '" + user_id + "'",
+                List<Product> products = jdbcOperations.query("SELECT * from product where pr_name = '" +  pr.getPr_name()  +
+                                "' and user_id= '" + pr.getUser_id() + "'",
                         new BeanPropertyRowMapper<Product>(Product.class));
 
 

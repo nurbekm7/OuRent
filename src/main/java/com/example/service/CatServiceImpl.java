@@ -71,9 +71,9 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<Product> putProduct(String pr_name, String img, String pr_desc,String price, String  deposit, String pr_cost,boolean will_sell,boolean will_exchan, String cat_id, String user_id) {
+    public List<Product> putProduct(Product pr) {
         try {
-            return catRepo.putProduct(pr_name, img,pr_desc,price,deposit,pr_cost,will_sell,will_exchan, cat_id, user_id);
+            return catRepo.putProduct(pr);
         } catch (Exception e) {
             LOG.error("ERROR GET Products : " + e.getMessage(), e);
             return null;

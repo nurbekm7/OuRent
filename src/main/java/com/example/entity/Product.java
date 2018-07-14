@@ -1,5 +1,9 @@
 package com.example.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by nurbek on 8/17/16.
  */
@@ -22,14 +26,6 @@ public class Product implements DomainObject {
 
     public void setPr_name(String pr_name) {
         this.pr_name = pr_name;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public String getPr_desc() {
@@ -93,14 +89,13 @@ public class Product implements DomainObject {
         return will_exchan;
     }
 
-    protected String pr_date ="";
-    protected String product_id ;
-    protected String pr_name;
-    protected String img ="";
-    protected String pr_desc ="";
-    protected String price ="";
-    protected String deposit ="";
-    protected String pr_cost ="";
+    public List<String> getImg() {
+        return img;
+    }
+
+    public void setImg(List<String> img) {
+        this.img = img;
+    }
 
     public int getView_count() {
         return view_count;
@@ -110,8 +105,6 @@ public class Product implements DomainObject {
         this.view_count = view_count;
     }
 
-    protected int view_count = 0;
-
     public String getPr_state() {
         return pr_state;
     }
@@ -119,11 +112,6 @@ public class Product implements DomainObject {
     public void setPr_state(String pr_state) {
         this.pr_state = pr_state;
     }
-
-    protected String pr_state ="На сайте";
-    protected boolean will_sell;
-    protected boolean will_exchan;
-
 
     public int getUser_id() {
         return user_id;
@@ -133,9 +121,6 @@ public class Product implements DomainObject {
         this.user_id = user_id;
     }
 
-
-    protected int user_id ;
-
     public String getCat_id() {
         return cat_id;
     }
@@ -144,7 +129,6 @@ public class Product implements DomainObject {
         this.cat_id = cat_id;
     }
 
-    protected String cat_id ="";
 
     public boolean isWill_sell() {
         return will_sell;
@@ -158,8 +142,22 @@ public class Product implements DomainObject {
         this.category = category;
     }
 
-    protected Category category = new Category();
 
+    protected int user_id ;
+    private String product_id ;
+    private String pr_name;
+    private List<String> img = Arrays.asList("/upload/prod_default.png");
+    private String pr_desc ="";
+    private String price ="";
+    private String deposit ="";
+    private String pr_cost ="";
+    private String pr_date ="";
+    private int view_count = 0;
+    private String pr_state ="0";
+    private boolean will_sell = false;
+    private boolean will_exchan = false;
+    private String cat_id = "";
+    private Category category = new Category();
 
 
 }

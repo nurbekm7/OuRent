@@ -14,18 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Decoder;
 
-import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
-import javax.servlet.ServletContext;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by nurbek on 8/16/16.
@@ -55,7 +46,7 @@ public class CategoryController extends ExceptionHandlerController {
 
             return Ajax.successResponseSubCats(result);
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
             throw new RestException(e);
         }
     }
@@ -111,8 +102,10 @@ public class CategoryController extends ExceptionHandlerController {
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile[] files) {
         String message = "";
         try {
-                storageService.store(files);
-                message = "You successfully uploaded " + files.length + " imgs!";
+            for(MultipartFile file : files) {
+                storageService.store(file, file.getOriginalFilename());
+            }
+            message = "You successfully uploaded " + files.length + " imgs!";
 
             return ResponseEntity.status(HttpStatus.OK).body(message);
         } catch (Exception e) {
@@ -122,84 +115,61 @@ public class CategoryController extends ExceptionHandlerController {
     }
 
     @RequestMapping(value = "/putProduct", method = RequestMethod.POST)
-    public Map<String, Object> putProduct(@RequestBody Product pr ) throws RestException {
+    public Map putProduct(
+            @RequestParam("user_id") String user_id,
+            @RequestParam("pr_name") String pr_name,
+            @RequestParam("pr_desc") String pr_desc,
+            @RequestParam("price") String price,
+            @RequestParam("deposit") String deposit,
+            @RequestParam("pr_cost") String pr_cost,
+            @RequestParam("will_sell") String will_sell,
+            @RequestParam("will_exchan") String will_exchan,
+            @RequestParam("file") MultipartFile[] files) throws RestException {
 
-        logger.info("putProduct: user_id  = " + pr.getUser_id() +" pr_name = " + pr.getPr_name());
+        logger.info("putProduct: user_id  = " + user_id +" pr_name = " + pr_name);
+
+        Product pr = new Product();
+        pr.setUser_id(Integer.valueOf(user_id));
+        pr.setPr_name(pr_name);
+        pr.setPr_desc(pr_desc);
+        pr.setPrice(price);
+        pr.setDeposit(deposit);
+        pr.setPr_cost(pr_cost);
+        pr.setWill_sell(Boolean.valueOf(will_sell));
+        pr.setWill_exchan(Boolean.valueOf(will_exchan));
 
         try {
 
             List result = null ;
-            if(Objects.equals(pr.getImg(), "null") || pr.getImg().length()<100){
-
-                 pr.setImg("/upload/products/prod_default.png");
-                 result =  catService.putProduct(pr.getPr_name(), pr.getImg(),
-                                                 pr.getPr_desc(),
-                                                 pr.getPrice(),
-                                                 pr.getDeposit(),
-                                                 pr.getPr_cost(),
-                                                 pr.getWill_sell(),
-                                                 pr.getWill_exchan(),
-                                                 pr.getCat_id(),
-                                                 String.valueOf(pr.getUser_id())
-                 );
+            if(files.length == 0){
+                result =  catService.putProduct(pr);
             }
             else
             {
+                String message = "";
+                List<String> urls = new ArrayList<String>();
+                String rootPath = "upload/products/" + user_id +"/" + UUID.randomUUID().toString() + "/"  ;
 
-                String directory = "./upload/products/"+pr.getUser_id()+"/products/";
+                for (MultipartFile file : files) {
+                        urls.add(rootPath + file.getOriginalFilename());
+                        storageService.store(file, rootPath);
+                }
 
+                logger.info(urls.toString());
+                pr.setImg(urls);
+                result =  catService.putProduct(pr);
 
-                String filename = UUID.randomUUID().toString() + ".png";
+                message = "You successfully uploaded " + files.length + " imgs!";
+                logger.debug(message);
 
-            String[] tokenimg = pr.getImg().split(",");
-
-              try {
-
-                  String imgStr = tokenimg[1];
-
-            BASE64Decoder decoder = new BASE64Decoder();
-            byte[] data = decoder.decodeBuffer(imgStr);
-
-
-             File ff = new File(directory);
-
-            ff.mkdirs();
-
-
-
-            BufferedImage image = ImageIO.read(new ByteArrayInputStream(data));
-
-
-                  File file = new File(directory,filename);
-             ImageIO.write(image, "png", file);
-
-
-
-
-            String url =  "/upload/products/"+pr.getUser_id()+"/products/" + filename;
-
-                  logger.info(url);
-
-           result =  catService.putProduct(pr.getPr_name(), pr.getImg(),
-                   pr.getPr_desc(),
-                   pr.getPrice(),
-                   pr.getDeposit(),
-                   pr.getPr_cost(),
-                   pr.getWill_sell(),
-                   pr.getWill_exchan(),
-                   pr.getCat_id(),
-                   String.valueOf(pr.getUser_id()));
-
-              } catch (ArrayIndexOutOfBoundsException e)
-              {
-                  e.printStackTrace();
-              }
 
             }
 
             if(result != null) {
                 try {
-                    GoogleMail.Send("ourent.kz", "MN1302N96", "nurbekm7@gmail.com","New add product Request","New request to add product: " + pr.getPr_name() + ".\n From: "+ pr.getUser_id());
+                    GoogleMail.Send("ourent.kz", "MN1302N96", "nurbekm7@gmail.com",
+                            "New add product Request",
+                            "New request to add product: " + pr_name + ".\n From: "+ user_id);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -211,6 +181,8 @@ public class CategoryController extends ExceptionHandlerController {
             throw new RestException(e);
 
         }
+
+//        return Ajax.emptyResponse();
     }
 
     @RequestMapping(value = "/getProductByID", method = RequestMethod.GET)
@@ -232,20 +204,20 @@ public class CategoryController extends ExceptionHandlerController {
     }
 
 
-@RequestMapping(value = "/deleteProductByID", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteProductByID", method = RequestMethod.POST)
     public Map<String, Object> deleteProductByID(@RequestParam("product_id") String product_id) throws RestException {
-    logger.info("deleteProductByID: product_id  = " + product_id);
+        logger.info("deleteProductByID: product_id  = " + product_id);
 
-    try {
+        try {
             if (product_id == null || product_id.equals("")) {
                 return null;
             }
 
-        Map<String, String> result =  catService.deleteProductByID(product_id);
+            Map<String, String> result =  catService.deleteProductByID(product_id);
 
             return Ajax.deletingSuccess(result);
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
             throw new RestException(e);
         }
     }
