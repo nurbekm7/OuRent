@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.controller.RestException;
 import com.example.entity.Category;
 import com.example.entity.Product;
 
@@ -16,7 +17,7 @@ public interface CatService {
     List<Category> getSubCatsByID(String id);
     List<Category> getCatsByID(String id);
     List<Product> getProductsByID(String id);
-    List putProduct(Product pr);
+    List putProduct(Product pr) throws RestException;
 
     List<Product> getProductByID(String id);
     List<Product> getPopularProducts();

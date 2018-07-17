@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.controller.RestException;
 import com.example.entity.Category;
 import com.example.entity.Product;
 import com.example.repository.CatRepo;
@@ -71,13 +72,8 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<Product> putProduct(Product pr) {
-        try {
+    public List<Product> putProduct(Product pr) throws RestException {
             return catRepo.putProduct(pr);
-        } catch (Exception e) {
-            LOG.error("ERROR GET Products : " + e.getMessage(), e);
-            return null;
-        }
     }
 
 

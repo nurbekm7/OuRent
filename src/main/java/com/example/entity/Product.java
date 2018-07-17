@@ -36,29 +36,6 @@ public class Product implements DomainObject {
         this.pr_desc = pr_desc;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(String deposit) {
-        this.deposit = deposit;
-    }
-
-    public String getPr_cost() {
-        return pr_cost;
-    }
-
-    public void setPr_cost(String pr_cost) {
-        this.pr_cost = pr_cost;
-    }
 
     public boolean getWill_sell() {
         return will_sell;
@@ -121,15 +98,6 @@ public class Product implements DomainObject {
         this.user_id = user_id;
     }
 
-    public String getCat_id() {
-        return cat_id;
-    }
-
-    public void setCat_id(String cat_id) {
-        this.cat_id = cat_id;
-    }
-
-
     public boolean isWill_sell() {
         return will_sell;
     }
@@ -142,21 +110,53 @@ public class Product implements DomainObject {
         this.category = category;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(double deposit) {
+        this.deposit = deposit;
+    }
+
+    public double getPr_cost() {
+        return pr_cost;
+    }
+
+    public void setPr_cost(double pr_cost) {
+        this.pr_cost = pr_cost;
+    }
+
+
+    public int getCat_id() {
+        return cat_id;
+    }
+
+    public void setCat_id(int cat_id) {
+        this.cat_id = cat_id;
+    }
 
     protected int user_id ;
     private String product_id ;
     private String pr_name;
     private List<String> img = Arrays.asList("/upload/prod_default.png");
     private String pr_desc ="";
-    private String price ="";
-    private String deposit ="";
-    private String pr_cost ="";
+    private double price;
+    private double deposit;
+    private double pr_cost;
     private String pr_date ="";
     private int view_count = 0;
     private String pr_state ="0";
     private boolean will_sell = false;
     private boolean will_exchan = false;
-    private String cat_id = "";
+    private int cat_id = 157;
     private Category category = new Category();
 
 

@@ -98,18 +98,16 @@ public class CategoryController extends ExceptionHandlerController {
         }
     }
 
-    @PostMapping("/post")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile[] files) {
-        String message = "";
+    @PostMapping("/post/images")
+    public ResponseEntity<List<String>> handleFileUpload(@RequestParam("file") MultipartFile[] files, @RequestParam("user_id") String user_id) {
+        List<String> message = new ArrayList<String>();
         try {
+            String rootPath = "upload/products/" + user_id +"/" + UUID.randomUUID().toString() + "/"  ;
             for(MultipartFile file : files) {
-                storageService.store(file, file.getOriginalFilename());
+                message.add(storageService.store(file, rootPath)) ;
             }
-            message = "You successfully uploaded " + files.length + " imgs!";
-
             return ResponseEntity.status(HttpStatus.OK).body(message);
         } catch (Exception e) {
-            message = "FAIL to upload " + files.length + " img!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
         }
     }
@@ -132,9 +130,9 @@ public class CategoryController extends ExceptionHandlerController {
         pr.setUser_id(Integer.valueOf(user_id));
         pr.setPr_name(pr_name);
         pr.setPr_desc(pr_desc);
-        pr.setPrice(price);
-        pr.setDeposit(deposit);
-        pr.setPr_cost(pr_cost);
+        pr.setPrice(Double.valueOf(price));
+        pr.setDeposit(Double.valueOf(deposit));
+        pr.setPr_cost(Double.valueOf(pr_cost));
         pr.setWill_sell(Boolean.valueOf(will_sell));
         pr.setWill_exchan(Boolean.valueOf(will_exchan));
 
@@ -178,8 +176,10 @@ public class CategoryController extends ExceptionHandlerController {
             return Ajax.ResponseProducts(result);
         } catch (Exception e) {
             e.printStackTrace();
+            for (String img: pr.getImg()) {
+                storageService.deleteImg(img);
+            }
             throw new RestException(e);
-
         }
 
 //        return Ajax.emptyResponse();

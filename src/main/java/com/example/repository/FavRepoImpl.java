@@ -43,7 +43,7 @@ public class FavRepoImpl implements  FavRepo<Favorites> {
             String sql2 = "SELECT * FROM category where cat_id = '" + productList.get(i).getCat_id() + "'";
             List<Category> categories =  jdbcOperations.query(sql2, new BeanPropertyRowMapper<Category>(Category.class));
             productList.get(i).setCategory(categories.get(0));
-            if(productList.get(i).getCat_id().equals("157")) {
+            if(productList.get(i).getCat_id() == 157 ) {
                 productList.get(i).setPr_state("На проверке");
             }
         }

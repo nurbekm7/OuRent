@@ -1,15 +1,18 @@
 package com.example.repository;
 
+import com.example.controller.RestException;
 import com.example.entity.Category;
 import com.example.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -24,6 +27,9 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
 
     @Autowired
     protected JdbcOperations jdbcOperations;
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
 
     @Autowired
@@ -196,23 +202,45 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
         return products;
     }
 
+    private java.sql.Array createSqlArray(List<String> list){
+        java.sql.Array imgArray = null;
+        try {
+            imgArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("text", list.toArray());
+        } catch (SQLException ignore) {
+        }
+        return imgArray;
+    }
+
     @Override
-    public List<Product> putProduct(Product pr) {
+    public List<Product> putProduct(Product pr) throws RestException {
 
         String sql = "SELECT COUNT(*) FROM product where pr_name = '" + pr.getPr_name() +"' and user_id= '" + pr.getUser_id() +"'";
 
         Integer name = jdbcOperations.queryForObject(sql, Integer.class);
 
 
-        try {
-
             if (name == 0) {
 
-                jdbcOperations.update("INSERT INTO Product(" +
-                        " pr_name, img, pr_desc,price, deposit,pr_cost, will_sell, will_exchan, cat_id, user_id)" +
-                        "    VALUES ('" + pr.getPr_name() + "','" + pr.getImg() + "','"
-                        + pr.getPr_desc() + "','" + pr.getPrice() + "','" + pr.getDeposit() + "','" + pr.getPr_cost() +
-                        "','" + pr.getWill_sell() + "','" + pr.getWill_exchan() + "','" + pr.getCat_id() + "','" + pr.getUser_id() + "');");
+                String insertSql = "INSERT INTO Product(pr_name, img, pr_desc,price, deposit,pr_cost, will_sell, will_exchan, cat_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+//                jdbcOperations.update("INSERT INTO Product(" +
+//                        " pr_name, img, pr_desc,price, deposit,pr_cost, will_sell, will_exchan, cat_id, user_id)" +
+//                        "    VALUES ('" + pr.getPr_name() + "','" + pr.getImg() + "','"
+//                        + pr.getPr_desc() + "','" + pr.getPrice() + "','" + pr.getDeposit() + "','" + pr.getPr_cost() +
+//                        "','" + pr.getWill_sell() + "','" + pr.getWill_exchan() + "','" + pr.getCat_id() + "','" + pr.getUser_id() + "');");
+
+                jdbcTemplate.update(insertSql,
+                        pr.getPr_name(),
+                        createSqlArray(pr.getImg()),
+                        pr.getPr_desc()
+                        , pr.getPrice()
+                        , pr.getDeposit()
+                        ,  pr.getPr_cost()
+                        ,  pr.getWill_sell()
+                        ,  pr.getWill_exchan()
+                        ,  pr.getCat_id()
+                        ,  pr.getUser_id()
+                );
 
 
                 String sql1 = "SELECT product_id FROM product where pr_name = '" + pr.getPr_name()  + "' and user_id= '" +
@@ -220,7 +248,7 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
 
 
 //                String product_id = jdbcOperations.queryForObject(sql1, String.class);
-                int product_id = getJdbcTemplate().update(sql1, pr);
+                int product_id = getJdbcTemplate().update(sql1, pr.getClass());
 
 
 
@@ -238,13 +266,7 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
                 return products;
 
             } else
-                return null;
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-
+                throw new RestException("Already");
 
     }
 }

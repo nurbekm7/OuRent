@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.controller.RestException;
 import com.example.entity.Category;
 import com.example.entity.DomainObject;
 import com.example.entity.Product;
@@ -23,7 +24,7 @@ public interface CatRepo<V extends DomainObject> {
     List<Product>  getPopularProductsByID(String cat_id, String product_id);
     Map<String, String> deleteProductByID(String id);
     List<Product>  getProductByUserID(String id);
-    List<Product>  putProduct(Product pr);
+    List<Product>  putProduct(Product pr) throws RestException;
 
 
 
