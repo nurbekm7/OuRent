@@ -12,7 +12,7 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:/media/masson/LinuxHDD/Documents/OuRent/web/upload");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:/media/masson/LinuxHDD/Documents/OuRent/web/upload/");
 //        registry.addResourceHandler("/upload/**").addResourceLocations("file:C:\\Users\\admin\\Desktop\\OuRent\\web\\upload");
 //        registry.addResourceHandler("/upload/**").addResourceLocations("file:/home/trans-coder/apps/ourent/prod/upload/");
     }
