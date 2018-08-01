@@ -12,6 +12,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.sql.Array;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -212,7 +215,7 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
     }
 
     @Override
-    public List<Product> putProduct(Product pr) throws RestException {
+    public Product putProduct(Product pr) throws RestException {
 
         String sql = "SELECT COUNT(*) FROM product where pr_name = '" + pr.getPr_name() +"' and user_id= '" + pr.getUser_id() +"'";
 
@@ -243,12 +246,12 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
                 );
 
 
-                String sql1 = "SELECT product_id FROM product where pr_name = '" + pr.getPr_name()  + "' and user_id= '" +
-                        pr.getUser_id() + "'";
+                String sql1 = "SELECT product_id FROM product where pr_name = '" + pr.getPr_name()  + "' and user_id= '" + pr.getUser_id() + "'";
 
 
 //                String product_id = jdbcOperations.queryForObject(sql1, String.class);
-                int product_id = getJdbcTemplate().update(sql1, pr.getClass());
+                int product_id = getJdbcTemplate().queryForObject(sql1, Integer.class);
+
 
 
 
@@ -258,12 +261,46 @@ public class CatRepoImpl extends JdbcDaoSupport implements CatRepo {
                         " product_id, user_id)" +
                         " VALUES ('" + product_id + "','" + pr.getUser_id() + "')");
 
-                List<Product> products = jdbcOperations.query("SELECT * from product where pr_name = '" +  pr.getPr_name()  +
-                                "' and user_id= '" + pr.getUser_id() + "'",
-                        new BeanPropertyRowMapper<Product>(Product.class));
 
 
-                return products;
+                Product product = new Product();
+//                        jdbcOperations.query("SELECT * from product where pr_name = '" +  pr.getPr_name()  +
+//                                "' and user_id= '" + pr.getUser_id() + "'",
+//                        new BeanPropertyRowMapper<Product>(Product.class));
+
+                try {
+
+                    String sql4 = "SELECT * from product where pr_name = '" +  pr.getPr_name()  +
+                            "' and user_id= '" + pr.getUser_id() + "'";
+                    PreparedStatement ps = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql4);
+                    ResultSet rs = ps.executeQuery();
+
+                    while(rs.next()) {
+
+                        System.out.println("Product: " + rs.getString(1));
+                        System.out.println("---------------");
+                        product.setProduct_id(rs.getString(1));
+                        product.setPr_name(rs.getString(2));
+                        product.setImg(Arrays.asList( (String[]) rs.getArray(3).getArray()));
+                        product.setPr_desc(rs.getString(4));
+                        product.setPrice(rs.getDouble(5));
+                        product.setDeposit(rs.getDouble(6));
+                        product.setPr_cost(rs.getDouble(7));
+                        product.setWill_sell(rs.getBoolean(8));
+                        product.setWill_exchan(rs.getBoolean(9));
+                        product.setCat_id(rs.getInt(10));
+                        product.setPr_date(rs.getString(11));
+                        product.setUser_id(rs.getInt(12));
+                    }
+
+                } catch (Exception e) {
+
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
+                }
+
+
+                return product;
 
             } else
                 throw new RestException("Already");

@@ -142,6 +142,12 @@ public class Ajax {
         response.put("Products", products);
         return response;
     }
+
+    public static Map<String,  Product> ResponseProduct(Product products) {
+        Map<String,  Product> response = new HashMap<String,  Product>();
+        response.put("Products", products);
+        return response;
+    }
     public static Map<String,  List<Ads>> ResponseAds(List<Ads> ads) {
         Map<String,  List<Ads>> response = new HashMap<String,  List<Ads>>();
         response.put("Ads", ads);

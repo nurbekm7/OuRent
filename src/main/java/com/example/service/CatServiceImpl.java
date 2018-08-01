@@ -72,7 +72,7 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<Product> putProduct(Product pr) throws RestException {
+    public Product putProduct(Product pr) throws RestException {
             return catRepo.putProduct(pr);
     }
 

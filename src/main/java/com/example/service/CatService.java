@@ -17,7 +17,7 @@ public interface CatService {
     List<Category> getSubCatsByID(String id);
     List<Category> getCatsByID(String id);
     List<Product> getProductsByID(String id);
-    List putProduct(Product pr) throws RestException;
+    Product putProduct(Product pr) throws RestException;
 
     List<Product> getProductByID(String id);
     List<Product> getPopularProducts();

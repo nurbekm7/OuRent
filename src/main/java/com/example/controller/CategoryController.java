@@ -104,7 +104,7 @@ public class CategoryController extends ExceptionHandlerController {
         try {
             String rootPath = "upload/products/" + user_id +"/" + UUID.randomUUID().toString() + "/"  ;
             for(MultipartFile file : files) {
-                message.add(storageService.store(file, rootPath)) ;
+                message.add(storageService.store(file, rootPath, file.getOriginalFilename())) ;
             }
             return ResponseEntity.status(HttpStatus.OK).body(message);
         } catch (Exception e) {
@@ -138,7 +138,7 @@ public class CategoryController extends ExceptionHandlerController {
 
         try {
 
-            List result = null ;
+            Product result = null ;
             if(files.length == 0){
                 result =  catService.putProduct(pr);
             }
@@ -146,11 +146,11 @@ public class CategoryController extends ExceptionHandlerController {
             {
                 String message = "";
                 List<String> urls = new ArrayList<String>();
-                String rootPath = "upload/products/" + user_id +"/" + UUID.randomUUID().toString() + "/"  ;
-
+                String rootPath = "upload/products/" + user_id +"/";
                 for (MultipartFile file : files) {
-                        urls.add(rootPath + file.getOriginalFilename());
-                        storageService.store(file, rootPath);
+                    String filename = file.getOriginalFilename().replaceFirst(".",UUID.randomUUID().toString());
+                    urls.add(rootPath + filename);
+                    storageService.store(file, rootPath, filename);
                 }
 
                 logger.info(urls.toString());
@@ -162,6 +162,7 @@ public class CategoryController extends ExceptionHandlerController {
 
 
             }
+            logger.info("Result Product is: " + result.getProduct_id());
 
             if(result != null) {
                 try {
@@ -173,7 +174,7 @@ public class CategoryController extends ExceptionHandlerController {
                 }
             }
 
-            return Ajax.ResponseProducts(result);
+            return Ajax.ResponseProduct(result);
         } catch (Exception e) {
             e.printStackTrace();
             for (String img: pr.getImg()) {

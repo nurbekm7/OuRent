@@ -24,7 +24,7 @@ public interface CatRepo<V extends DomainObject> {
     List<Product>  getPopularProductsByID(String cat_id, String product_id);
     Map<String, String> deleteProductByID(String id);
     List<Product>  getProductByUserID(String id);
-    List<Product>  putProduct(Product pr) throws RestException;
+    Product  putProduct(Product pr) throws RestException;
 
 
 
