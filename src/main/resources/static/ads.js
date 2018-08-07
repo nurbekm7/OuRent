@@ -33,7 +33,7 @@ if($.cookie('user_id')!=null){
      var user_id = $.cookie('user_id');
 
     var email = $.cookie('email');
-    var email1 = email.split('@');
+    var phone = $.cookie('phone');
   var countReq =0;
     var countAvtive = 0;
     var countOnCheck = 0;
@@ -61,7 +61,7 @@ if($.cookie('user_id')!=null){
                   var user_date = user.reg_date;
                   var user_d = user_date.split(" ");
                   var ava = user.ava;
-                    $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +email1[0]);
+                    $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +phone);
              });
 
                },

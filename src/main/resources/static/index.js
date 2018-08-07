@@ -1,7 +1,7 @@
 $.validator.setDefaults( {
      			submitHandler: function () {
 
-     			 var email = $('#reg_email').val().toLowerCase();;
+     			 var phone = $('#reg_phone').val().toLowerCase();;
      			 var pass = $('#reg_pass').val().toLowerCase();;
 
      			  var user_type = $('#ch_comp');
@@ -15,7 +15,7 @@ $.validator.setDefaults( {
                          }
 
      			 var JSONObj = {
-                       "email" : email,
+                       "phone" : phone,
                        "pass" : pass
      			 }
 
@@ -24,18 +24,18 @@ $.validator.setDefaults( {
      				 $.ajax({
                           url: "register",
                          type: "POST",
-                         data: 'email='+email + "&pass="+ pass +"&user_type="+ user_type,
+                         data: "phone=" +phone +"&pass="+ pass +"&user_type="+ user_type,
                          dataType: 'json',
 
                          success: function(response) {
 
                           if(response.result == "fail"){
-                            alert('Такой email уже существует');
+                            alert('Пользователь уже существует');
                               }
                          else{
                         var items = response.User.map(function (user) {
 
-                        $.cookie('email', email);
+                        $.cookie('phone', phone);
                         $.cookie('user_id', user.user_id);
 
                         window.location.href = "/profile.html";
@@ -59,12 +59,12 @@ $.validator.setDefaults( {
  $('#signupForm').submit(function(event){
 
 
-			 var email = $('#email').val();
+			 var phone = $('#phone').val();
 			 var pass = $('#pass').val();
 				$.ajax({
 					type: "POST",
 					url: "/login",
-					data:"email="+email+"&pass="+pass,
+					data:"phone="+phone +"&pass="+pass,
 					dataType:"json",
 					success: function(msg){
                            if(msg.result == "fail"){
@@ -73,7 +73,7 @@ $.validator.setDefaults( {
                          else{
 
                      	 var items = msg.User.map(function (user) {
-                                 $.cookie('email', email);
+                                 $.cookie('phone', phone);
                                 $.cookie('user_id', user.user_id);
 
                                window.location.href = "/profile.html";
@@ -92,13 +92,13 @@ $.validator.setDefaults( {
 
 if($.cookie('user_id')!=null){
 
-    var email = $.cookie('email');
-    var email1 = email.split('@');
+
+    var phone = $.cookie('phone');
 
    $('.user-profile').empty().append(' <div class="profile">  <div class="btn-group">' +
                                       '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' +
                                           '<img src="'+getAva($.cookie('user_id'))+'" alt="">' +
-                                            '</span> '  + email1[0] +  '</button>'+
+                                            '</span> '  + phone +  '</button>'+
                                                   '<ul class="dropdown-menu">' +
                                                       '<li>' +
                                                          ' <a href="/profile.html">Профиль</a>  ' +
@@ -206,10 +206,9 @@ function register()
      					minlength: 4
 
      					},
-     					email: {
-     						required: true,
-     						email: true
-     					}
+     					phone: {
+     						required: true
+     				    }
      				},
      				messages: {
      					pass: {
@@ -218,7 +217,7 @@ function register()
      					}
      					,
 
-     					email: "Введите правильный email",
+     					phone: "Введите номер телефона в формате 8707",
 
      				},
      				errorElement: "em",

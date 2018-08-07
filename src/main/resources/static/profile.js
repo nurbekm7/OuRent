@@ -121,7 +121,8 @@ if($.cookie('user_id')!=null){
      var user_id = $.cookie('user_id');
 
     var email = $.cookie('email');
-    var email1 = email.split('@');
+    var phone = $.cookie('phone');
+
 
 
 
@@ -136,13 +137,12 @@ if($.cookie('user_id')!=null){
 
                   var items = response.User.map(function (user) {
 
-                  console.log(user.email);
                   var user_date = user.reg_date;
                   var user_d = user_date.split(" ");
                   var ava = user.ava;
                   user_type = user.user_type;
 
-                    $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +email1[0]);
+                    $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +phone);
                     $(' .info-wrapper #user_email').empty().append(email);
                     $(' .info-wrapper #user_d').empty().append(user_d[0]);
                     if(user.phone_num == null){

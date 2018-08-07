@@ -10,7 +10,7 @@ if($.cookie('user_id')!=null){
      var user_id = $.cookie('user_id');
 
     var email = $.cookie('email');
-    var email1 = email.split('@');
+    var phone = $.cookie('phone');
 
 
     $.ajax({
@@ -32,7 +32,7 @@ if($.cookie('user_id')!=null){
 
 //                   console.log(ava);
 
-                        $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +email1[0]);
+                        $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +phone);
 
 
 

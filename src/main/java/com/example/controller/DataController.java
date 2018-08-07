@@ -27,16 +27,17 @@ public class DataController extends ExceptionHandlerController{
     private DataService dataService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Map<String, Object> register(@RequestParam("email") String email, @RequestParam("pass") String pass, @RequestParam("user_type") String user_type) throws RestException {
+    public Map<String, Object> register(@RequestParam("phone") String mobile, @RequestParam(value = "email", required = false) String email, @RequestParam("pass") String pass, @RequestParam("user_type") String user_type) throws RestException {
 
-        logger.debug("Register: email = " + email + " pass = "+ pass + " user_type: " + user_type);
+        logger.info("Register: mobile = "+mobile+" email = " + email + " pass = "+ pass + " user_type: " + user_type);
         try {
-            if (email == null || email.equals("")) {
+            if ( mobile.equals("")) {
                 return Ajax.errorResponse("EMAIL IS EMPTY");
             }
 
 
-            List object = dataService.register(email, pass,user_type);
+            List object = dataService.register(mobile.replaceAll("[(.) -]",""), email, pass,user_type);
+
                return Ajax.registerSuccess(object);
 
         } catch (Exception e) {
@@ -45,16 +46,16 @@ public class DataController extends ExceptionHandlerController{
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Map<String, Object> login(@RequestParam("email") String email, @RequestParam("pass") String pass) throws RestException {
+    public Map<String, Object> login(@RequestParam("phone") String mobile, @RequestParam(value = "email", required = false) String email, @RequestParam("pass") String pass) throws RestException {
 
-        logger.debug("LOGIN: email = " + email+ " pass = "+ pass);
+        logger.info("LOGIN:  mobile = "+ mobile +" email = " + email+ " pass = "+ pass);
          try {
-            if (email == null || email.equals("")) {
+            if (mobile.equals("")) {
                 return Ajax.errorResponse("EMAIL IS EMPTY");
             }
 
 
-            Object object = dataService.login(email, pass);
+            Object object = dataService.login(mobile.replaceAll("[(.) -]",""), email, pass);
             return Ajax.registerSuccess(object);
 
         } catch (Exception e) {
@@ -65,7 +66,7 @@ public class DataController extends ExceptionHandlerController{
     @RequestMapping(value = "/chPass", method = RequestMethod.POST)
     public Map<String, Object> chPass(@RequestParam("user_id") String user_id,@RequestParam("pass") String pass) throws RestException {
 
-        logger.debug("Change Pass: pass = "+ pass + " user_id= " + user_id);
+        logger.info("Change Pass: pass = "+ pass + " user_id= " + user_id);
          try {
             if (pass == null || pass.equals("")) {
                 return Ajax.errorResponse("pass IS EMPTY");
@@ -150,7 +151,7 @@ public class DataController extends ExceptionHandlerController{
     @RequestMapping(value = "/getUserByID", method = RequestMethod.GET)
     public Map<String, Object> getUserByID(@RequestParam("user_id") String user_id) throws RestException {
 
-        logger.debug("getUserByID: user_id = " + user_id);
+        logger.info("getUserByID: user_id = " + user_id);
         try {
             if (user_id == null || user_id.equals("")) {
                 return Ajax.errorResponse("user_id IS EMPTY");

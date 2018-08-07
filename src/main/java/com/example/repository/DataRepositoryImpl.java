@@ -27,10 +27,17 @@ public class DataRepositoryImpl implements DataRepository {
     @Override
     public List<Users> register(Users object) {
 
+        String sql ;
+        String sql1;
+        if(object.getPhone_num().isEmpty()) {
+            sql  = "SELECT COUNT(*) from users where email = '" + object.getEmail() + "'";
+            sql1  = "SELECT * from users where email = '" + object.getEmail() + "'";
+        } else {
+            sql  = "SELECT COUNT(*) from users where phone_num = '" + object.getPhone_num() + "'";
+            sql1  = "SELECT * from users where phone_num = '" + object.getPhone_num() + "'";
+        }
 
-        String sql ="SELECT COUNT(*) from users where email = '" + object.getEmail()+"'";
-        Integer email = jdbcOperations.queryForObject(sql, Integer.class);
-
+            Integer email = jdbcOperations.queryForObject(sql, Integer.class);
 
         try{
 
@@ -39,9 +46,9 @@ public class DataRepositoryImpl implements DataRepository {
 
 
                  jdbcOperations.update("INSERT INTO Users(" +
-                         " email, pass, user_type )" +
-                         "    VALUES ('"  + object.getEmail()+  "','"+object.getPass()+ "','"
-                         + object.getUser_type()+"');");
+                         " pass, user_type, phone_num)" +
+                         "    VALUES ('" + object.getPass()+ "','"
+                         + object.getUser_type()+ "','" + object.getPhone_num() +"');");
 
 
 
@@ -58,7 +65,9 @@ public class DataRepositoryImpl implements DataRepository {
                              "    VALUES (false);");
                  }
 
-                 List<Users> userses = jdbcOperations.query("SELECT * from users where email = '" + object.getEmail() + "'",
+
+
+                 List<Users> userses = jdbcOperations.query(sql1,
                          new BeanPropertyRowMapper<Users>(Users.class));
 
 
@@ -83,12 +92,20 @@ public class DataRepositoryImpl implements DataRepository {
 
 
     @Override
-    public List<Users> login(String email, String pass) {
+    public List<Users> login(String mobile,String email, String pass) {
 
 
         try{
 
-            String sql ="SELECT * from users where email = '" + email+"' and pass = '"+ pass +"'";
+
+            String sql;
+
+            if(mobile.isEmpty()) {
+                sql ="SELECT * from users where email = '" + email+"' and pass = '"+ pass +"'";
+            } else {
+                sql  ="SELECT * from users where phone_num = '" + mobile +"' and pass = '"+ pass +"'";
+            }
+
 
 
                 List<Users> userses = jdbcOperations.query(sql, new BeanPropertyRowMapper<Users>(Users.class));

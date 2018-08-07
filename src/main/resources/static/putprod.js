@@ -101,13 +101,13 @@ myData.append("user_id", $.cookie('user_id'));
 
 if($.cookie('user_id')!=null){
  var email = $.cookie('email');
-    var email1 = email.split('@');
+    var phone = $.cookie('phone');
     var ava = $.cookie('ava');
 
    $('.user-profile').empty().append(' <div class="profile">  <div class="btn-group">' +
                                       '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' +
                                           '<img src="'+getAva($.cookie('user_id'))+'" alt="">' +
-                                            '</span> '  + email1[0] +  '</button>'+
+                                            '</span> '  + phone +  '</button>'+
                                                   '<ul class="dropdown-menu">' +
                                                       '<li>' +
                                                          ' <a href="/profile.html">Профиль</a>  ' +

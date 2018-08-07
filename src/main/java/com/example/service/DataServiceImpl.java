@@ -29,11 +29,11 @@ public class DataServiceImpl implements DataService {
     private DataRepository dataRepository;
 
     @Override
-    public List register(String email, String pass, String user_type) {
+    public List register(String mobile, String email, String pass, String user_type) {
          try {
 
 
-            return  dataRepository.register(new Users(email, pass, user_type));
+            return  dataRepository.register(new Users(mobile, email, pass, user_type));
 
 
          } catch (Exception e) {
@@ -43,9 +43,9 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public List<Users> login(String email, String pass) {
+    public List<Users> login(String mobile,String email, String pass) {
         try {
-            return  dataRepository.login(email, pass);
+            return  dataRepository.login(mobile, email, pass);
 
         } catch (Exception e) {
             LOG.error("ERROR LOGIN Customer: " + e.getMessage(), e);

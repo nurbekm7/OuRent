@@ -8,7 +8,7 @@ if($.cookie('user_id')!=null){
      var user_id = $.cookie('user_id');
 
     var email = $.cookie('email');
-    var email1 = email.split('@');
+    var phone = $.cookie('phone');
     var passDB = "";
 
 
@@ -31,7 +31,7 @@ if($.cookie('user_id')!=null){
                       var user_d = user_date.split(" ");
                       var ava = user.ava;
                       passDB = user.pass;
-                        $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +email1[0]);
+                        $(' .profile .btn-group button').empty().append(' <img src="'+ava+'" alt=""> ' +phone);
                   });
                },
                error: function (response) {

@@ -16,8 +16,9 @@ public class Users implements DomainObject  {
     protected String reg_date ;
     protected String user_type = "";
 
-    public Users(String email, String pass, String user_type) {
+    public Users(String mobile, String email, String pass, String user_type) {
 
+        this.phone_num = mobile;
         this.email = email;
         this.pass = pass;
         this.user_type = user_type;

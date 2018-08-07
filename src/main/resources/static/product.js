@@ -23,11 +23,10 @@ var user_types = null;
    }
 
 
-
 $.validator.setDefaults( {
      			submitHandler: function () {
 
-     			 var email = $('#reg_email').val().toLowerCase();;
+     			 var phone = $('#reg_phone').val().toLowerCase();;
      			 var pass = $('#reg_pass').val().toLowerCase();;
 
      			  var user_type = $('#ch_comp');
@@ -41,33 +40,33 @@ $.validator.setDefaults( {
                          }
 
      			 var JSONObj = {
-                       "email" : email,
+                       "phone" : phone,
                        "pass" : pass
      			 }
 
      			 var data = JSON.stringify(JSONObj);
-//                   console.log(email + " " + pass + " " + user_type);
-
 
      				 $.ajax({
                           url: "register",
                          type: "POST",
-                         data: 'email='+email + "&pass="+ pass +"&user_type="+ user_type,
+                         data: "phone=" +phone +"&pass="+ pass +"&user_type="+ user_type,
                          dataType: 'json',
-                         cache: false,
+
                          success: function(response) {
 
                           if(response.result == "fail"){
-                          console.log("registration fails");
-                            alert('Такой email уже существует');
+                            alert('Пользователь уже существует');
                               }
                          else{
                         var items = response.User.map(function (user) {
 
                         $.cookie('email', email);
+                        $.cookie('phone', phone);
                         $.cookie('user_id', user.user_id);
 
                         window.location.href = "/profile.html";
+
+
                                                      });
                                                      }
 
@@ -80,17 +79,20 @@ $.validator.setDefaults( {
      			}
      		} );
 
+
  $( document ).ready(function() {
    console.log("Page loaded");
 
 
 if($.cookie('user_id')!=null){
     var email = $.cookie('email');
-    var email1 = email.split('@');
+    var phone = $.cookie('phone');
+
+
    $('.user-profile').empty().append(' <div class="profile">  <div class="btn-group">' +
                                       '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' +
                                           '<img src="'+getAva($.cookie('user_id'))+'" alt="">' +
-                                            '</span> '  + email1[0] +  '</button>'+
+                                            '</span> '  + phone +  '</button>'+
                                                   '<ul class="dropdown-menu">' +
                                                       '<li>' +
                                                          ' <a href="/profile.html">Профиль</a>  ' +
@@ -628,41 +630,33 @@ $.ajax({
 
 function login (){
 
+			 var phone = $('#phone').val();
+        			 var pass = $('#pass').val();
+        				$.ajax({
+        					type: "POST",
+        					url: "/login",
+        					data:"phone="+phone +"&pass="+pass,
+        					dataType:"json",
+        					success: function(msg){
+                                   if(msg.result == "fail"){
+                                    alert('Неправильный логин или пароль');
+                                   }
+                                 else{
 
-			 var email = $('#email').val();
-			 var pass = $('#pass').val();
+                             	 var items = msg.User.map(function (user) {
+                                         $.cookie('email', email);
+                                         $.cookie('phone', phone);
+                                        $.cookie('user_id', user.user_id);
 
-			 var JSONObj = {
-                  "email" : email,
-                  "pass" : pass
-			 }
-			 var data = JSON.stringify(JSONObj);
-				$.ajax({
-					type: "POST",
-					url: "/login?email="+email+"&pass="+pass,
-					dataType:"json",
-					success: function(msg){
+                                       window.location.href = "/profile.html";
 
-                           if(msg.result == "fail"){
-                            console.log("login fails");
-                            alert('Неправильный логин или пароль');
-                           }
-                         else{
-                     	 var items = msg.User.map(function (user) {
-                                 $.cookie('email', email);
-                                 $.cookie('user_id', user.user_id);
-                                 window.location.href = "/profile.html";
-                            });
-                            }
-
-
-					},
-					error: function(){
-
-                            console.log("login fail");
-
-					}
-				});
+                                    });
+                                    }
+        			},
+        					error: function(){
+                                    console.log("login fail");
+        					}
+        				});
 
 
 }
@@ -675,6 +669,7 @@ function register()
      $("#newRegistr").modal('show');
 
 
+
      $( "#registerForm" ).validate( {
 
      				rules: {
@@ -683,10 +678,9 @@ function register()
      					minlength: 4
 
      					},
-     					email: {
-     						required: true,
-     						email: true
-     					}
+     					phone: {
+     						required: true
+     				    }
      				},
      				messages: {
      					pass: {
@@ -695,7 +689,7 @@ function register()
      					}
      					,
 
-     					email: "Введите правильный email",
+     					phone: "Введите номер телефона в формате 8707",
 
      				},
      				errorElement: "em",
@@ -715,6 +709,7 @@ function register()
      					$( element ).parents( ".form-group" ).addClass( "has-success" ).removeClass( "has-error" );
      				}
      			} );
+
 
 
 

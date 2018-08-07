@@ -1,10 +1,8 @@
-
-
 $.validator.setDefaults( {
      			submitHandler: function () {
 
-     			 var email = $('#reg_email').val();
-     			 var pass = $('#reg_pass').val();
+     			 var phone = $('#reg_phone').val().toLowerCase();;
+     			 var pass = $('#reg_pass').val().toLowerCase();;
 
      			  var user_type = $('#ch_comp');
                         if(user_type.is(':checked'))
@@ -17,30 +15,31 @@ $.validator.setDefaults( {
                          }
 
      			 var JSONObj = {
-                       "email" : email,
+                       "phone" : phone,
                        "pass" : pass
      			 }
 
      			 var data = JSON.stringify(JSONObj);
+
      				 $.ajax({
                           url: "register",
                          type: "POST",
-                         data: 'email='+email + "&pass="+ pass +"&user_type="+ user_type,
+                         data: "phone=" +phone +"&pass="+ pass +"&user_type="+ user_type,
                          dataType: 'json',
-                         cache: false,
+
                          success: function(response) {
 
                           if(response.result == "fail"){
-                          console.log("registration fails");
-                            alert('Такой email уже существует');
+                            alert('Пользователь уже существует');
                               }
                          else{
                         var items = response.User.map(function (user) {
 
                         $.cookie('email', email);
+                        $.cookie('phone', phone);
                         $.cookie('user_id', user.user_id);
 
-                        window.location.href = "/putprod.html";
+                        window.location.href = "/profile.html";
 
 
                                                      });
@@ -56,7 +55,6 @@ $.validator.setDefaults( {
      		} );
 
 
-
  var cats_id = null;
 $( document ).ready(function() {
 
@@ -64,12 +62,12 @@ $( document ).ready(function() {
  $('#signupForm').submit(function(event){
 
 
-			 var email = $('#email').val();
+			 var phone = $('#phone').val();
 			 var pass = $('#pass').val();
 				$.ajax({
 					type: "POST",
 					url: "/login",
-					data:"email="+email+"&pass="+pass,
+					data:"phone="+phone +"&pass="+pass,
 					dataType:"json",
 					success: function(msg){
                            if(msg.result == "fail"){
@@ -79,14 +77,11 @@ $( document ).ready(function() {
 
                      	 var items = msg.User.map(function (user) {
                                  $.cookie('email', email);
+                                 $.cookie('phone', phone);
                                 $.cookie('user_id', user.user_id);
-                                if(user.phone_num != null){
-                                    window.location.href = "/putprod.html";
-                                }
-                                else
-                                {
-                                    window.location.href = "/profile.html";
-                                }
+
+                               window.location.href = "/profile.html";
+
                             });
                             }
 			},
@@ -98,7 +93,6 @@ $( document ).ready(function() {
 				event.preventDefault();
 
 });
-
 
  if($.cookie('user_id')==null){
 $('#logi #btnLogi').show();
@@ -427,6 +421,7 @@ function register()
      $("#newRegistr").modal('show');
 
 
+
      $( "#registerForm" ).validate( {
 
      				rules: {
@@ -435,10 +430,9 @@ function register()
      					minlength: 4
 
      					},
-     					email: {
-     						required: true,
-     						email: true
-     					}
+     					phone: {
+     						required: true
+     				    }
      				},
      				messages: {
      					pass: {
@@ -447,7 +441,7 @@ function register()
      					}
      					,
 
-     					email: "Введите правильный email",
+     					phone: "Введите номер телефона в формате 8707",
 
      				},
      				errorElement: "em",
@@ -467,6 +461,8 @@ function register()
      					$( element ).parents( ".form-group" ).addClass( "has-success" ).removeClass( "has-error" );
      				}
      			} );
+
+
 
 
 
