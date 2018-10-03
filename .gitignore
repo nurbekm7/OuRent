@@ -2,4 +2,4 @@
 target/
 .idea/
 .mvn/
-*.iml
+*.imlg
